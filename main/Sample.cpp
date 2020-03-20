@@ -22,7 +22,6 @@ Sample::setVolume(float sampleVolume){
 }
 
 Sample::setSampleName(String sampleName){
-  
   m_sampleName = sampleName;
   Serial.println(m_sampleName);
 }

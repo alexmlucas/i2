@@ -15,7 +15,7 @@ void Sequence::updateMidiTickCounter(){
   if(m_midiTickCounter == 0){
     Serial.println("32nd Step Event");
     
-    // Increment the step counter of each track.
+    // Increment the step counter of each track. (Perhaps a separate function for this would be beneficial?)
     for(int i = 0; i < NUM_OF_TRACKS; i++){
       if(m_trackContainer[i]->getActive() == true){
         m_trackContainer[i]->incrementStepCounter();

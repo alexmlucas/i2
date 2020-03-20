@@ -4,6 +4,7 @@
 #include <Audio.h>
 
 class Sample{
+  
   private:
     AudioPlaySdWav *m_sdWav;
     AudioMixer4 *m_leftMixer;
@@ -11,9 +12,10 @@ class Sample{
     int m_leftMixerChannelNumber;
     int m_rightMixerChannelNumber;
     float m_sampleVolume;
-    String m_sampleName;
+    
       
   public:
+    String m_sampleName;
     Sample(AudioPlaySdWav *sdWav);
     playSample();
     setMixersAndChannels(AudioMixer4 *leftMixer, AudioMixer4 *rightMixer, int leftMixerChannelNumber, int rightMixerChannelNumber);
