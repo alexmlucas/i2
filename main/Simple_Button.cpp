@@ -24,8 +24,8 @@ bool Simple_Button::check_pressed(){
       m_last_event_time = millis();                             // Reset the timer ready for the next iteration.
       
       if(button_state == HIGH){                                 // If the button is HIGH...
-        if(callback_function != NULL){                          // ... If there's a callback function...
-          callback_function();                 // ... call it!
+        if(m_callback_function != NULL){                        // ... If there's a callback function...
+          m_callback_function();                                // ... call it!
         }
 
         Serial.println("Button pressed");
@@ -37,5 +37,5 @@ bool Simple_Button::check_pressed(){
 }
 
 void Simple_Button::set_callback_func(void (*f)(void)){
-  callback_function = f;
+  m_callback_function = f;
 }

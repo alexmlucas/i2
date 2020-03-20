@@ -13,7 +13,7 @@ void Sequence::updateMidiTickCounter(){
 
   // A 32nd step event occurs each time the midiTickCounter hits zero.
   if(m_midiTickCounter == 0){
-    Serial.println("32nd Step Event");
+    //Serial.println("32nd Step Event");
     
     // Increment the step counter of each track. (Perhaps a separate function for this would be beneficial?)
     for(int i = 0; i < NUM_OF_TRACKS; i++){

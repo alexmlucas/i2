@@ -8,7 +8,7 @@ Piezo_Trigger::Piezo_Trigger(int pin){
 }
 
 void Piezo_Trigger::set_callback_func(void (*f)(void)){
-  callback_function = f;
+  m_callback_function = f;
 }
 
 int Piezo_Trigger::check_activity(){

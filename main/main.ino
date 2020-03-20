@@ -1,6 +1,7 @@
 #include "Sequence.h"
 #include "Simple_Button.h"
 #include "Led.h"
+#include "Ultrasonic_Trigger.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -54,6 +55,12 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=384,634
 #define SDCARD_MOSI_PIN  7
 #define SDCARD_SCK_PIN   14
 
+// Use these with the ultrasonic trigger
+#define TRIGGER_PIN  3
+#define ECHO_PIN     2
+#define MAX_DISTANCE 60
+#define DEBOUNCE 20
+
 String hiHat = String("hat_16.wav");
 String snare = String("snare_16.wav");
 String kick = String("kick_16.wav");
@@ -63,7 +70,7 @@ unsigned long previousMicros = 0;
 const unsigned long MICROSECONDS_IN_MINUTE = 60000000;
 const float MULTIPLIER_32ND = 0.125;
 int crotchetInterval;
-int bpm = 120; // Seems more like 119.
+int bpm = 120; // Seems more like 119?
 int play_flag = true;
 int midiTickInterval;
 
@@ -111,6 +118,9 @@ bool switch_1_current_state = false;
 Led drum_led_0(0);
 Led drum_led_1(1);
 
+// Ultrasonic trigger
+Ultrasonic_Trigger sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE, DEBOUNCE);
+
 void setup() {
   Serial.begin(31250);
   
@@ -148,7 +158,7 @@ void setup() {
 
   trackContainer[0].setSample(&sample0);
   // set the trigger interval.
-  trackContainer[0].setStepFrequency(3);
+  trackContainer[0].setStepFrequency(1);
   trackContainer[0].setActive(false);
 
   trackContainer[1].setSample(&sample1);
@@ -171,10 +181,16 @@ void setup() {
 
   mySequence.steps[0].triggers[0].sample->playSample();
 
+  sonar.set_track(&trackContainer[0]);
+
 }
 
 void loop() {
-
+  //delay(10);
+  // check for activity from the ultrasonic trigger.
+  //Serial.println(sonar.check_and_return());
+  sonar.check_activity();
+ 
   // read switch 0
   int switch_0_current_state = switch_trigger_0.check_pressed();
   // has the switch state changed?...
@@ -188,11 +204,8 @@ void loop() {
     }
 
     // update the last state.
-    switch_0_last_state = switch_0_current_state;
-    
+    switch_0_last_state = switch_0_current_state; 
   }
-
-  
 
   int switch_1 = switch_trigger_1.check_pressed();
   if(switch_trigger_1.check_pressed()){

@@ -8,7 +8,7 @@ class Simple_Button{
     int m_debounce_ms;                                // The number of milliseconds for debouncing
     unsigned long m_last_event_time;                  // Timestamp of the last event
     boolean m_current_state;                          // The current state of the button
-    void (*callback_function)(void);                         // The function to be called on a button press.
+    void (*m_callback_function)(void);                         // The function to be called on a button press.
   public:
     Simple_Button(int pin, int debounce_milliseconds);
     bool check_pressed();
