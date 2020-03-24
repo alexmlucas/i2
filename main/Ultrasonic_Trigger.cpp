@@ -59,67 +59,20 @@ void Ultrasonic_Trigger::check_activity(){
     }
   
     if(m_activity_state != m_last_activity_state){  // if the activity state has changed, act on it.
-      if(m_activity_state){                         // set the LED accordingly
+      if(m_activity_state){                         // set the LED accordingly.
         mp_led->set_on(true);
+        mp_track->setStepFrequency(4);              // set the step frequency and activate track.
+        mp_track->setActive(true);
       } else {
         mp_led->set_on(false);
+        mp_track->setActive(false);                 // switch the track off.
       }
   
       m_last_activity_state = m_activity_state;     // update the last activity state.
     }
 
-    m_beam_timer = 0;
+    m_beam_timer = 0;                               // reset timer.
   }
-
-
-
-  
-  
-
-  
-
-  
-  /*bool beam_broken = false;
-
-  if(m_beam_timer_ms > m_debounce_ms){
-    int current_distance = this->ping_cm();
-  
-    // determine the segment.
-    if(current_distance > 0){
-      beam_broken = true;
-      mp_led->set_on(true);
-    } else{
-      beam_broken = false;
-      mp_led->set_on(false);
-    }
-    
-    // only act if the value has changed.
-    if(beam_broken != m_last_beam_state){
-
-      // if bean has been broken...
-      if(beam_broken){
-        Serial.println("on");
-        mp_track->setActive(true);
-        mp_track->setStepFrequency(9);
-      } else {
-        mp_track->setActive(false);
-        
-        Serial.println("off");
-      }
-      
-      m_last_beam_state = beam_broken;
-    }
-
-    /*if(button_state == HIGH){                                 // If the button is HIGH...
-      if(callback_function != NULL){                            // ... If there's a callback function...
-        callback_function();                                    // ... call it!
-      }
-
-      Serial.println("Button pressed");
-    }*/
-  
-    //m_beam_timer_ms = 0;
-  //}  
 }
 
 bool Ultrasonic_Trigger::check_and_return(){
