@@ -2,7 +2,7 @@
 
 Ultrasonic_Trigger::Ultrasonic_Trigger(int trigger_pin, int echo_pin, int max_distance, int debounce_ms):NewPing(trigger_pin, echo_pin, max_distance){
   m_debounce_ms = debounce_ms;
-  m_beam_timer_ms = 0;
+  m_beam_timer = 0;
   m_midi_timer_ms = 0;
   m_current_segment = -1;
   m_last_segment = -1;
@@ -10,34 +10,101 @@ Ultrasonic_Trigger::Ultrasonic_Trigger(int trigger_pin, int echo_pin, int max_di
   m_last_note_value = -1;
   m_note_off_due = false;
   m_no_activity = true;
+
+  // intialise m_beam_readings to null.
+  for(int i = 0; i < MAX_BUFFER_SIZE; i++){
+    m_values[i] = -1;
+  } 
+
+  m_value_index = 0;
+  m_median_value = 0;
+
+  m_activity_state = false;
+  m_last_activity_state = false;
 }
 
 void Ultrasonic_Trigger::set_track(Track *p_track){
   mp_track = p_track;
 }
 
+void Ultrasonic_Trigger::set_led(Led *p_led){
+  mp_led = p_led;
+}
+
 void Ultrasonic_Trigger::check_activity(){
-  bool beam_broken = false;
+
+  if(m_beam_timer > FILTER_MS){
+
+    // -------- Get Median Value --------
+    int current_value = this->ping_cm();            // read the current value
+   
+    m_values[m_value_index] = current_value;        // add the value to the buffer.
+    m_value_index++;                                // increment the index
+  
+    if(m_value_index == MAX_BUFFER_SIZE){           // if the buffer has been filled...
+      for(int i; i < MAX_BUFFER_SIZE; i++){         // ...calculate the median
+        m_median_value += m_values[i];
+      }
+      m_median_value /= MAX_BUFFER_SIZE;      
+      m_value_index = 0;                            // reset the buffer.
+    }
+  
+    Serial.println(m_median_value);
+  
+    // -------- Process Input --------
+    if(m_median_value){                             // if the median is a non-zero value...
+      m_activity_state = true;
+    } else{
+      m_activity_state = false;
+    }
+  
+    if(m_activity_state != m_last_activity_state){  // if the activity state has changed, act on it.
+      if(m_activity_state){                         // set the LED accordingly
+        mp_led->set_on(true);
+      } else {
+        mp_led->set_on(false);
+      }
+  
+      m_last_activity_state = m_activity_state;     // update the last activity state.
+    }
+
+    m_beam_timer = 0;
+  }
+
+
+
+  
+  
+
+  
+
+  
+  /*bool beam_broken = false;
 
   if(m_beam_timer_ms > m_debounce_ms){
-    int current_distance = this->ping_median();
+    int current_distance = this->ping_cm();
   
     // determine the segment.
     if(current_distance > 0){
       beam_broken = true;
+      mp_led->set_on(true);
     } else{
       beam_broken = false;
+      mp_led->set_on(false);
     }
+    
     // only act if the value has changed.
     if(beam_broken != m_last_beam_state){
 
       // if bean has been broken...
       if(beam_broken){
-        Serial.println("do something");
-        //mp_track->setStepFrequency(9);
+        Serial.println("on");
         mp_track->setActive(true);
+        mp_track->setStepFrequency(9);
       } else {
         mp_track->setActive(false);
+        
+        Serial.println("off");
       }
       
       m_last_beam_state = beam_broken;
@@ -51,8 +118,8 @@ void Ultrasonic_Trigger::check_activity(){
       Serial.println("Button pressed");
     }*/
   
-    m_beam_timer_ms = 0;
-  }  
+    //m_beam_timer_ms = 0;
+  //}  
 }
 
 bool Ultrasonic_Trigger::check_and_return(){
@@ -61,7 +128,7 @@ bool Ultrasonic_Trigger::check_and_return(){
 
   if(current_distance > 0){
    return_value = true;
-   m_beam_timer_ms = 0;
+   m_beam_timer = 0;
   }
 
   return return_value;

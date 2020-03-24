@@ -70,7 +70,7 @@ unsigned long previousMicros = 0;
 const unsigned long MICROSECONDS_IN_MINUTE = 60000000;
 const float MULTIPLIER_32ND = 0.125;
 int crotchetInterval;
-int bpm = 120; // Seems more like 119?
+int bpm = 120;
 int play_flag = true;
 int midiTickInterval;
 
@@ -87,37 +87,6 @@ Track trackContainer[8];
 Track *p_trackContainer[] = {&trackContainer[0], &trackContainer[1], &trackContainer[2], &trackContainer[3], &trackContainer[4], &trackContainer[5], &trackContainer[6], &trackContainer[7]};
 
 Sequence sequence(p_trackContainer);
-
-// create a structure that holds a pointer to a sample and a velocity value to use as a trigger event.
-struct _trigger {
-   Sample *sample;
-   byte velocity;
-};
-
-// create a structure for a single step that holds eight triggers (8 note polyphony)
-struct _step {
-  _trigger triggers[8]; 
-};
-
-// create a 32 step sequence.
-struct _sequence {
-  _step steps[32];
-} mySequence;
-
-// create switch triggers
-Simple_Button switch_trigger_0(A6, 10);
-Simple_Button switch_trigger_1(A7, 10);
-
-// variables for tracking button state.
-bool switch_0_last_state = false;
-bool switch_0_current_state = false;
-bool switch_1_last_state = false;
-bool switch_1_current_state = false;
-
-// LEDs
-Led drum_led_0(0);
-Led drum_led_1(1);
-Led beam_led(4);
 
 // Ultrasonic trigger
 Ultrasonic_Trigger sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE, DEBOUNCE);
@@ -139,8 +108,6 @@ void setup() {
     }
   }
   while (!Serial && millis() < 2500) /* wait for serial monitor */ ;
-
-  Serial.println("First hello");
   
   midiTickInterval = calculateMidiTickInterval(bpm);
   
@@ -161,8 +128,8 @@ void setup() {
 
   trackContainer[0].setSample(&sample0);
   // set the trigger interval.
-  trackContainer[0].setStepFrequency(4);
-  trackContainer[0].setActive(false);
+  trackContainer[0].setStepFrequency(8);
+  trackContainer[0].setActive(true);
 
   trackContainer[1].setSample(&sample1);
   // set the trigger interval.
@@ -174,18 +141,8 @@ void setup() {
   trackContainer[2].setStepFrequency(9);
   trackContainer[2].setActive(false);
 
-  // test setting a value in the sequence struct.
-
-  mySequence.steps[0].triggers[0].sample = &sample0;
-  mySequence.steps[0].triggers[0].velocity = 31;
-
-  Serial.print("Velocity value = ");
-  Serial.println(mySequence.steps[0].triggers[0].velocity);
-
-  mySequence.steps[0].triggers[0].sample->playSample();
-
-  sonar.set_track(&trackContainer[0]);
-  sonar.set_led(&beam_led);
+  //sonar.set_track(&trackContainer[0]);
+  //sonar.set_led(&beam_led);
 
   //beam_led.set_on(true);
 
@@ -195,33 +152,10 @@ void loop() {
   //delay(10);
   // check for activity from the ultrasonic trigger.
   //Serial.println(sonar.check_and_return());
-  
+
+  /*AudioNoInterrupts();
   sonar.check_activity();
-  
-  // read switch 0
-  int switch_0_current_state = switch_trigger_0.check_pressed();
-  // has the switch state changed?...
-  if(switch_0_current_state != switch_0_last_state){
-    
-    if(switch_0_current_state){ // if switch is pressed...
-      // ...play the sample.
-      //sample2.playSample();
-      // ...pulse the LED
-      drum_led_0.pulse();
-    }
-
-    // update the last state.
-    switch_0_last_state = switch_0_current_state; 
-  }
-
-  int switch_1 = switch_trigger_1.check_pressed();
-  if(switch_trigger_1.check_pressed()){
-    drum_led_1.pulse();
-  }
-
-  // LED refresh
-  drum_led_0.refresh();
-  drum_led_1.refresh();
+  AudioInterrupts();*/
 
   //Serial.println(AudioMemoryUsage());
 
