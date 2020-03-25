@@ -31,6 +31,8 @@ class Ultrasonic_Trigger: public NewPing{
     int m_median_value;
     bool m_activity_state;
     bool m_last_activity_state;
+    int m_state;
+    int m_last_state;
     
   public:
     Ultrasonic_Trigger(int trigger_pin, int echo_pin, int max_distance, int debounce_ms);

@@ -36,8 +36,6 @@ void Track::setSample(Sample *sample){
 void Track::playSample(){
   
   if(m_stepCounter % m_stepFrequency == 0){
-    Serial.println(m_stepCounter % m_stepFrequency);
     m_sample->playSample();
-    Serial.println("hit");
   }
 }

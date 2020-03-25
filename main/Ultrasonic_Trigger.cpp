@@ -21,6 +21,8 @@ Ultrasonic_Trigger::Ultrasonic_Trigger(int trigger_pin, int echo_pin, int max_di
 
   m_activity_state = false;
   m_last_activity_state = false;
+  m_state = 0;
+  m_last_state = 0;
 }
 
 void Ultrasonic_Trigger::set_track(Track *p_track){
@@ -48,8 +50,56 @@ void Ultrasonic_Trigger::check_activity(){
       m_median_value /= MAX_BUFFER_SIZE;      
       m_value_index = 0;                            // reset the buffer.
     }    
-  
+
+    // split between two ranges to begin with.
+    // distance could be between 1 and 60 cm.
+    
     // -------- Process Input --------
+    if(m_median_value == 0){
+      m_state = 0;
+    } else if(m_median_value > 0 && m_median_value <=30){
+      m_state = 1;
+    } else if(m_median_value > 30 && m_median_value <= 60){
+      m_state = 2;
+    }
+
+    Serial.println(m_state);
+
+
+
+    
+
+    if(m_state != m_last_state){          // if the state has changed, act on it.
+      switch(m_state){                    // set the step frequency based on m_state.
+        case 1:
+          mp_track->setStepFrequency(2);
+          break;
+        case 2:
+          mp_track->setStepFrequency(4);
+          break;
+      }
+
+      if(m_state > 0){                    
+        mp_led->set_on(true);             // switch on the LED.
+        mp_track->setActive(true);        // activate the track.
+      } else{
+        mp_led->set_on(false);            // switch off the LED.
+        mp_track->setActive(false);       // deactivate the track.
+      }
+
+      m_last_state = m_state;             // update m_last_state.
+    }
+
+    
+
+
+
+
+
+
+
+    
+    /*// -------- Process Input --------
     if(m_median_value){                             // if the median is a non-zero value...
       m_activity_state = true;
     } else{
@@ -68,7 +118,7 @@ void Ultrasonic_Trigger::check_activity(){
       }
   
       m_last_activity_state = m_activity_state;     // update the last activity state.
-    }
+    }*/
 
     m_beam_timer = 0;                               // reset timer.
   }
