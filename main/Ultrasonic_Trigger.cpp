@@ -47,9 +47,7 @@ void Ultrasonic_Trigger::check_activity(){
       }
       m_median_value /= MAX_BUFFER_SIZE;      
       m_value_index = 0;                            // reset the buffer.
-    }
-  
-    Serial.println(m_median_value);
+    }    
   
     // -------- Process Input --------
     if(m_median_value){                             // if the median is a non-zero value...
@@ -61,7 +59,8 @@ void Ultrasonic_Trigger::check_activity(){
     if(m_activity_state != m_last_activity_state){  // if the activity state has changed, act on it.
       if(m_activity_state){                         // set the LED accordingly.
         mp_led->set_on(true);
-        mp_track->setStepFrequency(4);              // set the step frequency and activate track.
+        mp_track->setStepFrequency(10);             // set the step frequency and activate track.
+        mp_track->resetStepCounter();               // reset the step counter.
         mp_track->setActive(true);
       } else {
         mp_led->set_on(false);

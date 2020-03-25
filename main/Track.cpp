@@ -7,8 +7,8 @@ Track::Track(){
 }
 
 void Track::incrementStepCounter(){
-  m_stepCounter++;
   this->playSample();
+  m_stepCounter++;
 }
 
 void Track::resetStepCounter(){
