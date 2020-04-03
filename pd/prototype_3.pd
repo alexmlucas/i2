@@ -1,0 +1,266 @@
+#N canvas 1712 39 875 909 12;
+#X obj 729 401 text define -k ./comp_8;
+#A set 1 1 1 1 1 1 1 1 \; 1 1 1 1 1 1 1 0 \; 1 1 1 1 1 1 0 1 \; 1 1
+1 1 1 1 0 0 \; 1 1 1 1 1 0 1 1 \; 1 1 1 1 1 0 1 0 \; 1 1 1 1 1 0 0
+1 \; 1 1 1 1 1 0 0 0 \; 1 1 1 1 0 1 1 1 \; 1 1 1 1 0 1 1 0 \; 1 1 1
+1 0 1 0 1 \; 1 1 1 1 0 1 0 0 \; 1 1 1 1 0 0 1 1 \; 1 1 1 1 0 0 1 0
+\; 1 1 1 1 0 0 0 1 \; 1 1 1 1 0 0 0 0 \; 1 1 1 0 1 1 1 1 \; 1 1 1 0
+1 1 1 0 \; 1 1 1 0 1 1 0 1 \; 1 1 1 0 1 1 0 0 \; 1 1 1 0 1 0 1 1 \;
+1 1 1 0 1 0 1 0 \; 1 1 1 0 1 0 0 1 \; 1 1 1 0 1 0 0 0 \; 1 1 1 0 0
+1 1 1 \; 1 1 1 0 0 1 1 0 \; 1 1 1 0 0 1 0 1 \; 1 1 1 0 0 1 0 0 \; 1
+1 1 0 0 0 1 1 \; 1 1 1 0 0 0 1 0 \; 1 1 1 0 0 0 0 1 \; 1 1 1 0 0 0
+0 0 \; 1 1 0 1 1 1 1 1 \; 1 1 0 1 1 1 1 0 \; 1 1 0 1 1 1 0 1 \; 1 1
+0 1 1 1 0 0 \; 1 1 0 1 1 0 1 1 \; 1 1 0 1 1 0 1 0 \; 1 1 0 1 1 0 0
+1 \; 1 1 0 1 1 0 0 0 \; 1 1 0 1 0 1 1 1 \; 1 1 0 1 0 1 1 0 \; 1 1 0
+1 0 1 0 1 \; 1 1 0 1 0 1 0 0 \; 1 1 0 1 0 0 1 1 \; 1 1 0 1 0 0 1 0
+\; 1 0 0 0 0 0 0 0 \; 1 1 0 1 0 0 0 0 \; 1 1 0 0 1 1 1 1 \; 1 1 0 0
+1 1 1 0 \; 1 1 0 0 1 1 0 1 \; 1 1 0 0 1 1 0 0 \; 1 1 0 0 1 0 1 1 \;
+1 1 0 0 1 0 1 0 \; 1 1 0 0 1 0 0 1 \; 1 1 0 0 1 0 0 0 \; 1 1 0 0 0
+1 1 1 \; 1 1 0 0 0 1 1 0 \; 1 1 0 0 0 1 0 1 \; 1 1 0 0 0 1 0 0 \; 1
+1 0 0 0 0 1 1 \; 1 1 0 0 0 0 1 0 \; 1 1 0 0 0 0 0 1 \; 1 1 0 0 0 0
+0 0 \; 1 0 1 1 1 1 1 1 \; 1 0 1 1 1 1 1 0 \; 1 0 1 1 1 1 0 1 \; 1 0
+1 1 1 1 0 0 \; 1 0 1 1 1 0 1 1 \; 1 0 1 1 1 0 1 0 \; 1 0 1 1 1 0 0
+1 \; 1 0 1 1 1 0 0 0 \; 1 0 1 1 0 1 1 1 \; 1 0 1 1 0 1 1 0 \; 1 0 1
+1 0 1 0 1 \; 1 0 1 1 0 1 0 0 \; 1 0 1 1 0 0 1 1 \; 1 0 1 1 0 0 1 0
+\; 1 0 1 1 0 0 0 1 \; 1 0 1 1 0 0 0 0 \; 1 0 1 0 1 1 1 1 \; 1 0 1 0
+1 1 1 0 \; 1 0 1 0 1 1 0 1 \; 1 0 1 0 1 1 0 0 \; 1 0 1 0 1 0 1 1 \;
+1 0 1 0 1 0 1 0 \; 1 0 1 0 1 0 0 1 \; 1 0 1 0 1 0 0 0 \; 1 0 1 0 0
+1 1 1 \; 1 0 1 0 0 1 1 0 \; 1 0 1 0 0 1 0 1 \; 1 0 1 0 0 1 0 0 \; 1
+0 1 0 0 0 1 1 \; 1 0 1 0 0 0 1 0 \; 1 0 1 0 0 0 0 1 \; 1 0 1 0 0 0
+0 0 \; 1 0 0 1 1 1 1 1 \; 1 0 0 1 1 1 1 0 \; 1 0 0 1 1 1 0 1 \; 1 0
+0 1 1 1 0 0 \; 1 0 0 1 1 0 1 1 \; 1 0 0 1 1 0 1 0 \; 1 0 0 1 1 0 0
+1 \; 1 0 0 1 1 0 0 0 \; 1 0 0 1 0 1 1 1 \; 1 0 0 1 0 1 1 0 \; 1 0 0
+1 0 1 0 1 \; 1 0 0 1 0 1 0 0 \; 1 0 0 1 0 0 1 1 \; 1 0 0 1 0 0 1 0
+\; 1 0 0 1 0 0 0 1 \; 1 0 0 1 0 0 0 0 \; 1 0 0 0 1 1 1 1 \; 1 0 0 0
+1 1 1 0 \; 1 0 0 0 1 1 0 1 \; 1 0 0 0 1 1 0 0 \; 1 0 0 0 1 0 1 1 \;
+1 0 0 0 1 0 1 0 \; 1 0 0 0 1 0 0 1 \; 1 0 0 0 1 0 0 0 \; 1 0 0 0 0
+1 1 1 \; 1 0 0 0 0 1 1 0 \; 1 0 0 0 0 1 0 1 \; 1 0 0 0 0 1 0 0 \; 1
+0 0 0 0 0 1 1 \; 1 0 0 0 0 0 1 0 \; 1 0 0 0 0 0 0 1 \; 1 0 0 0 0 0
+0 0 \;;
+#X obj 240 157 text get ./comp_8;
+#X obj 240 191 unpack 0 0 0 0 0 0 0 0;
+#X obj 240 237 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 261 237 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 283 237 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 304 237 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 326 236 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 347 236 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 369 236 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 391 236 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 240 278 set \$1;
+#X msg 294 278 set \$1;
+#X msg 240 398 1;
+#X msg 349 278 set \$1;
+#X msg 403 278 set \$1;
+#X msg 456 278 set \$1;
+#X msg 510 278 set \$1;
+#X msg 565 278 set \$1;
+#X msg 619 278 set \$1;
+#X msg 294 398 0;
+#X msg 349 397 0;
+#X msg 403 397 1;
+#X msg 456 397 1;
+#X msg 510 397 0;
+#X msg 565 396 0;
+#X msg 619 396 0;
+#X obj 182 129 vsl 15 128 0 127 0 0 rhythm empty Rhythm 0 -9 0 10 -261234
+-1 -1 12700 1;
+#X obj 240 128 r rhythm;
+#X obj 684 221 metro 100;
+#X obj 684 251 f;
+#X obj 724 251 + 1;
+#X obj 684 278 % 8;
+#X floatatom 684 307 5 0 0 0 - - -;
+#X obj 39 114 bng 60 250 50 0 trigger empty trigger 64 7 0 10 -261682
+-1 -1;
+#X msg 716 138 0;
+#X obj 684 334 sel 0 1 2 3 4 5 6 7;
+#X obj 797 367 s reset_metro;
+#X obj 716 110 r reset_metro;
+#X obj 276 586 sel 0 1;
+#X obj 299 775 noteout;
+#X obj 615 110 r trigger;
+#X msg 299 702 41;
+#X msg 647 221 0;
+#X text 389 659 < note number;
+#X text 532 221 reset counter >;
+#X msg 339 674 set \$1;
+#X floatatom 339 647 5 0 127 0 - - -;
+#X obj 339 586 loadbang;
+#X obj 848 15 r speed;
+#X obj 36 308 hradio 30 1 0 3 speed empty Speed 0 -8 0 10 -262144 -1
+-1 1;
+#X obj 848 42 sel 0 1 2;
+#X text 40 342 /2;
+#X text 104 343 x2;
+#X msg 339 615 36;
+#X obj 615 138 t b b;
+#X floatatom 964 122 5 0 0 0 - - -;
+#X obj 964 147 expr 60000 / $f1;
+#X text 1090 145 < get ms for crotchets per minute;
+#X obj 964 173 / 4;
+#X text 994 173 < get ms for semi-quavers per minute;
+#X msg 881 72 1;
+#X obj 964 202 * 1;
+#X obj 848 103 t b f;
+#X msg 848 72 2;
+#X msg 913 72 0.5;
+#X obj 613 838 ctlout;
+#X msg 645 803 127;
+#X obj 627 709 f;
+#X obj 560 597 t f b;
+#X floatatom 613 733 5 0 0 0 - - -;
+#X text 659 709 < save last value;
+#X obj 560 626 expr if ($f1 != $f2 \, $f1 \, -1);
+#X obj 560 653 route -1;
+#X obj 560 693 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 613 683 t f f;
+#X obj 620 785 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 613 760 sel 0 1;
+#X msg 613 803 0;
+#X obj 650 785 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 773 625 < if the value has changed then output it \, else out
+-1;
+#X text 632 653 < pass all values other than -1;
+#X obj 276 560 spigot;
+#X obj 315 536 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 240 438 s sequence;
+#X obj 276 509 r sequence;
+#X obj 560 561 spigot;
+#X obj 599 539 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 560 510 r sequence;
+#X obj 439 462 vradio 15 1 0 2 empty empty empty 0 -8 0 10 -261682
+-1 -1 1;
+#X text 460 460 Note;
+#X text 460 476 CC;
+#X obj 439 506 != 1;
+#X obj 228 612 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 299 735 makenote 99 250;
+#X obj 964 72 loadbang;
+#X msg 964 96 120;
+#X msg 703 802 0;
+#X msg 738 802 1;
+#X msg 772 802 2;
+#X msg 806 802 3;
+#X text 700 780 ctl number;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 2 2 5 0;
+#X connect 2 3 6 0;
+#X connect 2 4 7 0;
+#X connect 2 5 8 0;
+#X connect 2 6 9 0;
+#X connect 2 7 10 0;
+#X connect 3 0 11 0;
+#X connect 4 0 12 0;
+#X connect 5 0 14 0;
+#X connect 6 0 15 0;
+#X connect 7 0 16 0;
+#X connect 8 0 17 0;
+#X connect 9 0 18 0;
+#X connect 10 0 19 0;
+#X connect 11 0 13 0;
+#X connect 12 0 20 0;
+#X connect 13 0 84 0;
+#X connect 14 0 21 0;
+#X connect 15 0 22 0;
+#X connect 16 0 23 0;
+#X connect 17 0 24 0;
+#X connect 18 0 25 0;
+#X connect 19 0 26 0;
+#X connect 20 0 84 0;
+#X connect 21 0 84 0;
+#X connect 22 0 84 0;
+#X connect 23 0 84 0;
+#X connect 24 0 84 0;
+#X connect 25 0 84 0;
+#X connect 26 0 84 0;
+#X connect 28 0 1 0;
+#X connect 29 0 30 0;
+#X connect 30 0 31 0;
+#X connect 30 0 32 0;
+#X connect 31 0 30 1;
+#X connect 32 0 33 0;
+#X connect 33 0 36 0;
+#X connect 35 0 29 0;
+#X connect 36 0 13 0;
+#X connect 36 1 20 0;
+#X connect 36 2 21 0;
+#X connect 36 3 22 0;
+#X connect 36 4 23 0;
+#X connect 36 5 24 0;
+#X connect 36 6 25 0;
+#X connect 36 7 26 0;
+#X connect 36 7 37 0;
+#X connect 38 0 35 0;
+#X connect 39 1 42 0;
+#X connect 39 1 93 0;
+#X connect 41 0 55 0;
+#X connect 42 0 94 0;
+#X connect 43 0 30 1;
+#X connect 46 0 42 0;
+#X connect 47 0 46 0;
+#X connect 48 0 54 0;
+#X connect 49 0 51 0;
+#X connect 51 0 64 0;
+#X connect 51 1 61 0;
+#X connect 51 2 65 0;
+#X connect 54 0 47 0;
+#X connect 55 0 29 0;
+#X connect 55 1 43 0;
+#X connect 56 0 57 0;
+#X connect 57 0 59 0;
+#X connect 59 0 62 0;
+#X connect 61 0 63 0;
+#X connect 62 0 29 1;
+#X connect 63 0 56 0;
+#X connect 63 1 62 1;
+#X connect 64 0 63 0;
+#X connect 65 0 63 0;
+#X connect 67 0 66 0;
+#X connect 68 0 72 1;
+#X connect 69 0 72 0;
+#X connect 69 1 68 0;
+#X connect 70 0 77 0;
+#X connect 72 0 73 0;
+#X connect 73 0 74 0;
+#X connect 73 1 75 0;
+#X connect 75 0 70 0;
+#X connect 75 1 68 1;
+#X connect 77 0 78 0;
+#X connect 77 0 76 0;
+#X connect 77 1 67 0;
+#X connect 77 1 79 0;
+#X connect 78 0 66 0;
+#X connect 82 0 39 0;
+#X connect 83 0 82 1;
+#X connect 85 0 82 0;
+#X connect 86 0 69 0;
+#X connect 87 0 86 1;
+#X connect 88 0 86 0;
+#X connect 89 0 87 0;
+#X connect 89 0 92 0;
+#X connect 92 0 83 0;
+#X connect 94 0 40 0;
+#X connect 94 1 40 1;
+#X connect 95 0 96 0;
+#X connect 96 0 56 0;
+#X connect 97 0 66 1;
+#X connect 98 0 66 1;
+#X connect 99 0 66 1;
+#X connect 100 0 66 1;

@@ -1,4 +1,4 @@
-#N canvas 1732 23 543 444 10;
+#N canvas 1731 50 543 444 10;
 #X obj 85 39 notein;
 #X obj 182 39 ctlin;
 #X floatatom 182 77 5 0 0 0 - - -;
@@ -26,10 +26,12 @@
 #X msg 247 209 set 40;
 #X msg 295 209 set 41;
 #X msg 344 209 set 42;
-#X msg 85 255 42;
+#X msg 85 255 37;
 #X obj 29 146 loadbang;
 #X obj 85 280 makenote 99 500;
 #X obj 85 318 noteout;
+#X text 291 148 used to remap the pads of the nanoPad to trigger pattern
+clips in Live.;
 #X connect 0 0 5 0;
 #X connect 0 1 5 1;
 #X connect 1 0 2 0;
