@@ -23,7 +23,7 @@ elapsedMicros masterClockTimer = 0;
 byte sequence[PATTERN_LENGTH][NUM_OF_TRACKS];
 
 Led drumLed(0);
-Piezo_Trigger drumTrigger(A2);
+Piezo_Trigger drum(A2);
 
 void setup() {
   Serial.begin(31250);
@@ -42,13 +42,19 @@ void setup() {
 
 void loop() {
   // read and store trigger events
-  int drumTriggerReading = drumTrigger.checkActivity();
+  double drumReading = drum.checkActivity();
 
-  if(drumTriggerReading > 0){
-    drumEventFlag = true;         // flag that there has been a drum event.
-    drumLed.pulse();              // pulse the drum LED.
-    // scale reading to appropriate value (0 - 1) //map & log
+  if(drumReading > 0){
+    drumEventFlag = true;                           // flag that there has been a drum event.
+    drumLed.pulse();                                // pulse the drum LED.
+
+    drumReading = map(drumReading, 0, 1023, 1, 100);  // scale reading to appropriate range to generate logarithmic curve (1 - 100)
+    drumReading = log10(drumReading);
+    drumReading = map(drumReading, 0, 2, 0, 1);       // scale reading to appropriate range for sample volume (0.0 - 1.0)
+    
+    Serial.println(drumReading);
     // presumably play the sample here.
+    
   } else {
     drumEventFlag = false;        // else, no event has occured so set the flag accordingly.
   }
@@ -90,15 +96,6 @@ void updateCounter(int* counter, int modulo, int maxValue){
     } else {
       *counter = 0;
     }
-
-    if(!drumEventFlag){
-      Serial.println(*counter);
-      
-    } else{
-      Serial.print(*counter);
-      Serial.print("    ");
-    }
-    
   }
 }
 
@@ -115,8 +112,13 @@ void updateMidiTickCounter(){
 int getQuantisedStep(){
   // need to factor how 0 and 31 are dealt with!
   int quantiseModulo = midiTickCounter % QUANTISE_MODULO;     // There are three midi ticks per 32nd step. which one are we on?...
-  float quantiseFloat = quantiseModulo * 0.333;               // Divide the vale by three to get a float ready for rounding.
+  float quantiseFloat = quantiseModulo * 0.333;               // Divide the value by three to get a float ready for rounding.
   int quantisedStep = round(patternCounter + quantiseFloat);  // get the quantised step by adding the float to the current step, then rounding.
+  
+  if(quantisedStep == 32){                                    // accomodate wrap-around from 31 to 0
+    quantisedStep = 0;
+  }
+  
   return quantisedStep;    
 }
 
