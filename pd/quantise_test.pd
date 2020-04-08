@@ -1,0 +1,12 @@
+#N canvas 2041 23 450 300 12;
+#X floatatom 21 21 5 0 0 0 - - -;
+#X floatatom 21 70 5 0 0 0 - - -;
+#X obj 21 45 mod 3;
+#X obj 21 94 * 0.333;
+#X floatatom 21 119 5 0 0 0 - - -;
+#X text 64 118 < this figure can then be added to the current pattern
+step then rounded;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
