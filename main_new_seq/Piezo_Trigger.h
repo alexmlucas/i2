@@ -15,7 +15,7 @@ class Piezo_Trigger{
     void (*m_callback_function)(void);                  // The function to be called on a piezo event.
   public:
     Piezo_Trigger(int pin);
-    int check_activity();
+    int checkActivity();
     void set_callback_func(void (*f)(void));
 };
 #endif

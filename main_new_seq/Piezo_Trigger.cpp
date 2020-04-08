@@ -11,7 +11,7 @@ void Piezo_Trigger::set_callback_func(void (*f)(void)){
   m_callback_function = f;
 }
 
-int Piezo_Trigger::check_activity(){
+int Piezo_Trigger::checkActivity(){
   int piezo = analogRead(m_pin);
   int return_value = 0;                   // reset values.
 
