@@ -1,12 +1,21 @@
-#N canvas 2041 23 450 300 12;
-#X floatatom 21 21 5 0 0 0 - - -;
-#X floatatom 21 70 5 0 0 0 - - -;
-#X obj 21 45 mod 3;
-#X obj 21 94 * 0.333;
-#X floatatom 21 119 5 0 0 0 - - -;
-#X text 64 118 < this figure can then be added to the current pattern
+#N canvas 3044 182 450 300 12;
+#X floatatom 79 16 5 0 0 0 - - -;
+#X floatatom 79 65 5 0 0 0 - - -;
+#X obj 79 40 mod 3;
+#X obj 79 89 * 0.333;
+#X floatatom 79 114 5 0 0 0 - - -;
+#X text 122 113 < this figure can then be added to the current pattern
 step then rounded;
+#X obj 28 90 / 3;
+#X floatatom 28 114 5 0 0 0 - - -;
+#X floatatom 199 15 5 0 0 0 - - -;
+#X floatatom 199 64 5 0 0 0 - - -;
+#X obj 199 39 mod 4;
 #X connect 0 0 2 0;
 #X connect 1 0 3 0;
+#X connect 1 0 6 0;
 #X connect 2 0 1 0;
 #X connect 3 0 4 0;
+#X connect 6 0 7 0;
+#X connect 8 0 10 0;
+#X connect 10 0 9 0;

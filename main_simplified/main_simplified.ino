@@ -1,6 +1,6 @@
 #include "Sequence.h"
 #include "Simple_Button.h"
-#include "Led.h"
+//#include "Led.h"
 #include "Ultrasonic_Trigger.h"
 
 #include <Audio.h>
@@ -10,44 +10,44 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioPlaySdWav           playSdWav8;     //xy=389,517
-AudioPlaySdWav           playSdWav5;     //xy=390,397
-AudioPlaySdWav           playSdWav6;     //xy=390,438
-AudioPlaySdWav           playSdWav7;     //xy=390,478
-AudioPlaySdWav           playSdWav1;     //xy=391,231
-AudioPlaySdWav           playSdWav2;     //xy=391,272
-AudioPlaySdWav           playSdWav3;     //xy=391,314
-AudioPlaySdWav           playSdWav4;     //xy=391,355
-AudioMixer4              mixer1;         //xy=789,248
-AudioMixer4              mixer2;         //xy=789,316
-AudioMixer4              mixer3;         //xy=789,384
-AudioMixer4              mixer4;         //xy=789,452
-AudioMixer4              mixer5;         //xy=953,245
-AudioMixer4              mixer6;         //xy=955,382
-AudioOutputI2S           i2s1;           //xy=1125,252
-AudioConnection          patchCord1(playSdWav8, 0, mixer2, 3);
-AudioConnection          patchCord2(playSdWav8, 1, mixer4, 3);
-AudioConnection          patchCord3(playSdWav5, 0, mixer2, 0);
-AudioConnection          patchCord4(playSdWav5, 1, mixer4, 0);
-AudioConnection          patchCord5(playSdWav6, 0, mixer2, 1);
-AudioConnection          patchCord6(playSdWav6, 1, mixer4, 1);
-AudioConnection          patchCord7(playSdWav7, 0, mixer2, 2);
-AudioConnection          patchCord8(playSdWav7, 1, mixer4, 2);
-AudioConnection          patchCord9(playSdWav1, 0, mixer1, 0);
-AudioConnection          patchCord10(playSdWav1, 1, mixer3, 0);
-AudioConnection          patchCord11(playSdWav2, 0, mixer1, 1);
-AudioConnection          patchCord12(playSdWav2, 1, mixer3, 1);
-AudioConnection          patchCord13(playSdWav3, 0, mixer1, 2);
-AudioConnection          patchCord14(playSdWav3, 1, mixer3, 2);
-AudioConnection          patchCord15(playSdWav4, 0, mixer1, 3);
-AudioConnection          patchCord16(playSdWav4, 1, mixer3, 3);
+AudioPlaySdWav           playSdWav1;     //xy=242,448
+AudioPlaySdWav           playSdWav2; //xy=242,481
+AudioPlaySdWav           playSdWav3; //xy=242,514
+AudioPlaySdWav           playSdWav4; //xy=242,547
+AudioPlaySdWav           playSdWav5; //xy=242,580
+AudioPlaySdWav           playSdWav6; //xy=242,613
+AudioPlaySdWav           playSdWav7; //xy=242,646
+AudioPlaySdWav           playSdWav8; //xy=242,679
+AudioMixer4              mixer1;         //xy=536,464
+AudioMixer4              mixer3; //xy=536,590
+AudioMixer4              mixer4; //xy=536,653
+AudioMixer4              mixer2; //xy=537,527
+AudioMixer4              mixer6; //xy=720,550
+AudioMixer4              mixer5; //xy=721,483
+AudioOutputI2S           i2s1; //xy=905,490
+AudioConnection          patchCord1(playSdWav1, 0, mixer1, 0);
+AudioConnection          patchCord2(playSdWav1, 1, mixer3, 0);
+AudioConnection          patchCord3(playSdWav2, 0, mixer1, 1);
+AudioConnection          patchCord4(playSdWav2, 1, mixer3, 1);
+AudioConnection          patchCord5(playSdWav3, 0, mixer1, 2);
+AudioConnection          patchCord6(playSdWav3, 1, mixer3, 2);
+AudioConnection          patchCord7(playSdWav4, 0, mixer1, 3);
+AudioConnection          patchCord8(playSdWav4, 1, mixer3, 3);
+AudioConnection          patchCord9(playSdWav5, 0, mixer2, 0);
+AudioConnection          patchCord10(playSdWav5, 1, mixer4, 0);
+AudioConnection          patchCord11(playSdWav6, 0, mixer2, 1);
+AudioConnection          patchCord12(playSdWav6, 1, mixer4, 1);
+AudioConnection          patchCord13(playSdWav7, 0, mixer2, 2);
+AudioConnection          patchCord14(playSdWav7, 1, mixer4, 2);
+AudioConnection          patchCord15(playSdWav8, 0, mixer2, 3);
+AudioConnection          patchCord16(playSdWav8, 1, mixer4, 3);
 AudioConnection          patchCord17(mixer1, 0, mixer5, 0);
-AudioConnection          patchCord18(mixer2, 0, mixer5, 1);
-AudioConnection          patchCord19(mixer3, 0, mixer6, 0);
-AudioConnection          patchCord20(mixer4, 0, mixer6, 1);
-AudioConnection          patchCord21(mixer5, 0, i2s1, 0);
-AudioConnection          patchCord22(mixer6, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=384,634
+AudioConnection          patchCord18(mixer3, 0, mixer6, 0);
+AudioConnection          patchCord19(mixer4, 0, mixer6, 1);
+AudioConnection          patchCord20(mixer2, 0, mixer5, 1);
+AudioConnection          patchCord21(mixer6, 0, i2s1, 1);
+AudioConnection          patchCord22(mixer5, 0, i2s1, 0);
+AudioControlSGTL5000     sgtl5000_1;     //xy=239,783
 // GUItool: end automatically generated code
 
 // Use these with the Teensy Audio Shield

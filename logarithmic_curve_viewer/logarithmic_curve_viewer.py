@@ -5,7 +5,7 @@ myLogValue = np.log10(9)
 
 logValues = []
 
-for x in range(1, 100):
+for x in range(1, 10):
 	logValues.append(np.log10(x))
 
 plt.plot(logValues)
