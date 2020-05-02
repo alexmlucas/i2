@@ -3,56 +3,48 @@
 Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
 {
   m_sdWav = sdWav;
-  m_eventQueued = false;
-  m_inEnvelopeReleaseStage = false;
-  m_numberOfQueuedEvents = 0;
-  
   m_fadeAndRetriggerActive = false;
-
-  for(int i = 0; i < (sizeof(m_eventQueue) / sizeof(m_eventQueue[0])); i++)   // initialise the event queue
-  {
-    m_eventQueue[i] = 0.0;
-  }
 }
 
 void Sample_Player::processTriggerEvent(float velocity)
 {
   if(!m_fadeAndRetriggerActive)               // if a fadeAndRetrigger event is not active...
   {
-    Serial.println("fadeAndRetrigger is not Active");
     if(!m_sdWav->isPlaying())                 // if the sample is not playing.
     {
-      Serial.println("The sample is not playing");
       this->playWithVelocity(velocity);       // ...play the sample.
     } else                                    //  else the sample is playing. therefore...
     {
-      Serial.println("The sample is playing");
       this->fadeAndRetrigger(velocity);       // ...instigate a fadeAndRetrigger event.
     }
   } else                                      // else a fadeAndRetrigger event is active. 
   {
-    Serial.print("fadeAndRetrigger is active... replacing velocity value with ");
-    Serial.println(velocity);
     m_retriggerVelocity = velocity;           // ...replace the velocity.
   }
-
-  //this->playWithVelocity(velocity);
-
-  Serial.println("");
 }
 
 void Sample_Player::playWithVelocity(float velocity)
 {
-  //m_leftEnvelope->sustain(velocity);          // set the sustain level.
-  //m_rightEnvelope->sustain(velocity);
+  this->setMixerLevels(velocity);                           // set the mixer levels.
+  m_sdWav->play(m_sampleName.c_str());                      // play the sample.
+}
 
-  //m_leftEnvelope->noteOn();                   // open the envelopes.
-  //m_rightEnvelope->noteOn();
-
+void Sample_Player::setMixerLevels(float velocity)
+{
   m_leftMixer->gain(m_leftMixerChannelNumber, velocity);
   m_rightMixer->gain(m_rightMixerChannelNumber, velocity);
+}
 
-  m_sdWav->play(m_sampleName.c_str());          // play the sample.
+void Sample_Player::fadeAndRetrigger(float velocity)
+{
+  m_retriggerVelocity = velocity;
+
+  m_fadeAndRetriggerTimer = 0;                              // will the order of this and the noteOff events matter?
+  
+  m_leftFade->fadeOut(FADE_OUT_MS);                         // trigger the fade out.
+  m_rightFade->fadeOut(FADE_OUT_MS);
+
+  m_fadeAndRetriggerActive = true;
 }
 
 void Sample_Player::poll()          
@@ -76,18 +68,6 @@ void Sample_Player::poll()
       m_fadeAndRetriggerActive = false;                    // ...indicate that the fadeAndRetrigger event has ended.
     }
   }
-}
-
-void Sample_Player::fadeAndRetrigger(float velocity)
-{
-  m_retriggerVelocity = velocity;
-
-  m_fadeAndRetriggerTimer = 0;                              // will the order of this and the noteOff events matter?
-  
-  m_leftFade->fadeOut(FADE_OUT_MS);                         // trigger the fade out.
-  m_rightFade->fadeOut(FADE_OUT_MS);
-
-  m_fadeAndRetriggerActive = true;
 }
 
 void Sample_Player::assignMixerObjects(AudioMixer4 *leftMixer, AudioMixer4 *rightMixer, int leftMixerChannelNumber, int rightMixerChannelNumber)

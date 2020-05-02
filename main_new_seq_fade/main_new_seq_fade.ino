@@ -146,10 +146,10 @@ void setup()
     }
   }
 
-  // ### setup samples ###
+  // ### setup sample players ###
 
   // set sample names - perhaps setup sample folder as a separate string and concatinate later.
-  samplePlayers[0].setSampleName(String("sine_2.wav"));
+  samplePlayers[0].setSampleName(String("kit_1/0.wav"));
   samplePlayers[1].setSampleName(String("kit_1/1.wav"));
   samplePlayers[2].setSampleName(String("kit_1/2.wav"));
   samplePlayers[3].setSampleName(String("kit_1/3.wav"));
