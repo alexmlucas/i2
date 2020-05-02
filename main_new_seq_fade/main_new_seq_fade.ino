@@ -107,7 +107,7 @@ int midiTickInterval = 0;
 int currentMidiTick = 0;
 int currentSequenceStep = 0;
 int quantiseCounter = 0;
-int bpm = 10;
+int bpm = 120;
 elapsedMicros masterClockTimer = 0;
 elapsedMillis testTimer = 0;
 
@@ -241,7 +241,7 @@ void loop()
             quantiseQueue[i] = 0;                                   // reset the value.              
           }
         }
-      
+      }
       masterClockTimer = 0;                                         // reset the master clock.
     }
   }
