@@ -81,7 +81,6 @@ AudioConnection          patchCord38(mixer6, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=102.77777099609375,1571.7777709960938
 // GUItool: end automatically generated code
 
-
 // SD card definitions
 #define SDCARD_CS_PIN    10
 #define SDCARD_MOSI_PIN  7
@@ -108,18 +107,12 @@ int midiTickInterval = 0;
 int currentMidiTick = 0;
 int currentSequenceStep = 0;
 int quantiseCounter = 0;
-int bpm = 120;
+int bpm = 10;
 elapsedMicros masterClockTimer = 0;
 elapsedMillis testTimer = 0;
 
-struct Step_Queue
-{
-  float volumeValues[8];
-  int queuePositions[8];
-};
-
-Step_Queue sequenceRecordQueue[SEQUENCE_LENGTH];
 float sequence[SEQUENCE_LENGTH][NUM_OF_TRACKS];
+float quantiseQueue[8];
 
 Led drumLed(0);
 Piezo_Trigger drum(A2);
@@ -189,152 +182,108 @@ void setup()
       sequence[i][ii] = 0;
     }
   }
-
-  // initialise the record queue
-  for(int i = 0; i < SEQUENCE_LENGTH - 1; i++)
-  {
-    for(int ii = 0; ii < NUM_OF_TRACKS - 1; ii++)
-    {
-      sequenceRecordQueue[i].volumeValues[ii] = 0.0;
-      sequenceRecordQueue[i].queuePositions[ii] = 0;
-    }
-  }
 }
 
 void loop() 
 {
-  /*for(int i = 0; i < NUM_OF_TRACKS - 1; i++)          // poll all samples.
+  for(int i = 0; i < NUM_OF_TRACKS - 1; i++)                        // poll all samples.
   {
-    samplePlayers[i].pollEvents();
-  }*/
-
+    samplePlayers[i].poll();
+  }
   
-  /*if(playFlag)
+  if(playFlag)
   {
-    if(playFlag != lastPlayFlag)                      // if the playState has just been activated...
+    if(playFlag != lastPlayFlag)                                    // if the playState has just been activated...
     {                                             
       Serial.println("play button just pressed");
-      Serial.println(currentSequenceStep);            // *** play the first step here ***
-      masterClockTimer = 0;                           // reset the master clock timer
-      lastPlayFlag = playFlag;                        // record the lastPlayState.
+      Serial.println(currentSequenceStep);                          // *** play the first step here ***
+      masterClockTimer = 0;                                         // reset the master clock timer
+      lastPlayFlag = playFlag;                                      // record the lastPlayState.
     }
 
     // everything else to occur at MIDI tick resoltion to avoid duplication of events.
-    if(masterClockTimer > midiTickInterval)           // if the midiTickInterval in ms has been exceeded...
+    if(masterClockTimer > midiTickInterval)                         // if the midiTickInterval in ms has been exceeded...
     {
       updateMidiTickCounter();
 
-      if(playStep(3))                                 // if a 32nd step needs to be played...
+      if(playStep(3))                                               // if a 32nd step needs to be played...
       {
         updateCounter(&currentSequenceStep, SEQUENCE_LENGTH - 1);   // update the current step.
-        //Serial.println(currentSequenceStep);
+        Serial.println(currentSequenceStep);
 
         // *** play the step ***                                              
         for(int i = 0; i <= NUM_OF_TRACKS - 1; i++)                 // interate through tracks.       
         {                 
-          float velocityValue = sequence[currentSequenceStep][i];   // get the velocity value at the index.
+          float velocity = sequence[currentSequenceStep][i];        // get the velocity value at the index.
 
-          if(velocityValue > 0)                                     // if velocity is above 0...
+          if(velocity > 0)                                          // if velocity is above 0...
           {
             Serial.print("playing sample ");
             Serial.println(i);                            
-            samplePlayers[i].playSample(velocityValue);                   // ...play the sample.
+            samplePlayers[i].processTriggerEvent(velocity);         // ...play the sample.
             Serial.print("at step: ");
             Serial.println(currentSequenceStep);
             Serial.println("");
           }
         }
 
-        // decrement all active steps in the record queue.
-        if(currentSequenceStep == 0)
+        // add queued events to sequence...
+
+        for(int i = 0; i <= NUM_OF_TRACKS - 1; i++)                 // interate through tracks.       
         {
-          for(int stepIterator = 0; stepIterator < SEQUENCE_LENGTH - 1; stepIterator++)
+          float velocity = quantiseQueue[i];
+                           
+          if(velocity > 0)                                          // if velocity is above 0...
           {
-            for(int trackIterator = 0; trackIterator < NUM_OF_TRACKS - 1; trackIterator++)
-            {
-              int queuePosition = sequenceRecordQueue[stepIterator].queuePositions[trackIterator];    // get the queue position
-              
-              if(queuePosition > 0)                                                                   // if the queue position is above 0
-              {
-                sequenceRecordQueue[stepIterator].queuePositions[trackIterator] -= 1;                 // ...decrement
-              }
-            }
+            Serial.print("adding event to step: ");
+            Serial.println(currentSequenceStep);
+            sequence[currentSequenceStep][i] = velocity;            // add the value to the sequence
+            quantiseQueue[i] = 0;                                   // reset the value.              
           }
         }
-      }  
+      
       masterClockTimer = 0;                                         // reset the master clock.
     }
-  }*/
+  }
 
-  double drumReading = drum.checkActivity();          // read and store trigger events
+  double drumReading = drum.checkActivity();                        // read and store trigger events
 
   if(drumReading > 0)
   {
-    drumEventFlag = true;                             // flag that there has been a drum event.
-    drumLed.pulse();                                  // pulse the drum LED.
+    drumEventFlag = true;                                           // flag that there has been a drum event.
+    drumLed.pulse();                                                // pulse the drum LED.
 
-    drumReading = map(drumReading, 0, 1023, 1, 10);   // scale reading to appropriate range for logarithmic curve
-    drumReading = log10(drumReading);                 // apply logarithmic curve.
+    drumReading = map(drumReading, 0, 1023, 1, 10);                 // scale reading to appropriate range for logarithmic curve
+    drumReading = log10(drumReading);                               // apply logarithmic curve.
 
-    Serial.println(drumReading);
+    //Serial.println(drumReading);
 
     samplePlayers[0].processTriggerEvent(drumReading);               
   }
 
   samplePlayers[0].poll();
-  drumLed.refresh();                                  // refresh LEDs.
+  drumLed.refresh();                                                // refresh LEDs.
 
-  /*if(recordFlag && playFlag)                                                // if record and play are active.
+  if(recordFlag && playFlag)                                        // if record and play are active.
   {
-    if(drumEventFlag)                                                       // if a drum event has occured
+    if(drumEventFlag)                                               // if a drum event has occured
     {
       int quantisedStep = getQuantisedStep();
-      int selectedTrack = 0;                                                // a hard coded value for now.
+      int selectedTrack = 0;                                        // a hard coded value for now. will be dependent on trigger source.
       Serial.print("recording to step ");
-      Serial.println(quantisedStep);                                        
+      Serial.println(quantisedStep);
 
-      //sequence[quantisedStep][selectedTrack] = drumReading;               // add the reading here. (need to wait until the next loop before adding.)
-      sequenceRecordQueue[quantisedStep].volumeValues[selectedTrack] = drumReading;
-      sequenceRecordQueue[quantisedStep].queuePositions[selectedTrack] = 1;
-     
-      drumEventFlag = false;                                    // reset the flag. 
-    }
-  }
-
-  // add record events to queue here...
-  for(int stepIterator = 0; stepIterator < SEQUENCE_LENGTH - 1; stepIterator++)
-  {
-    for(int trackIterator = 0; trackIterator < NUM_OF_TRACKS - 1; trackIterator++)
-    {
-      float volumeValue = sequenceRecordQueue[stepIterator].volumeValues[trackIterator];    // get the volume value
-      
-      if(volumeValue > 0)                                                                   // if a volume value exists.
+      if(quantisedStep == currentSequenceStep)                      // if quantised to the current step...
       {
-        if(sequenceRecordQueue[stepIterator].queuePositions[trackIterator] == 0)             // if at the last queue position...
-        {
-           sequence[stepIterator][trackIterator] = volumeValue;                             // ...add to the sequence.
-           sequenceRecordQueue[stepIterator].volumeValues[trackIterator] = 0.0;             // ...clear the value. 
-        }
-      }
+        sequence[currentSequenceStep][selectedTrack] = drumReading; // ...add reading sequence immediately - this step won't play again until the next sequence iteration.
+      } else                                                        // else, it has been quantised to the next step, therefore...
+      {
+        quantiseQueue[selectedTrack] = drumReading;                 //...add to the queue
+      }                                       
     }
   }
 
-  //int fadeTime = 3;
-
-  //samplePlayers[0].playSample(0.8);
-  //delay(2);
-  //samplePlayers[0].playSample(0.8);
-
-  //delay(2000);
-  
-  /*samplePlayers[0].playSample(0.8);
-  
-  samplePlayers[0].setFadeOut(fadeTime);
-  
-  delay(fadeTime + 1);
-
-  samplePlayers[0].resetFadeObjects();
-  samplePlayers[0].playSample(0.8);*/
+  drumEventFlag = false;                                            // reset the flag.
 }
 
 // check to see if a step needs to be played
@@ -377,6 +326,9 @@ int getQuantisedStep()
 {
   int quantiseModulo = currentMidiTick % QUANTISE_MODULO;           // There are three midi ticks per 32nd step. which one are we on?...
   float quantiseFloat = quantiseModulo * 0.333;                     // Divide the value by three to get a float ready for rounding.
+
+  Serial.print("quantise float = ");
+  Serial.println(quantiseFloat);
   int quantisedStep = round(currentSequenceStep + quantiseFloat);   // get the quantised step by adding the float to the current step, then rounding.
   
   if(quantisedStep == 32)                                           // accomodate wrap-around from 31 to 0

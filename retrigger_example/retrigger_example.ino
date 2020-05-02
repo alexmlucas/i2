@@ -17,8 +17,6 @@ AudioConnection          patchCord3(envelope1, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=239.22220611572266,539.222225189209
 // GUItool: end automatically generated code
 
-
-// SD card definitions
 #define RELEASE_TIME_MS 5
 
 void setup() 
