@@ -209,7 +209,6 @@ void loop()
       if(playStep(3))                                               // if a 32nd step needs to be played...
       {
         updateCounter(&currentSequenceStep, SEQUENCE_LENGTH - 1);   // update the current step.
-        Serial.println(currentSequenceStep);
 
         // *** play the step ***                                              
         for(int i = 0; i <= NUM_OF_TRACKS - 1; i++)                 // interate through tracks.       
@@ -217,13 +216,8 @@ void loop()
           float velocity = sequence[currentSequenceStep][i];        // get the velocity value at the index.
 
           if(velocity > 0)                                          // if velocity is above 0...
-          {
-            Serial.print("playing sample ");
-            Serial.println(i);                            
+          {                          
             samplePlayers[i].processTriggerEvent(velocity);         // ...play the sample.
-            Serial.print("at step: ");
-            Serial.println(currentSequenceStep);
-            Serial.println("");
           }
         }
 
@@ -235,8 +229,6 @@ void loop()
                            
           if(velocity > 0)                                          // if velocity is above 0...
           {
-            Serial.print("adding event to step: ");
-            Serial.println(currentSequenceStep);
             sequence[currentSequenceStep][i] = velocity;            // add the value to the sequence
             quantiseQueue[i] = 0;                                   // reset the value.              
           }
@@ -255,9 +247,7 @@ void loop()
 
     drumReading = map(drumReading, 0, 1023, 1, 10);                 // scale reading to appropriate range for logarithmic curve
     drumReading = log10(drumReading);                               // apply logarithmic curve.
-
-    //Serial.println(drumReading);
-
+    
     samplePlayers[0].processTriggerEvent(drumReading);               
   }
 
@@ -270,8 +260,6 @@ void loop()
     {
       int quantisedStep = getQuantisedStep();
       int selectedTrack = 0;                                        // a hard coded value for now. will be dependent on trigger source.
-      Serial.print("recording to step ");
-      Serial.println(quantisedStep);
 
       if(quantisedStep == currentSequenceStep)                      // if quantised to the current step...
       {
@@ -326,9 +314,6 @@ int getQuantisedStep()
 {
   int quantiseModulo = currentMidiTick % QUANTISE_MODULO;           // There are three midi ticks per 32nd step. which one are we on?...
   float quantiseFloat = quantiseModulo * 0.333;                     // Divide the value by three to get a float ready for rounding.
-
-  Serial.print("quantise float = ");
-  Serial.println(quantiseFloat);
   int quantisedStep = round(currentSequenceStep + quantiseFloat);   // get the quantised step by adding the float to the current step, then rounding.
   
   if(quantisedStep == 32)                                           // accomodate wrap-around from 31 to 0
