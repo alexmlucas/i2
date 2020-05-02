@@ -9,77 +9,78 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioPlaySdWav           playSdWav2;     //xy=489.57141494750977,734.0000581741333
-AudioPlaySdWav           playSdWav1;     //xy=490.5714416503906,660.857177734375
-AudioPlaySdWav           playSdWav3;     //xy=491.4286308288574,804.2857522964478
-AudioPlaySdWav           playSdWav5;     //xy=491.0000915527344,946.2858190536499
-AudioPlaySdWav           playSdWav6;     //xy=492.00001525878906,1016.5715847015381
-AudioPlaySdWav           playSdWav8;     //xy=491.57144927978516,1151.8573150634766
-AudioPlaySdWav           playSdWav7;     //xy=493.00006103515625,1084.0001873970032
-AudioPlaySdWav           playSdWav4;     //xy=493.85722732543945,875.000150680542
-AudioEffectEnvelope      envelope1;      //xy=662.857063293457,654.2856769561768
-AudioEffectEnvelope      envelope2;      //xy=662.8571128845215,690.0000228881836
-AudioEffectEnvelope      envelope3;      //xy=664.2857208251953,725.7143430709839
-AudioEffectEnvelope      envelope4;      //xy=664.2857246398926,761.4286184310913
-AudioEffectEnvelope      envelope9;      //xy=664.2857360839844,938.5714807510376
-AudioEffectEnvelope      envelope5;      //xy=665.7143173217773,797.1428699493408
-AudioEffectEnvelope      envelope6;      //xy=665.7142524719238,832.8570938110352
-AudioEffectEnvelope      envelope7;      //xy=665.7143287658691,868.5714511871338
-AudioEffectEnvelope      envelope8;      //xy=665.7142677307129,904.2857341766357
-AudioEffectEnvelope      envelope10;     //xy=668.5713844299316,974.2856111526489
-AudioEffectEnvelope      envelope11;     //xy=668.5714530944824,1008.5714807510376
-AudioEffectEnvelope      envelope12;     //xy=668.5714530944824,1042.8571767807007
-AudioEffectEnvelope      envelope13;     //xy=668.5714092254639,1078.5713920593262
-AudioEffectEnvelope      envelope14;     //xy=668.5714149475098,1112.8571062088013
-AudioEffectEnvelope      envelope15;     //xy=668.5713958740234,1147.1429243087769
-AudioEffectEnvelope      envelope16;     //xy=670.0000076293945,1181.4285154342651
-AudioMixer4              mixer3;         //xy=974.2857246398926,817.142894744873
-AudioMixer4              mixer4;         //xy=974.2857151031494,885.71435546875
-AudioMixer4              mixer1;         //xy=975.7142868041992,677.1428375244141
-AudioMixer4              mixer2;         //xy=975.7143211364746,747.1428871154785
-AudioMixer4              mixer5;         //xy=1110.0001201629639,697.1428451538086
-AudioMixer4              mixer6;         //xy=1112.8571586608887,837.1428861618042
-AudioOutputI2S           i2s1;           //xy=1251.571460723877,704.1428623199463
-AudioConnection          patchCord1(playSdWav2, 0, envelope3, 0);
-AudioConnection          patchCord2(playSdWav2, 1, envelope4, 0);
-AudioConnection          patchCord3(playSdWav1, 0, envelope1, 0);
-AudioConnection          patchCord4(playSdWav1, 1, envelope2, 0);
-AudioConnection          patchCord5(playSdWav3, 0, envelope5, 0);
-AudioConnection          patchCord6(playSdWav3, 1, envelope6, 0);
-AudioConnection          patchCord7(playSdWav5, 0, envelope9, 0);
-AudioConnection          patchCord8(playSdWav5, 1, envelope10, 0);
-AudioConnection          patchCord9(playSdWav6, 0, envelope11, 0);
-AudioConnection          patchCord10(playSdWav6, 1, envelope12, 0);
-AudioConnection          patchCord11(playSdWav8, 0, envelope15, 0);
-AudioConnection          patchCord12(playSdWav8, 1, envelope16, 0);
-AudioConnection          patchCord13(playSdWav7, 0, envelope13, 0);
-AudioConnection          patchCord14(playSdWav7, 1, envelope14, 0);
-AudioConnection          patchCord15(playSdWav4, 0, envelope7, 0);
-AudioConnection          patchCord16(playSdWav4, 1, envelope8, 0);
-AudioConnection          patchCord17(envelope1, 0, mixer1, 0);
-AudioConnection          patchCord18(envelope2, 0, mixer3, 0);
-AudioConnection          patchCord19(envelope3, 0, mixer1, 1);
-AudioConnection          patchCord20(envelope4, 0, mixer3, 1);
-AudioConnection          patchCord21(envelope9, 0, mixer2, 0);
-AudioConnection          patchCord22(envelope5, 0, mixer1, 2);
-AudioConnection          patchCord23(envelope6, 0, mixer3, 2);
-AudioConnection          patchCord24(envelope7, 0, mixer1, 3);
-AudioConnection          patchCord25(envelope8, 0, mixer3, 3);
-AudioConnection          patchCord26(envelope10, 0, mixer4, 0);
-AudioConnection          patchCord27(envelope11, 0, mixer2, 1);
-AudioConnection          patchCord28(envelope12, 0, mixer4, 1);
-AudioConnection          patchCord29(envelope13, 0, mixer2, 2);
-AudioConnection          patchCord30(envelope14, 0, mixer4, 2);
-AudioConnection          patchCord31(envelope15, 0, mixer2, 3);
-AudioConnection          patchCord32(envelope16, 0, mixer4, 3);
+AudioPlaySdWav           playSdWav1;     //xy=108.77777099609375,763.7777709960938
+AudioPlaySdWav           playSdWav2;     //xy=108.88888549804688,829.999979019165
+AudioPlaySdWav           playSdWav7;     //xy=109.55554962158203,1163.3333806991577
+AudioPlaySdWav           playSdWav3;     //xy=110.88888168334961,896.6666488647461
+AudioPlaySdWav           playSdWav8;     //xy=109.77777099609375,1229.2222995758057
+AudioPlaySdWav           playSdWav6;     //xy=110.77776336669922,1096.4445295333862
+AudioPlaySdWav           playSdWav4;     //xy=111.77777099609375,963.2222337722778
+AudioPlaySdWav           playSdWav5;     //xy=113.11109924316406,1030.8889980316162
+AudioEffectFade          fade1;          //xy=266.6666488647461,756.6667098999023
+AudioEffectFade          fade2;          //xy=266.66667556762695,789.999997138977
+AudioEffectFade          fade3;          //xy=266.66665267944336,823.3332506418228
+AudioEffectFade          fade4;          //xy=266.6666564941406,856.6665922403336
+AudioEffectFade          fade5;          //xy=266.6666679382324,889.9999347925186
+AudioEffectFade          fade6;          //xy=267.77775955200195,923.3333368301392
+AudioEffectFade          fade7;          //xy=268.7777786254883,956.6666927337646
+AudioEffectFade          fade8;          //xy=268.7777976989746,990.0000276565552
+AudioEffectFade          fade9;          //xy=268.88888931274414,1023.3333358764648
+AudioEffectFade          fade10;         //xy=268.99998474121094,1056.6666841506958
+AudioEffectFade          fade11;         //xy=269.8888931274414,1090.0001020431519
+AudioEffectFade          fade12;         //xy=270.00000381469727,1123.3332595825195
+AudioEffectFade          fade13;         //xy=270.00000762939453,1156.6666374206543
+AudioEffectFade          fade14;         //xy=270.00000762939453,1189.9999179840088
+AudioEffectFade          fade15;         //xy=270.00000762939453,1223.3332424163818
+AudioEffectFade          fade16;         //xy=269.99999237060547,1256.6666870117188
+AudioMixer4              mixer3;         //xy=547.2222137451172,915.2222328186035
+AudioMixer4              mixer4;         //xy=547.2222137451172,983.2222328186035
+AudioMixer4              mixer1;         //xy=548.2222137451172,775.2222328186035
+AudioMixer4              mixer2;         //xy=548.2222137451172,845.2222328186035
+AudioMixer4              mixer5;         //xy=683.2222137451172,795.2222328186035
+AudioMixer4              mixer6;         //xy=685.2222137451172,935.2222328186035
+AudioOutputI2S           i2s1;           //xy=824.2222137451172,802.2222328186035
+AudioConnection          patchCord1(playSdWav1, 0, fade1, 0);
+AudioConnection          patchCord2(playSdWav1, 1, fade2, 0);
+AudioConnection          patchCord3(playSdWav2, 0, fade3, 0);
+AudioConnection          patchCord4(playSdWav2, 1, fade4, 0);
+AudioConnection          patchCord5(playSdWav7, 0, fade13, 0);
+AudioConnection          patchCord6(playSdWav7, 1, fade14, 0);
+AudioConnection          patchCord7(playSdWav3, 0, fade5, 0);
+AudioConnection          patchCord8(playSdWav3, 1, fade6, 0);
+AudioConnection          patchCord9(playSdWav8, 0, fade15, 0);
+AudioConnection          patchCord10(playSdWav8, 1, fade16, 0);
+AudioConnection          patchCord11(playSdWav6, 0, fade11, 0);
+AudioConnection          patchCord12(playSdWav6, 1, fade12, 0);
+AudioConnection          patchCord13(playSdWav4, 0, fade7, 0);
+AudioConnection          patchCord14(playSdWav4, 1, fade8, 0);
+AudioConnection          patchCord15(playSdWav5, 0, fade9, 0);
+AudioConnection          patchCord16(playSdWav5, 1, fade10, 0);
+AudioConnection          patchCord17(fade1, 0, mixer1, 0);
+AudioConnection          patchCord18(fade2, 0, mixer3, 0);
+AudioConnection          patchCord19(fade3, 0, mixer1, 1);
+AudioConnection          patchCord20(fade4, 0, mixer3, 1);
+AudioConnection          patchCord21(fade5, 0, mixer1, 2);
+AudioConnection          patchCord22(fade6, 0, mixer3, 2);
+AudioConnection          patchCord23(fade7, 0, mixer1, 3);
+AudioConnection          patchCord24(fade8, 0, mixer3, 3);
+AudioConnection          patchCord25(fade9, 0, mixer2, 0);
+AudioConnection          patchCord26(fade10, 0, mixer4, 0);
+AudioConnection          patchCord27(fade11, 0, mixer2, 1);
+AudioConnection          patchCord28(fade12, 0, mixer4, 1);
+AudioConnection          patchCord29(fade13, 0, mixer2, 2);
+AudioConnection          patchCord30(fade14, 0, mixer4, 2);
+AudioConnection          patchCord31(fade15, 0, mixer2, 3);
+AudioConnection          patchCord32(fade16, 0, mixer4, 3);
 AudioConnection          patchCord33(mixer3, 0, mixer6, 0);
 AudioConnection          patchCord34(mixer4, 0, mixer6, 1);
 AudioConnection          patchCord35(mixer1, 0, mixer5, 0);
 AudioConnection          patchCord36(mixer2, 0, mixer5, 1);
 AudioConnection          patchCord37(mixer5, 0, i2s1, 0);
 AudioConnection          patchCord38(mixer6, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=484.28576278686523,1468.8572425842285
+AudioControlSGTL5000     sgtl5000_1;     //xy=102.77777099609375,1571.7777709960938
 // GUItool: end automatically generated code
+
 
 // SD card definitions
 #define SDCARD_CS_PIN    10
@@ -130,7 +131,7 @@ void setup()
   // setup the audio codec
   AudioMemory(8);
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.3);
+  sgtl5000_1.volume(0.5);
 
   // setup the SD card
   SPI.setMOSI(SDCARD_MOSI_PIN);
@@ -157,14 +158,14 @@ void setup()
   samplePlayers[6].setSampleName(String("kit_1/6.wav"));
   samplePlayers[7].setSampleName(String("kit_1/7.wav"));
 
-  samplePlayers[0].assignEnvelopeObjects(&envelope1, &envelope2);
-  samplePlayers[1].assignEnvelopeObjects(&envelope3, &envelope4);
-  samplePlayers[2].assignEnvelopeObjects(&envelope5, &envelope6);
-  samplePlayers[3].assignEnvelopeObjects(&envelope7, &envelope8);
-  samplePlayers[4].assignEnvelopeObjects(&envelope9, &envelope10);
-  samplePlayers[5].assignEnvelopeObjects(&envelope11, &envelope12);
-  samplePlayers[6].assignEnvelopeObjects(&envelope13, &envelope14);
-  samplePlayers[7].assignEnvelopeObjects(&envelope15, &envelope16);
+  samplePlayers[0].assignFadeObjects(&fade1, &fade2);
+  samplePlayers[1].assignFadeObjects(&fade3, &fade4);
+  samplePlayers[2].assignFadeObjects(&fade5, &fade6);
+  samplePlayers[3].assignFadeObjects(&fade7, &fade8);
+  samplePlayers[4].assignFadeObjects(&fade9, &fade10);
+  samplePlayers[5].assignFadeObjects(&fade11, &fade12);
+  samplePlayers[6].assignFadeObjects(&fade13, &fade14);
+  samplePlayers[7].assignFadeObjects(&fade15, &fade16);
 
   samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
   samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);

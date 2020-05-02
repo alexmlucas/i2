@@ -10,7 +10,7 @@ step then rounded;
 #X floatatom 28 114 5 0 0 0 - - -;
 #X floatatom 199 15 5 0 0 0 - - -;
 #X floatatom 199 64 5 0 0 0 - - -;
-#X obj 199 39 mod 4;
+#X obj 199 39 mod 32;
 #X connect 0 0 2 0;
 #X connect 1 0 3 0;
 #X connect 1 0 6 0;
