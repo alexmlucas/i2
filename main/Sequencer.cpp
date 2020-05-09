@@ -1,6 +1,6 @@
 #include "Sequencer.h"
 
-Sequencer::Sequencer(Master_Clock* masterClock, Sample_Player* samplePlayers)
+Sequencer::Sequencer(Midi_Clock* masterClock, Sample_Player* samplePlayers)
 {
   m_masterClock = masterClock;
   m_currentStep = 0;

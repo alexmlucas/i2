@@ -1,6 +1,6 @@
 #include "Transport.h"
 
-Transport::Transport(Master_Clock* masterClock, Sequencer* sequencer)
+Transport::Transport(Midi_Clock* masterClock, Sequencer* sequencer)
 {
   m_masterClock = masterClock;
   m_sequencer = sequencer;
@@ -40,12 +40,4 @@ void Transport::poll()
 void Transport::logDrumPadReadings(double* drumPadReadings)
 {
   m_drumPadReadings = drumPadReadings;
-}
-
-void Transport::forwardTriggerEvents(int trackNumber, double velocity)
-{
-  if(m_recordFlag && m_playFlag)
-  {
-    
-  }
 }

@@ -4,13 +4,13 @@
 #include "Constant_Parameters.h"
 #include "Pattern_32.h"
 #include "Sample_Player.h"
-#include "Master_Clock.h"
+#include "Midi_Clock.h"
 
 class Sequencer
 {
   private:
     int m_lastMidiTick;
-    Master_Clock* m_masterClock; 
+    Midi_Clock* m_masterClock; 
     Pattern_32 patterns[PATTERN_AMOUNT];
     Sample_Player* m_samplePlayers;
 
@@ -19,7 +19,7 @@ class Sequencer
     int m_currentStep;
     double m_quantiseQueue[TRACK_AMOUNT];
 
-    Sequencer(Master_Clock* masterClock, Sample_Player* samplePlayers);
+    Sequencer(Midi_Clock* masterClock, Sample_Player* samplePlayers);
     void playStep();
     void playStep(int stepNumber);
     void advance();

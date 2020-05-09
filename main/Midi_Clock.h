@@ -1,10 +1,10 @@
-#ifndef MASTER_CLOCK
-#define MASTER_CLOCK
+#ifndef MIDI_CLOCK
+#define MIDI_CLOCK
 
 #include <Arduino.h>
 #include "Constant_Parameters.h"
 
-class Master_Clock
+class Midi_Clock
 {
   public:
     int m_bpm;
@@ -12,7 +12,7 @@ class Master_Clock
     int m_midiTickInterval;
     elapsedMicros m_timer;
     
-    Master_Clock(int bpm);
+    Midi_Clock(int bpm);
     int calculateMidiTickInterval(int incomingBpm);
     void resetTimer();
     void updateMidiTickCounter();

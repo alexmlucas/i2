@@ -3,7 +3,7 @@
 #include "Led.h"
 #include "Sample_Player.h"
 #include "Transport.h"
-#include "Master_Clock.h"
+#include "Midi_Clock.h"
 #include "Sequencer.h"
 
 #include <Audio.h>
@@ -90,7 +90,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=102.77777099609375,1571.7777709960
 #define SDCARD_MOSI_PIN  7
 #define SDCARD_SCK_PIN   14
 
-Master_Clock masterClock(DEFAULT_BPM);
+Midi_Clock masterClock(DEFAULT_BPM);
 Sample_Player samplePlayers[4] = {(&playSdWav1), (&playSdWav2), (&playSdWav3), (&playSdWav4)};
 Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer);
