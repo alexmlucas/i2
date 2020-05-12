@@ -5,7 +5,6 @@ Piezo_Trigger::Piezo_Trigger(int pin){
   pinMode(m_pin, INPUT);
   m_peak = 0;
   m_state = 0;
-  m_counter = 0;
 }
 
 void Piezo_Trigger::set_callback_func(void (*f)(void)){
@@ -45,14 +44,6 @@ int Piezo_Trigger::checkActivity(){
       m_state = 0;
       return_value = 0;
     }
-  }
-
-  if(return_value > 0)
-  {
-    m_counter++;
-    Serial.print("The return value is ");
-    Serial.println(return_value);
-    Serial.println(m_counter);
   }
 
   return return_value;

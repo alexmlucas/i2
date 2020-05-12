@@ -15,7 +15,9 @@ class Sample_Player{
     AudioEffectFade *m_leftFade;
     AudioEffectFade *m_rightFade;
 
-    bool m_fadeAndRetriggerActive;
+    bool m_fadeAndRetriggerActive;                    // keep track of when fadeAndRetrigger is active
+    bool m_stopRequestMade;                           // record that a stop request has been made during fadeAndRetrigger event
+    bool m_fadeInRequestMade;                         // record that a fadeIn request has been made during fadeAndRetrigger event
     elapsedMillis m_fadeAndRetriggerTimer;
     float m_retriggerVelocity;     
     int m_leftMixerChannelNumber;

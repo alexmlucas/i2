@@ -4,6 +4,8 @@ Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
 {
   m_sdWav = sdWav;
   m_fadeAndRetriggerActive = false;
+  m_stopRequestMade = false;
+  m_fadeInRequestMade = false;
 }
 
 void Sample_Player::processTriggerEvent(float velocity)
@@ -26,11 +28,6 @@ void Sample_Player::processTriggerEvent(float velocity)
 void Sample_Player::playWithVelocity(float velocity)
 {
   this->setMixerLevels(velocity);                           // set the mixer levels.
-  //Serial.print("latency is ");
-  //Serial.println(m_latencyTimer);
-
-  //Serial.println("Triggering sample at address: ");
-  //Serial.println(int(this));
   m_sdWav->play(m_sampleName.c_str());                      // play the sample.
 }
 
@@ -46,10 +43,11 @@ void Sample_Player::fadeAndRetrigger(float velocity)
 
   m_fadeAndRetriggerTimer = 0;                              // will the order of this and the noteOff events matter?
 
-  Serial.println("Fading out sample at address: ");
-  Serial.println(int(this));
   m_leftFade->fadeOut(FADE_OUT_MS);                         // trigger the fade out.
   m_rightFade->fadeOut(FADE_OUT_MS);
+
+  //Serial.println("Fading out sample at address: ");
+  //Serial.println(int(this));
 
   m_fadeAndRetriggerActive = true;
 }
@@ -58,23 +56,33 @@ void Sample_Player::poll()
 {
   if(m_fadeAndRetriggerActive)                              // if fadeAndRetrigger is active
   {
-    if(m_fadeAndRetriggerTimer == FADE_OUT_MS + 1)          // if 1ms has passed since the fade finished...
+    if(m_fadeAndRetriggerTimer >= FADE_OUT_MS + 1)          // if 1ms has passed since the fade finished...
     {
-      m_sdWav->stop();                                      // ...stop the sample.
+      if(!m_stopRequestMade)                                // if a stop request hasn't already been made during this event.
+      {
+        m_sdWav->stop();                                    // ...stop the sample.
+        m_stopRequestMade = true;                           // ...log the request.
+      }
     }
 
-    if(m_fadeAndRetriggerTimer == (FADE_OUT_MS + 2))        // if 2ms have passed since the fade finished...
+    if(m_fadeAndRetriggerTimer >= (FADE_OUT_MS + 2))        // if 2ms have passed since the fade finished...
     {
-      Serial.println("Fading in sample at address: ");
-      Serial.println(int(this));
-      m_leftFade->fadeIn(FADE_IN_MS);                       // ...fade in.
-      m_rightFade->fadeIn(FADE_IN_MS);
+      if(!m_fadeInRequestMade)                              // if a fadeIn reqest hasn't already been made during this event.
+      {
+        m_leftFade->fadeIn(FADE_IN_MS);                     // ...fade in.
+        m_rightFade->fadeIn(FADE_IN_MS);
+        Serial.println("Fading in sample at address: ");
+        Serial.println(int(this));
+        m_fadeInRequestMade = true;                         // ...log that the request.
+      }
     }
 
-    if(m_fadeAndRetriggerTimer == (FADE_OUT_MS + 3))        // if 3ms have passed since the fade finished...
+    if(m_fadeAndRetriggerTimer >= (FADE_OUT_MS + 3))        // if 3ms have passed since the fade finished...
     {
-     this->playWithVelocity(m_retriggerVelocity);          // ...retrigger the sample.
-      m_fadeAndRetriggerActive = false;                    // ...indicate that the fadeAndRetrigger event has ended.
+      this->playWithVelocity(m_retriggerVelocity);          // ...retrigger the sample.
+      m_fadeAndRetriggerActive = false;                     // ...indicate that the fadeAndRetrigger event has ended.
+      m_stopRequestMade = false;                            // ...reset the flags
+      m_fadeInRequestMade = false;
     }
   }
 }

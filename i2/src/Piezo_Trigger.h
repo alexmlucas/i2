@@ -2,7 +2,7 @@
 #define PIEZO_TRIGGER
 #include "Arduino.h"
 
-const int THRESHOLD = 30;     // minimum reading, avoid "noise".
+const int THRESHOLD = 50;     // minimum reading, avoid "noise".
 const int PEAK_MS = 2;        // time to read peak value.
 const int AFTERSHOCK_MS = 10;  // time of aftershocks and vibration.
 
@@ -13,7 +13,6 @@ class Piezo_Trigger{
     int m_state;                                      // Activity scan state.
     elapsedMillis m_msec;                             // Timer to end states.
     void (*m_callback_function)(void);                // The function to be called on a piezo event.
-    int m_counter;
   public:
     Piezo_Trigger(int pin);
     int checkActivity();

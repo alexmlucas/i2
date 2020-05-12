@@ -156,22 +156,10 @@ void loop()
 
     if(drumPadReadings[i] > 0)                                          // if a trigger has been detected...
     {
-      Serial.println(drumPadReadings[i]);
       drumPadReadings[i] = map(drumPadReadings[i], 0, 1023, 1, 10);     // ...scale reading to appropriate range for logarithmic curve
       drumPadReadings[i] = log(drumPadReadings[i]);                     // ...apply logarithmic curve.
-      //Serial.println(drumPadReadings[i]);
-      /*Serial.print(i);
-      Serial.print(" has been triggered, velocity is ");
-      Serial.println(drumPadReadings[i]);
-      Serial.println();*/
-
-      samplePlayers[i].m_latencyTimer = 0;
 
       rhythmGenerator.triggerRhythm(i, drumPadReadings[i]);             // ...trigger the rhythm.
-
-      /////
-
-      //samplePlayers[i].processTriggerEvent(drumPadReadings[i]);       // ...play the sample.
       drumPadLeds[i].pulse();                                           // ...set the LED to pulse. 
     }
   }
@@ -195,8 +183,4 @@ void loop()
   {
     drumPadLeds[i].refresh();
   }
-
-  //rhythmGenerator.printRhythm();
-
-  //delay(500);
 }
