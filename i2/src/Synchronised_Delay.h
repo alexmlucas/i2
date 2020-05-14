@@ -12,13 +12,14 @@ class Synchronised_Delay
         void assignWetDryMixerObjects(AudioMixer4* leftWetDryMixer, AudioMixer4* rightWetDryMixer);
         void assignFeedbackAmplifierObject(AudioAmplifier* feedbackAmplifierObject);
         void setDelayTime(int bpm);
-        void setEffectIntensity(float intensity);
+        void setEffectIntensity(float intensity);                   // expects a value between 0 and 1.
         
     private:
         const int MS_IN_MINUTE = 60000;
         const int DELAY_TAP_CHANNEL = 0;
         const int DRY_MIXER_CHANNEL = 0;
         const int WET_MIXER_CHANNEL = 1;
+        const int FILTER_FREQUENCY_HZ = 200;
         int m_leftMixerChannelNumber;
         int m_rightMixerChannelNumber;
         int m_delayTimeMs;
@@ -33,8 +34,7 @@ class Synchronised_Delay
         
         int calculateTripletQuaverMs(int bpm);
         void setWetDryMixLevel(float level);
-        void setFeedbackLevel(float level);               // expects a value between 0 and 1.
+        void setFeedbackLevel(float level);               
 };
-
 
 #endif

@@ -69,3 +69,8 @@ void Synchronised_Delay::setFeedbackLevel(float level)
 {
     m_feedbackAmplifierObject->gain(level);
 }
+
+void Synchronised_Delay::setFilterFrequency(int frequency)
+{
+    m_filterObject->frequency(FILTER_FREQUENCY_HZ);
+}
