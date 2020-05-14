@@ -1,0 +1,102 @@
+#N canvas 2486 23 874 730 12;
+#N canvas 2606 292 548 248 sample 0;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array G01-tab 176400 float 0;
+#X coords 0 1 176399 -1 200 140 1;
+#X restore 100 20 graph;
+#X obj 61 176 loadbang;
+#X obj 60 221 soundfiler;
+#X msg 61 199 read -resize delay_test.wav G01-tab;
+#X obj 41 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X connect 1 0 3 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X restore 354 73 pd sample;
+#X floatatom 98 300 4 0 999 0 - - -;
+#X obj 98 329 delread~ delay1;
+#X obj 38 75 tabplay~ G01-tab;
+#X obj 38 27 loadbang;
+#X obj 38 582 +~;
+#X obj 48 219 delwrite~ delay1 1000;
+#X text 387 490 The delread~ object always delays the signal an integer
+number of samples and does no interpolation.;
+#X obj 38 51 metro 2000;
+#X obj 18 28 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 98 533 *~;
+#X obj 119 403 hsl 128 15 0 1 0 0 empty empty wet/dry_mix -2 -8 0 10
+-204800 -1 -1 0 1;
+#X obj 188 502 *~;
+#X obj 209 471 hsl 128 15 0 0.9 0 0 empty empty delay_feedback -2 -8
+0 10 -261682 -1 -1 0 1;
+#X obj 188 529 s~ feedback;
+#X obj 58 185 r~ feedback;
+#X obj 38 612 *~;
+#X obj 106 581 hsl 128 15 0 1 0 0 empty empty master_volume -2 -8 0
+10 -203904 -1 -1 0 1;
+#X obj 38 644 dac~;
+#X obj 48 160 hip~;
+#X obj 73 135 mtof;
+#X obj 76 114 hsl 128 15 0 127 0 0 empty empty frequency -2 -8 0 10
+-204786 -1 -1 5600 1;
+#X text 141 298 <-- delay time ms;
+#X floatatom 89 160 8 0 999 0 - - -;
+#X obj 98 249 loadbang;
+#X msg 98 275 125;
+#X text 157 158 <-- around 200 Hz seems to work well;
+#X obj 507 120 vsl 15 128 1 10 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X floatatom 542 286 5 0 0 0 - - -;
+#X text 391 432 https://stackoverflow.com/questions/5294955/how-to-scale-down-a-range-of-numbers-with-a-known-min-and-max-value
+;
+#X obj 507 321 log 10;
+#X obj 556 120 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X floatatom 507 352 5 0 0 0 - - -;
+#X obj 56 439 - 1;
+#X obj 56 467 abs;
+#X obj 38 533 *~;
+#X floatatom 116 501 5 0 0 0 - - -;
+#X floatatom 56 501 5 0 0 0 - - -;
+#X obj 258 402 * 2;
+#X obj 261 345 hsl 128 15 0 0.5 0 0 empty empty macro -2 -8 0 10 -232576
+-1 -1 0 1;
+#X obj 258 428 - 0.1;
+#X connect 1 0 2 0;
+#X connect 2 0 10 0;
+#X connect 2 0 12 0;
+#X connect 3 0 19 0;
+#X connect 3 0 35 0;
+#X connect 4 0 8 0;
+#X connect 5 0 16 0;
+#X connect 8 0 3 0;
+#X connect 9 0 8 0;
+#X connect 10 0 5 1;
+#X connect 11 0 33 0;
+#X connect 11 0 36 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 1;
+#X connect 15 0 6 0;
+#X connect 16 0 18 0;
+#X connect 16 0 18 1;
+#X connect 17 0 16 1;
+#X connect 19 0 6 0;
+#X connect 20 0 19 1;
+#X connect 20 0 23 0;
+#X connect 21 0 20 0;
+#X connect 24 0 25 0;
+#X connect 25 0 1 0;
+#X connect 27 0 28 0;
+#X connect 27 0 30 0;
+#X connect 30 0 31 0;
+#X connect 30 0 32 0;
+#X connect 33 0 34 0;
+#X connect 34 0 37 0;
+#X connect 35 0 5 0;
+#X connect 36 0 10 1;
+#X connect 37 0 35 1;
+#X connect 38 0 40 0;
+#X connect 39 0 11 0;
+#X connect 39 0 38 0;
+#X connect 40 0 13 0;

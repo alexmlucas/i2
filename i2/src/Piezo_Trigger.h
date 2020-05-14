@@ -2,7 +2,7 @@
 #define PIEZO_TRIGGER
 #include "Arduino.h"
 
-const int THRESHOLD = 50;     // minimum reading, avoid "noise".
+const int THRESHOLD = 15;     // minimum reading, avoid "noise".
 const int PEAK_MS = 2;        // time to read peak value.
 const int AFTERSHOCK_MS = 10;  // time of aftershocks and vibration.
 

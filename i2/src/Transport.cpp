@@ -6,7 +6,7 @@ Transport::Transport(Midi_Clock* masterClock, Sequencer* sequencer)
   m_sequencer = sequencer;
   m_playFlag = true;
   m_lastPlayFlag = false;
-  m_recordFlag = true;
+  m_recordFlag = false;
   m_eventFlag = false;
 }
 

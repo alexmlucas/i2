@@ -6,7 +6,7 @@
 
 Rhythm_Generator::Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport, Sample_Player* samplePlayers) 
 {
-  m_rhythm = 172;
+  m_rhythm = 128;
   m_rhythmClock = rhythmClock;
   m_transport = transport;
   m_samplePlayers = samplePlayers;
