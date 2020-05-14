@@ -1,4 +1,4 @@
-#N canvas 2486 23 874 730 12;
+#N canvas 65 93 874 730 12;
 #N canvas 2606 292 548 248 sample 0;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array G01-tab 176400 float 0;
