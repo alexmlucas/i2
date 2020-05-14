@@ -38,20 +38,18 @@ AudioEffectFade          fade12;         //xy=231,542.0000610351562
 AudioEffectFade          fade13;         //xy=231,575.0000610351562
 AudioEffectFade          fade14;         //xy=231,608.0000610351562
 AudioEffectFade          fade15;         //xy=231,642.0000610351562
-AudioMixer4              mixer1;         //xy=449,193.00006103515625
-AudioMixer4              mixer2;         //xy=449,263.00006103515625
-AudioMixer4              mixer3;         //xy=449,499.00006103515625
-AudioMixer4              mixer4;         //xy=449,567.0000610351562
-AudioMixer4              mixer5;         //xy=582,212.00006103515625
-AudioMixer4              mixer6;         //xy=583,519.0000610351562
-AudioMixer4              mixer7;         //xy=685,327
-AudioMixer4              mixer8;         //xy=689,627
-AudioEffectDelay         delay1;         //xy=806,327
-AudioAmplifier           amp1;           //xy=807,409
-AudioAmplifier           amp2;           //xy=810,709
-AudioEffectDelay         delay2;         //xy=811,627
-AudioMixer4              mixer10;        //xy=954,538
-AudioMixer4              mixer9;         //xy=956,230
+AudioMixer4              mixer1;         //xy=438,195.00006103515625
+AudioMixer4              mixer3;         //xy=437,500.00006103515625
+AudioMixer4              mixer2;         //xy=438,265.00006103515625
+AudioMixer4              mixer4;         //xy=437,568.0000610351562
+AudioMixer4              mixer5;         //xy=571,214.00006103515625
+AudioMixer4              mixer6;         //xy=571,520.0000610351562
+AudioMixer4              mixer7;         //xy=606,346
+AudioFilterStateVariable filter1;        //xy=734,352
+AudioEffectDelay         delay1;         //xy=859,365
+AudioAmplifier           amp1;           //xy=859,447
+AudioMixer4              mixer8;         //xy=996,234
+AudioMixer4              mixer9;         //xy=995,539
 AudioOutputI2S           i2s1;           //xy=1135,356.00006103515625
 AudioConnection          patchCord1(playSdWav1, 0, fade1, 0);
 AudioConnection          patchCord2(playSdWav1, 1, fade2, 0);
@@ -86,26 +84,23 @@ AudioConnection          patchCord30(fade13, 0, mixer2, 2);
 AudioConnection          patchCord31(fade14, 0, mixer4, 2);
 AudioConnection          patchCord32(fade15, 0, mixer2, 3);
 AudioConnection          patchCord33(mixer1, 0, mixer5, 0);
-AudioConnection          patchCord34(mixer2, 0, mixer5, 1);
-AudioConnection          patchCord35(mixer3, 0, mixer6, 0);
+AudioConnection          patchCord34(mixer3, 0, mixer6, 0);
+AudioConnection          patchCord35(mixer2, 0, mixer5, 1);
 AudioConnection          patchCord36(mixer4, 0, mixer6, 1);
 AudioConnection          patchCord37(mixer5, 0, mixer7, 0);
-AudioConnection          patchCord38(mixer5, 0, mixer9, 0);
-AudioConnection          patchCord39(mixer6, 0, mixer8, 0);
-AudioConnection          patchCord40(mixer6, 0, mixer10, 0);
-AudioConnection          patchCord41(mixer7, delay1);
-AudioConnection          patchCord42(mixer8, delay2);
+AudioConnection          patchCord38(mixer5, 0, mixer8, 0);
+AudioConnection          patchCord39(mixer6, 0, mixer7, 1);
+AudioConnection          patchCord40(mixer6, 0, mixer9, 0);
+AudioConnection          patchCord41(mixer7, 0, filter1, 0);
+AudioConnection          patchCord42(filter1, 2, delay1, 0);
 AudioConnection          patchCord43(delay1, 0, amp1, 0);
-AudioConnection          patchCord44(delay1, 1, mixer9, 1);
-AudioConnection          patchCord45(amp1, 0, mixer7, 1);
-AudioConnection          patchCord46(amp2, 0, mixer8, 1);
-AudioConnection          patchCord47(delay2, 0, amp2, 0);
-AudioConnection          patchCord48(delay2, 1, mixer10, 1);
-AudioConnection          patchCord49(mixer10, 0, i2s1, 1);
-AudioConnection          patchCord50(mixer9, 0, i2s1, 0);
+AudioConnection          patchCord44(delay1, 0, mixer8, 1);
+AudioConnection          patchCord45(delay1, 0, mixer9, 1);
+AudioConnection          patchCord46(amp1, 0, mixer7, 2);
+AudioConnection          patchCord47(mixer8, 0, i2s1, 0);
+AudioConnection          patchCord48(mixer9, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=1290,4462
 // GUItool: end automatically generated code
-
 
 // SD card definitions
 #define SDCARD_CS_PIN    10
