@@ -175,6 +175,7 @@ void loop()
       drumPadReadings[i] = map(drumPadReadings[i], 0, 1023, 1, 10);     // ...scale reading to appropriate range for logarithmic curve
       drumPadReadings[i] = log(drumPadReadings[i]);                     // ...apply logarithmic curve.
 
+      Serial.println(drumPadReadings[i]);
       rhythmGenerator.triggerRhythm(i, drumPadReadings[i]);             // ...trigger the rhythm.
       drumPadLeds[i].pulse();                                           // ...set the LED to pulse. 
     }

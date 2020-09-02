@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../i2"
+		},
+		{
+			"name": "i2_multiplexing",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

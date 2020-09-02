@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640mm"
+   height="297mm"
+   viewBox="0 0 640 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0beta2 (2b71d25, 2019-12-03)"
+   sodipodi:docname="i2_r1.9_pcb.svg"
+   inkscape:export-filename="/Users/alex/Desktop/i2.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     width="421mm"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.52185267"
+     inkscape:cx="1490.8535"
+     inkscape:cy="656.79095"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:window-width="1680"
+     inkscape:window-height="910"
+     inkscape:window-x="1919"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:snap-text-baseline="false"
+     inkscape:snap-others="false"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffeece;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect882-6"
+       width="612.25598"
+       height="269.09698"
+       x="2.7260771"
+       y="2.8057697"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       transform="translate(-35.814549,17.216532)"
+       id="g1395"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         y="47.475277"
+         x="109.11073"
+         height="19.164318"
+         width="49.164318"
+         id="rect984"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.835682;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text930"
+         y="62.349098"
+         x="117.20473"
+         style="font-style:normal;font-weight:normal;font-size:14.1111px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Silom;-inkscape-font-specification:Silom;fill:#ff0000;fill-opacity:1;stroke-width:0.264583"
+           y="62.349098"
+           x="117.20473"
+           id="tspan928"
+           sodipodi:role="line">808.</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.05346;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 336.39337,209.45937 h -70"
+       id="path1185-7-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       transform="rotate(90)"
+       style="mix-blend-mode:hard-light;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1187-6-3"
+       width="15.768902"
+       height="5.8799295"
+       x="201.4413"
+       y="-278.89856"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="156.9241"
+       cx="214.95335"
+       id="path873-5"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path873-5-5"
+       cx="243.76665"
+       cy="156.92409"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="156.92409"
+       cx="272.58002"
+       id="circle987"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle989"
+       cx="301.39337"
+       cy="156.92409"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="156.92409"
+       cx="330.20673"
+       id="circle991"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="157.3165"
+       cx="359.02008"
+       id="circle989-4"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.53518;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 167.84837,176.45459 H 378.13608"
+       id="path1214"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="166.45317"
+       x="204.95335"
+       height="20"
+       width="20"
+       id="rect867"
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect869"
+       width="20"
+       height="20"
+       x="233.76665"
+       y="166.45316"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="166.45316"
+       x="262.58002"
+       height="20"
+       width="20"
+       id="rect981"
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect983"
+       width="20"
+       height="20"
+       x="291.39337"
+       y="166.45316"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="166.45316"
+       x="320.20673"
+       height="20"
+       width="20"
+       id="rect985"
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="166.84558"
+       x="349.02008"
+       height="20"
+       width="20"
+       id="rect983-6"
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#646464;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect985-9"
+       width="20"
+       height="20"
+       x="377.83337"
+       y="166.8456"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle991-1"
+       cx="387.83337"
+       cy="157.31651"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       id="text1453-5-2-8-6"
+       y="232.24046"
+       x="299.93945"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1491-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="232.24046"
+         x="299.93945"
+         sodipodi:role="line">Rhythm</tspan></text>
+    <circle
+       r="2.527216"
+       cy="55.200935"
+       cx="477.42334"
+       id="path873-8-1-4"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="477.15515"
+       y="96.621078"
+       id="text1024-6-3-7-0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="477.15515"
+         y="96.621078"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1080-9-7">Play</tspan></text>
+    <circle
+       r="10.502546"
+       cy="74.878807"
+       cx="477.42334"
+       id="path982-4-8-1"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle1356"
+       cx="517.62213"
+       cy="55.200935"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle1362"
+       cx="517.62213"
+       cy="74.939354"
+       r="10.502546"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       id="text1024-6-3-7-0-5"
+       y="97.399307"
+       x="517.55853"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1080-9-7-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="97.399307"
+         x="517.55853"
+         sodipodi:role="line">Record</tspan></text>
+    <circle
+       style="fill:#00c1ff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle1370"
+       cx="557.84076"
+       cy="55.200935"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#00c1ff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle1376"
+       cx="557.84076"
+       cy="75.467735"
+       r="10.502546"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="557.65631"
+       y="97.399307"
+       id="text1449"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="557.65631"
+         y="97.399307"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1447">Undo</tspan></text>
+    <path
+       style="font-variation-settings:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       d="m 532.50059,94.824274 h 15.02082"
+       id="path1937-4-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1185-7-0-0"
+       d="m 517.63539,146.19741 v 70"
+       style="fill:none;stroke:#000000;stroke-width:1.05346;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="206.78033"
+       x="509.61731"
+       height="5.8799295"
+       width="15.768902"
+       id="rect1187-6-3-9"
+       style="mix-blend-mode:hard-light;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="517.36383"
+       y="232.24054"
+       id="text1453-5-2-8-6-5-4-3"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="517.36383"
+         y="232.24054"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1491-8-3-6-6-7">Delay</tspan></text>
+    <ellipse
+       transform="rotate(45)"
+       style="opacity:0.997;fill:#646464;fill-opacity:1;stroke:#000000;stroke-width:0.499276;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="path2688"
+       cx="194.12088"
+       cy="55.700012"
+       rx="69.750366"
+       ry="69.750359"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.511453;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 147.37583,127.15263 48.380875,226.14757"
+       id="path2397"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path2397-4"
+       d="M 147.37583,226.14757 48.380875,127.15263"
+       style="fill:none;stroke:#000000;stroke-width:0.511453;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 99.665345,195.79864 a 2.527216,2.527216 0 0 1 -3.57402,-1e-5 2.527216,2.527216 0 0 1 0,-3.57402 2.527216,2.527216 0 0 1 3.57402,0 2.527216,2.527216 0 0 1 0,3.57403"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path873-54"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path873-54-9"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 99.665355,161.07558 a 2.527216,2.527216 0 0 1 -3.57402,0 2.527216,2.527216 0 0 1 -1e-5,-3.57402 2.527216,2.527216 0 0 1 3.57403,0 2.527216,2.527216 0 0 1 0,3.57402"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 117.02688,178.43711 a 2.527216,2.527216 0 0 1 -3.57402,-1e-5 2.527216,2.527216 0 0 1 0,-3.57402 2.527216,2.527216 0 0 1 3.57402,0 2.527216,2.527216 0 0 1 0,3.57403"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path873-54-9-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="197.17059"
+       cx="408.362"
+       id="circle984-1"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="10.502546"
+       cy="177.02434"
+       cx="426.3877"
+       id="circle986-0"
+       style="fill:#646464;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       id="text1453-5-2-8-6-5-9"
+       y="199.52084"
+       x="392.45581"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1491-8-3-6-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="199.52084"
+         x="392.45581"
+         sodipodi:role="line">Fast</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="391.15979"
+       y="211.83195"
+       id="text1453-5-2-8-6-5-7-0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="391.15979"
+         y="211.83195"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1491-8-3-6-5-0">Slow</tspan></text>
+    <circle
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle984-7-3"
+       cx="408.362"
+       cy="209.32668"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1937-4-2-6-6-5-0-0"
+       d="m 418.31936,197.17059 h 8.23385"
+       style="font-variation-settings:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 426.38774,192.10971 v 17.39843"
+       id="path1278-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="font-variation-settings:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       d="m 418.31936,209.32667 h 8.23385"
+       id="path1937-4-2-6-6-5-0-8-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="54.880989"
+       cx="301.39334"
+       id="circle989-8"
+       style="fill:#fefe58;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#fefe58;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle991-9"
+       cx="330.2067"
+       cy="54.880989"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#fefe58;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle989-4-3"
+       cx="359.02005"
+       cy="55.273415"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1214-7"
+       d="m 308.73653,74.410144 h 69.39953"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="64.410072"
+       x="291.39334"
+       height="20"
+       width="20"
+       id="rect983-4"
+       style="fill:#fefe58;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#fefe58;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect985-8"
+       width="20"
+       height="20"
+       x="320.20676"
+       y="64.410072"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#fefe58;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect983-6-0"
+       width="20"
+       height="20"
+       x="349.02005"
+       y="64.802467"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="64.802559"
+       x="377.83334"
+       height="20"
+       width="20"
+       id="rect985-9-4"
+       style="fill:#fefe58;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="55.273415"
+       cx="387.83331"
+       id="circle991-1-0"
+       style="fill:#fefe58;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#ffff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle984-1-1"
+       cx="408.36194"
+       cy="95.281418"
+       r="2.527216"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#fffe00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle986-0-7"
+       cx="426.3877"
+       cy="75.135162"
+       r="10.502546"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="388.48077"
+       y="97.631638"
+       id="text1453-5-2-8-6-5-9-8"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="388.48077"
+         y="97.631638"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1491-8-3-6-3-2">Pattern</tspan></text>
+    <text
+       id="text1453-5-2-8-6-5-7-0-5"
+       y="109.94276"
+       x="394.35327"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1491-8-3-6-5-0-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="109.94276"
+         x="394.35327"
+         sodipodi:role="line">Kit</tspan></text>
+    <circle
+       r="2.527216"
+       cy="107.43748"
+       cx="408.36194"
+       id="circle984-7-3-5"
+       style="fill:#ffff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="font-variation-settings:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       d="m 418.31934,95.281464 h 8.23385"
+       id="path1937-4-2-6-6-5-0-0-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1278-1-0"
+       d="M 426.38772,90.220584 V 107.61901"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1937-4-2-6-6-5-0-8-9-1"
+       d="m 418.31934,107.43754 h 8.23385"
+       style="font-variation-settings:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       r="2.527216"
+       cy="54.31498"
+       cx="-196.72597"
+       id="circle989-4-3-1"
+       style="fill:#00c1ff;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 250.1846,73.992884 H 223.29148"
+       id="path1214-7-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1214-7-4-8"
+       d="M 194.42762,73.992884 H 167.5345"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="63.992889"
+       x="-206.72597"
+       height="20"
+       width="20"
+       id="rect983-6-0-4"
+       style="fill:#00c1ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#00c1ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect985-9-4-5"
+       width="20"
+       height="20"
+       x="-177.91267"
+       y="63.992889"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#00c1ff;fill-opacity:1;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle991-1-0-7"
+       cx="-167.91267"
+       cy="54.31501"
+       r="2.527216"
+       transform="scale(-1,1)"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       id="text1453-5-2-8-6-5-4-3-2"
+       y="96.853378"
+       x="196.84065"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1491-8-3-6-6-7-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="96.853378"
+         x="196.84065"
+         sodipodi:role="line">Tempo</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="168.04597"
+       y="96.661667"
+       id="text1453-5-2-8-6-5-4-3-2-7"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="168.04597"
+         y="96.661667"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1491-8-3-6-6-7-3-8">Volume</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="225.26173"
+       y="96.853378"
+       id="text1453-5-2-8-6-5-4-3-2-6"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="225.26173"
+         y="96.853378"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1491-8-3-6-6-7-3-6">Up</tspan></text>
+    <text
+       id="text1453-5-2-8-6-5-4-3-2-6-4"
+       y="97.561859"
+       x="254.21928"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:0;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         id="tspan1491-8-3-6-6-7-3-6-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Futura;-inkscape-font-specification:Futura;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         y="97.561859"
+         x="254.21928"
+         sodipodi:role="line">Down</tspan></text>
+    <path
+       d="m 286.2733,76.145463 -40.53091,0 20.26545,-35.100795 z"
+       inkscape:transform-center-x="2.3090195e-06"
+       transform="matrix(-0.48124046,0,0,0.55379146,353.55312,41.612664)"
+       inkscape:transform-center-y="-3.2397528"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="true"
+       sodipodi:arg2="1.5707963"
+       sodipodi:arg1="0.52359878"
+       sodipodi:r2="11.700265"
+       sodipodi:r1="23.40053"
+       sodipodi:cy="64.445198"
+       sodipodi:cx="266.00784"
+       sodipodi:sides="3"
+       id="path1172"
+       style="fill:#00c1ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       sodipodi:type="star"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 286.2733,76.145463 -40.53091,0 20.26545,-35.100795 z"
+       sodipodi:type="star"
+       style="fill:#00c1ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
+       id="path1172-3"
+       sodipodi:sides="3"
+       sodipodi:cx="266.00784"
+       sodipodi:cy="64.445198"
+       sodipodi:r1="23.40053"
+       sodipodi:r2="11.700265"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       inkscape:transform-center-y="3.2397485"
+       transform="matrix(-0.48124046,0,0,-0.55379146,382.36647,106.3731)"
+       inkscape:transform-center-x="2.3090195e-06"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="432.47949"
+       y="153.68852"
+       id="text946"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         y="153.68852"
+         x="432.47949"
+         sodipodi:role="line"
+         id="tspan948" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="299.35452"
+       y="77.335632"
+       id="text956"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan954"
+         x="299.35452"
+         y="77.335632"
+         style="stroke-width:0.264583">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="328.04858"
+       y="77.384903"
+       id="text960"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan958"
+         x="328.04858"
+         y="77.384903"
+         style="stroke-width:0.264583">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="356.82587"
+       y="77.731819"
+       id="text964"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan962"
+         x="356.82587"
+         y="77.731819"
+         style="stroke-width:0.264583">3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="385.57281"
+       y="77.946022"
+       id="text968"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan966"
+         x="385.57281"
+         y="77.946022"
+         style="stroke-width:0.264583">4</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1214-7-4-3"
+       d="M 373.05695,95.281384 H 291.14334"
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 385.04466,107.7028 H 291.14334"
+       id="path1214-7-4-3-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path873"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 82.303825,178.43711 a 2.527216,2.527216 0 0 1 -3.57402,0 2.527216,2.527216 0 0 1 -1e-5,-3.57402 2.527216,2.527216 0 0 1 3.57403,0 2.527216,2.527216 0 0 1 0,3.57402"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="45.535408"
+       x="155.04907"
+       height="75.361191"
+       width="121.67199"
+       id="rect943"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.809447;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="45.969296"
+       x="460.61508"
+       height="74.866951"
+       width="118.64272"
+       id="rect943-0-2"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.796682;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.83632;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect943-0-2-3"
+       width="125.70117"
+       height="77.869354"
+       x="316.64471"
+       y="144.3486"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="144.28497"
+       x="184.75905"
+       height="54.167282"
+       width="129.88454"
+       id="rect943-0-2-3-9"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.709034;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       y="45.523479"
+       x="285.96777"
+       height="75.75856"
+       width="156.03888"
+       id="rect943-0-2-3-0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.919076;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#00ff27;stroke-width:1.08091;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect1041"
+       width="92.7015"
+       height="37.944672"
+       x="258.61438"
+       y="200.81552"
+       ry="18.972336"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       ry="45.134663"
+       y="136.8811"
+       x="407.36972"
+       height="90.269325"
+       width="132.35097"
+       id="rect1041-9"
+       style="fill:none;fill-rule:evenodd;stroke:#00ff27;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="339.69519"
+       y="198.74702"
+       id="text1075"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1073"
+         x="339.69519"
+         y="198.74702"
+         style="stroke-width:0.264583">16 Channel</tspan></text>
+    <text
+       id="text1075-1"
+       y="117.22399"
+       x="395.77625"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         style="stroke-width:0.264583"
+         y="117.22399"
+         x="395.77625"
+         id="tspan1073-5"
+         sodipodi:role="line">16 Channel</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       x="229.98471"
+       y="112.66093"
+       id="text1075-1-3"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1073-5-5"
+         x="229.98471"
+         y="112.66093"
+         style="stroke-width:0.264583">8 Channel</tspan></text>
+    <text
+       id="text1075-3"
+       y="195.30319"
+       x="229.98473"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       xml:space="preserve"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         style="stroke-width:0.264583"
+         y="195.30319"
+         x="229.98473"
+         id="tspan1073-6"
+         sodipodi:role="line">16 Channel</tspan></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#00ff27;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect1041-9-5"
+       width="132.35097"
+       height="90.269325"
+       x="66.153534"
+       y="128.76898"
+       ry="45.134663"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       inkscape:export-filename="/Users/alex/Desktop/i2.png"
+       id="text1075-1-3-6"
+       y="114.68896"
+       x="501.02753"
+       style="font-size:7.7611px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura Normal';stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.264583"
+         y="114.68896"
+         x="501.02753"
+         id="tspan1073-5-5-5"
+         sodipodi:role="line">8 Channel</tspan></text>
+  </g>
+</svg>

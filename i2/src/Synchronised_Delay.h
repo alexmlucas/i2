@@ -1,5 +1,5 @@
-#ifndef SYNCRONISED_DELAY;
-#define SYNCRONISED_DELAY;
+#ifndef SYNCRONISED_DELAY
+#define SYNCRONISED_DELAY
 
 #include "Arduino.h"
 #include <Audio.h>
@@ -34,7 +34,8 @@ class Synchronised_Delay
         
         int calculateTripletQuaverMs(int bpm);
         void setWetDryMixLevel(float level);
-        void setFeedbackLevel(float level);               
+        void setFeedbackLevel(float level);
+        void setFilterFrequency(int frequency);              
 };
 
 #endif
