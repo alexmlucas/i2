@@ -166,7 +166,12 @@ void setup()
 void loop() 
 { 
   
-  for(int i = 0; i < 2; i++)
+
+
+
+
+  
+  /*for(int i = 0; i < 2; i++)
   {
     drumPadReadings[i] = drumPads[i].checkActivity();                   // ### Read the Drum Pads ###
 
@@ -199,5 +204,9 @@ void loop()
   for(int i = 0; i < 2; i++)                                            // refresh drum leds
   {
     drumPadLeds[i].refresh();
-  }
+  }*/
+
+
+
+
 }
