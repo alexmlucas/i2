@@ -1,6 +1,7 @@
 #include "Led.h"                           
 
-Led::Led(int pin){
+Led::Led(int pin)
+{
   m_on_value = 255;
   m_flash_flag = false;
   m_pulse_flag = false; 
@@ -9,6 +10,16 @@ Led::Led(int pin){
   m_pin = pin;
   pinMode(m_pin, OUTPUT);
   analogWrite(m_pin, m_currently_on);
+}
+
+Led::Led(int muxIndex, int bit)
+{
+  m_on_value = 255;
+  m_flash_flag = false;
+  m_pulse_flag = false; 
+  m_currently_on = false;
+  m_flash_rate_ms = 250;
+  m_bit = bit;
 }
 
 void Led::set_on(bool _state){

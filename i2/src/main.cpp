@@ -1,5 +1,6 @@
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"
+#include "Led_Controller.h"
 #include "Led.h"
 #include "Sample_Player.h"
 #include "Transport.h"
@@ -14,7 +15,7 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
+/*AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
 AudioPlaySdWav           playSdWav2;     //xy=69,248.00006103515625
 AudioPlaySdWav           playSdWav3;     //xy=71,315.00006103515625
 AudioPlaySdWav           playSdWav7;     //xy=70,582.0000610351562
@@ -118,14 +119,54 @@ bool drumEventFlag = false;
 
 Led drumPadLeds[2] = {0, 1};
 Piezo_Trigger drumPads[2] = {A2, A3};
-double drumPadReadings[2] = {0, 0};
+double drumPadReadings[2] = {0, 0};*/
+
+// mux 0 LEDs
+Led undo(0, 0);
+Led record(0, 3);
+Led play(0, 4);
+Led volume(0, 5);
+Led tempo(0, 6);
+
+// mux 1 LEDs
+
+Led kit(1, 2);
+Led pattern(1, 1);
+Led kitPattern1(1, 7);
+Led kitPattern2(1, 6);
+Led kitPattern3(1, 5);
+Led kitPattern4(1, 4);
+
+// mux 2 LEDs
+Led slow(2, 2);
+Led fast(2, 1);
+Led rhythm3(2, 7);
+Led rhythm4(2, 6);
+Led rhythm5(2, 5);
+Led rhythm6(2, 4);
+Led rhythm7(2, 3);
+Led rhythm8(2, 0);
+
+// directly wired LED
+Led rhythm(37);
+
+Led *kitPatternMenuLeds[] = {&kit, &pattern};
+
+Led_Controller ledController;
+
+int latchPin = 19;
+int clockPin = 18;
+int dataPin = 21;
+int ledIndex = 0;
+int ledToLight[] = {1, 2, 4, 8, 16, 32, 64, 128};
+elapsedMillis ledTimer;
 
 void setup() 
 {
   Serial.begin(31250);
 
   // setup the audio codec
-  AudioMemory(8);
+  /*AudioMemory(8);
   sgtl5000_1.enable();
   sgtl5000_1.volume(0.5);
 
@@ -157,7 +198,8 @@ void setup()
   samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
   samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
   samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
-  
+  */
+
   while (!Serial && millis() < 2500);                                   // wait for serial monitor
 
   delay(2000);                                                          // an extra delay for good measure.
@@ -165,6 +207,19 @@ void setup()
 
 void loop() 
 { 
+  delay(10);
+
+  if(ledTimer > 500)
+  {  
+    ledController.setKitPattMenuLeds(1, 0);
+    ledController.setKitPattNumLeds(0, 0, 0, 1);
+
+    ledController.setSlowFastMenuLeds(1, 0);
+    ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
+    
+
+    ledTimer = 0;
+  }
   
 
 
