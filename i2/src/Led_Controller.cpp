@@ -5,11 +5,16 @@ Led_Controller::Led_Controller()
   pinMode(m_muxLatchPin, OUTPUT);
   pinMode(m_muxClockPin, OUTPUT);
   pinMode(m_muxDataPin, OUTPUT);
+  pinMode(m_rhythm2LedPin, OUTPUT);
+  pinMode(m_drumPad0LedPin, OUTPUT);
+  pinMode(m_drumPad1LedPin, OUTPUT);
+  pinMode(m_drumPad2LedPin, OUTPUT);
+  pinMode(m_drumPad3LedPin, OUTPUT);
 
-    for(int i = 0; i < 3; i++)            // initialise mux LEDs
-    {
-        m_muxLedStates[i] = 0;
-    }
+  for(int i = 0; i < 3; i++)              // initialise mux LEDs
+  {
+      m_muxLedStates[i] = 0;
+  }
 
     this->writeMuxLeds();
     digitalWrite(m_rhythm2LedPin, LOW);   // intialise directly wired rhythm 2 LED
@@ -174,6 +179,61 @@ void Led_Controller::setRhythmNumLeds(int num2LedState, int num3LedState, int nu
   // write the changes;
   this->writeMuxLeds();
 }
+
+void Led_Controller::setTempoVolMenuLeds(int tempoLedState, int volLedState)
+{
+  // depending on the incoming values, set or clear the appropriate bit
+  if(tempoLedState == 1)
+  {
+    bitSet(m_muxLedStates[0], m_tempoMenuLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[0], m_tempoMenuLedBit);
+  }
+
+  if(volLedState == 1)
+  {
+    bitSet(m_muxLedStates[0], m_volMenuLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[0], m_volMenuLedBit);
+  }
+
+  // write the changes;
+  this->writeMuxLeds();
+}
+
+void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int undoLedState)
+{
+  // depending on the incoming values, set or clear the appropriate bit
+  if(playLedState == 1)
+  {
+    bitSet(m_muxLedStates[0], m_playLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[0], m_playLedBit);
+  }
+
+  if(recordLedState == 1)
+  {
+    bitSet(m_muxLedStates[0], m_recordLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[0], m_recordLedBit);
+  }
+
+  if(undoLedState == 1)
+  {
+    bitSet(m_muxLedStates[0], m_undoLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[0], m_undoLedBit);
+  }
+
+  // write the changes;
+  this->writeMuxLeds();
+}
+
 
 void Led_Controller::writeMuxLeds()
 {

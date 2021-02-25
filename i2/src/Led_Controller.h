@@ -11,6 +11,10 @@ class Led_Controller
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
+        int m_drumPad1LedPin = 1;
+        int m_drumPad1LedPin = 1;
+        int m_drumPad1LedPin = 1;
+        int m_drumPad1LedPin = 1;
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -27,6 +31,12 @@ class Led_Controller
         int m_rhythm6Bit = 4;
         int m_rhythm7Bit = 3;
         int m_rhythm8Bit = 0;
+
+        int m_tempoMenuLedBit = 6;
+        int m_volMenuLedBit = 5;
+        int m_playLedBit = 4;
+        int m_recordLedBit = 3;
+        int m_undoLedBit = 0;
     
         Led *m_kitPattMenuLeds[2];
         byte m_muxLedStates[3];
@@ -42,8 +52,9 @@ class Led_Controller
         void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
         void setSlowFastMenuLeds(int slowLedState, int fastLedState);
         void setRhythmNumLeds(int num2LedState, int num3LedState, int num4LedState, int num5LedState, int num6LedState, int num7LedState, int num8LedState);
-        
-        
+        void setTempoVolMenuLeds(int tempoLedState, int volLedState);
+        void setTransportLeds(int playLedState, int recordLedState, int undoLedState);
+        void setDrumPadLeds(int drumPad1LedState, int drumPad2LedState, int drumPad3LedState, int drumPad4LedState);
 };
 
 #endif

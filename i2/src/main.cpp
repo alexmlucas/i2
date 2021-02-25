@@ -1,3 +1,7 @@
+// TNT: 
+// ...test mux 0 and drum pad LEDs with hardware.
+// ...implement flashing for play led.
+
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"
 #include "Led_Controller.h"
