@@ -2,6 +2,7 @@
 #define LED_CONTROLLER
 #include <Arduino.h>
 #include "Led.h"
+#include "Midi_Clock.h"
 
 class Led_Controller
 {
@@ -11,10 +12,10 @@ class Led_Controller
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
-        int m_drumPad1LedPin = 1;
-        int m_drumPad1LedPin = 1;
-        int m_drumPad1LedPin = 1;
-        int m_drumPad1LedPin = 1;
+        int m_drumPad0LedPin = 10;
+        int m_drumPad1LedPin = 2;
+        int m_drumPad2LedPin = 29;
+        int m_drumPad3LedPin = 30;
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -40,13 +41,17 @@ class Led_Controller
     
         Led *m_kitPattMenuLeds[2];
         byte m_muxLedStates[3];
-        bool m_refreshMuxLeds;
+        bool m_playLedCurrentState;
+        bool m_playStateActive;
+        
+        Midi_Clock* m_masterClock; 
 
         void writeMuxLeds();
 
     public:
-        Led_Controller();
+        Led_Controller(Midi_Clock* masterClock);
         void poll();
+        void setTempo(int tempoBpm);
         void assignKitPattMenuLeds(Led *kitPattMenuLeds[2]);
         void setKitPattMenuLeds(int kitLedState, int pattLedState);
         void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
@@ -54,7 +59,7 @@ class Led_Controller
         void setRhythmNumLeds(int num2LedState, int num3LedState, int num4LedState, int num5LedState, int num6LedState, int num7LedState, int num8LedState);
         void setTempoVolMenuLeds(int tempoLedState, int volLedState);
         void setTransportLeds(int playLedState, int recordLedState, int undoLedState);
-        void setDrumPadLeds(int drumPad1LedState, int drumPad2LedState, int drumPad3LedState, int drumPad4LedState);
+        void setDrumPadLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue);
 };
 
 #endif

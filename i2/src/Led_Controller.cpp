@@ -1,7 +1,9 @@
 #include "Led_Controller.h"
 
-Led_Controller::Led_Controller()
+Led_Controller::Led_Controller(Midi_Clock* masterClock)
 {
+  m_masterClock = masterClock;
+
   pinMode(m_muxLatchPin, OUTPUT);
   pinMode(m_muxClockPin, OUTPUT);
   pinMode(m_muxDataPin, OUTPUT);
@@ -16,12 +18,38 @@ Led_Controller::Led_Controller()
       m_muxLedStates[i] = 0;
   }
 
-    this->writeMuxLeds();
-    digitalWrite(m_rhythm2LedPin, LOW);   // intialise directly wired rhythm 2 LED
+  m_playLedCurrentState = false;
+  m_playStateActive = false;
+
+  this->writeMuxLeds();
+  digitalWrite(m_rhythm2LedPin, LOW);   // intialise directly wired LEDs
+  analogWrite(m_drumPad0LedPin, 0);
+  analogWrite(m_drumPad1LedPin, 0);
+  analogWrite(m_drumPad2LedPin, 0);
+  analogWrite(m_drumPad3LedPin, 0);
 }
 
-void Led_Controller::poll()
+void Led_Controller::poll()       // used solely to flash the play led when engaged
 {
+  if(m_playStateActive)
+  {
+    if(m_masterClock->isMidiTick8th())
+    {
+      m_playLedCurrentState = !m_playLedCurrentState;
+
+      if(m_playLedCurrentState)
+      {
+        bitSet(m_muxLedStates[0], m_playLedBit);
+        m_playLedCurrentState = true;
+      } else 
+      {
+        bitClear(m_muxLedStates[0], m_playLedBit);
+        m_playLedCurrentState = false;
+      }
+
+      this->writeMuxLeds();
+    }
+  }
 }
 
 void Led_Controller::assignKitPattMenuLeds(Led *kitPattMenuLeds[])
@@ -209,9 +237,15 @@ void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int 
   if(playLedState == 1)
   {
     bitSet(m_muxLedStates[0], m_playLedBit);
+    m_playLedCurrentState = true;
+    m_playStateActive = true;
+
   } else
   {
     bitClear(m_muxLedStates[0], m_playLedBit);
+    m_playLedCurrentState = false;
+    m_playStateActive = false;
+
   }
 
   if(recordLedState == 1)
@@ -234,6 +268,13 @@ void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int 
   this->writeMuxLeds();
 }
 
+void Led_Controller::setDrumPadLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue)
+{
+  analogWrite(m_drumPad0LedPin, drumPad0LedValue);
+  analogWrite(m_drumPad1LedPin, drumPad1LedValue);
+  analogWrite(m_drumPad2LedPin, drumPad2LedValue);
+  analogWrite(m_drumPad3LedPin, drumPad3LedValue);
+}
 
 void Led_Controller::writeMuxLeds()
 {

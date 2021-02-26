@@ -1,6 +1,6 @@
 // TNT: 
-// ...test mux 0 and drum pad LEDs with hardware.
-// ...implement flashing for play led.
+// ...implement button and piezo reading.
+/
 
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"
@@ -110,10 +110,10 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=1290,4462
 // SD card definitions
 #define SDCARD_CS_PIN    10
 #define SDCARD_MOSI_PIN  7
-#define SDCARD_SCK_PIN   14
+#define SDCARD_SCK_PIN   14*/
 
 Midi_Clock masterClock(DEFAULT_BPM);
-Midi_Clock rhythmClock(DEFAULT_BPM);
+/*Midi_Clock rhythmClock(DEFAULT_BPM);
 Sample_Player samplePlayers[4] = {(&playSdWav1), (&playSdWav2), (&playSdWav3), (&playSdWav4)};
 Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer);
@@ -156,7 +156,7 @@ Led rhythm(37);
 
 Led *kitPatternMenuLeds[] = {&kit, &pattern};
 
-Led_Controller ledController;
+Led_Controller ledController(&masterClock);
 
 int latchPin = 19;
 int clockPin = 18;
@@ -206,24 +206,26 @@ void setup()
 
   while (!Serial && millis() < 2500);                                   // wait for serial monitor
 
-  delay(2000);                                                          // an extra delay for good measure.
+  delay(2000);
+
+  ledController.setKitPattMenuLeds(1, 0);
+  ledController.setKitPattNumLeds(0, 0, 0, 1);
+
+  ledController.setSlowFastMenuLeds(1, 0);
+  ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
+
+  ledController.setTempoVolMenuLeds(0, 1);
+  ledController.setTransportLeds(1, 0, 1);
+
+  ledController.setDrumPadLeds(1, 64, 128, 256);
 }
 
 void loop() 
 { 
   delay(10);
-
-  if(ledTimer > 500)
-  {  
-    ledController.setKitPattMenuLeds(1, 0);
-    ledController.setKitPattNumLeds(0, 0, 0, 1);
-
-    ledController.setSlowFastMenuLeds(1, 0);
-    ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
-    
-
-    ledTimer = 0;
-  }
+  ledController.poll();
+  masterClock.poll();
+  
   
 
 
