@@ -1,6 +1,5 @@
 // TNT: 
-// ...implement button and piezo reading.
-/
+// ...implement piezo reading code
 
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"
@@ -225,12 +224,6 @@ void loop()
   delay(10);
   ledController.poll();
   masterClock.poll();
-  
-  
-
-
-
-
   
   /*for(int i = 0; i < 2; i++)
   {
