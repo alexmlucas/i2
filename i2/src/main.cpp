@@ -1,5 +1,5 @@
 // TNT: 
-// ...implement piezo reading code
+// ...implement delay after switching mux channel
 
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"
@@ -10,6 +10,7 @@
 #include "Midi_Clock.h"
 #include "Sequencer.h"
 #include "Rhythm_Generator.h"
+#include "Input_Manager.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -156,6 +157,7 @@ Led rhythm(37);
 Led *kitPatternMenuLeds[] = {&kit, &pattern};
 
 Led_Controller ledController(&masterClock);
+Input_Manager inputManager;
 
 int latchPin = 19;
 int clockPin = 18;
@@ -224,6 +226,7 @@ void loop()
   delay(10);
   ledController.poll();
   masterClock.poll();
+  inputManager.poll();
   
   /*for(int i = 0; i < 2; i++)
   {
@@ -259,8 +262,4 @@ void loop()
   {
     drumPadLeds[i].refresh();
   }*/
-
-
-
-
 }

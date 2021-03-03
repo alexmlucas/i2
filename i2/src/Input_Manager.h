@@ -5,7 +5,8 @@
 class Input_Manager
 {
     private:
-        const unsigned int BUTTON_READ_INTERVAL = 10;
+        const unsigned int MUX_READ_DELAY_US = 1;          // the delay between changing mux channel and reading it.
+        const unsigned int DEBOUNCE_MS = 100;
         const int POT_NOISE_FILTER = 5;
         const int m_rhythmPotPin = A19;  
         const int m_muxAInPin = A13;
@@ -21,7 +22,16 @@ class Input_Manager
         int m_echoPotLastValue;
         int m_rhythmPotLastValue;
 
-        elapsedMillis m_buttonReadTimer;
+        int m_muxAButtonEventTimes[8];
+        int m_muxBButtonEventTimes[8];
+        int m_muxCButtonEventTimes[8];
+
+        elapsedMicros m_muxReadTimer;
+
+        int m_muxReadIndex;
+        bool m_readMuxChannel;
+        bool m_changeMuxChannel;
+        bool m_readMe;
         void setSensor(int index);
 
     public:
