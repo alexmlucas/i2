@@ -2,6 +2,12 @@
 
 Input_Manager::Input_Manager()
 {
+
+    m_piezoPins[0] =  A2;
+    m_piezoPins[1] =  A1;
+    m_piezoPins[2] =  A0;
+    m_piezoPins[3] =  A3;
+    
     pinMode(m_rhythmPotPin, INPUT);
     pinMode(m_muxAInPin, INPUT);
     pinMode(m_muxBInPin, INPUT);
@@ -10,7 +16,15 @@ Input_Manager::Input_Manager()
     pinMode(m_muxSelPin1, OUTPUT);
     pinMode(m_muxSelPin2, OUTPUT);
 
-    for(int i = 0; i < 8; i++)              // initialise variables.
+    for(int i = 0; i < 4; i++)
+    {
+        pinMode(m_piezoPins[i], INPUT);
+        m_piezoPeaks[i] = 0;
+        m_piezoStates[i] = 0;
+        m_piezoTimers[i] = 0;
+    }
+
+    for(int i = 0; i < 8; i++)
     {
         m_muxAButtonStates[i] = 0;
         m_muxBButtonStates[i] = 0;
@@ -32,6 +46,19 @@ void Input_Manager::poll()
 {
     this->readMuxs();
     this->readDirectPot();
+
+    for(int i = 0; i < 4; i++)
+    {
+        int piezoReading = this->readPiezo(i);
+
+        if(piezoReading > 0)
+        {
+            Serial.print("Piezo ");
+            Serial.print(i);
+            Serial.print(" = ");
+            Serial.println(piezoReading);
+        }
+    }
 }
 
 void Input_Manager::readMuxs()
@@ -53,8 +80,8 @@ void Input_Manager::readMuxs()
             // check to see if the debounce time has been exceeded
             if((millis() - m_muxAButtonEventTimes[m_muxReadIndex]) > DEBOUNCE_MS)    // debounce
             {
-                m_muxAButtonStates[m_muxReadIndex] = muxACurrentValue;           // update array
-                m_muxAButtonEventTimes[m_muxReadIndex] = millis();               // update event time
+                m_muxAButtonStates[m_muxReadIndex] = muxACurrentValue;              // update array
+                m_muxAButtonEventTimes[m_muxReadIndex] = millis();                  // update event time
 
                 if(m_muxAButtonStates[m_muxReadIndex] == 1)
                 {
@@ -171,8 +198,6 @@ void Input_Manager::readDirectPot()
     }
 }
 
-
-
 void Input_Manager::setSensor(int index)
 {
   int b0 = bitRead(index, 0);
@@ -183,3 +208,40 @@ void Input_Manager::setSensor(int index)
   digitalWrite(m_muxSelPin1, b1);
   digitalWrite(m_muxSelPin2, b2);  
 } 
+
+int Input_Manager::readPiezo(int index){
+  int piezo = analogRead(index);
+  int return_value = 0;                   
+
+  if(m_piezoStates[index] == 0){                                // ----Idle state-------------
+    
+    if(piezo > PIEZO_THRESHOLD){
+      m_piezoStates[index] = 1;                                 // If a reading is above the threshold, move to Peak tracking.
+      m_piezoPeaks[index] = piezo;                              // The current reading is set as the peak.
+      m_piezoTimers[index] = 0;
+    }
+    
+  } else if(m_piezoStates[index] == 1){                         // ----Peak tracking state----    
+                        
+    if(piezo > m_piezoPeaks[index]){                            // Capture the largest reading.
+      m_piezoPeaks[index] = piezo;
+    }
+    
+    if(m_piezoTimers[index] >= PIEZO_PEAK_MS){                  // loop for a certain amount of time to get the peak value.
+      return_value = m_piezoPeaks[index];                       // Set return value to the peak value.
+      m_piezoTimers[index] = 0;                                 // Reset the timer.
+      m_piezoStates[index] = 2;                                 // Move to Aftershock state.
+    }
+  } else{                                                       // ----Aftershock state-------
+
+    if(piezo > PIEZO_THRESHOLD){                                // Keep refreshing timer if above threshold                  
+      m_piezoTimers[index] = 0;                           
+      
+    } else if(m_piezoTimers[index] > PIEZO_AFTERSHOCK_MS){      // Return to Idle state now that aftershock time is exceeded.
+      m_piezoStates[index] = 0;
+      return_value = 0;
+    }
+  }
+
+  return return_value;
+}

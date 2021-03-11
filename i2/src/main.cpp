@@ -1,5 +1,5 @@
 // TNT: 
-// ...implement delay after switching mux channel
+// ...piezo reading - iron out sensitivity issues.
 
 #include "Constant_Parameters.h"
 #include "Piezo_Trigger.h"

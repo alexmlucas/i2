@@ -5,9 +5,13 @@
 class Input_Manager
 {
     private:
-        const unsigned int MUX_READ_DELAY_US = 1;          // the delay between changing mux channel and reading it.
-        const unsigned int DEBOUNCE_MS = 100;
+        const unsigned int MUX_READ_DELAY_US = 1;       // the delay between changing mux channel and reading it.
+        const unsigned int DEBOUNCE_MS = 20;
         const int POT_NOISE_FILTER = 5;
+        const int PIEZO_THRESHOLD = 10;                 // minimum reading, avoid "noise".
+        const unsigned int PIEZO_PEAK_MS = 2;                          // time to read peak value.
+        const unsigned int PIEZO_AFTERSHOCK_MS = 10;                   // time of aftershocks and vibration.
+
         const int m_rhythmPotPin = A19;  
         const int m_muxAInPin = A13;
         int m_muxBInPin = A20;
@@ -15,6 +19,11 @@ class Input_Manager
         int m_muxSelPin0 = 35;
         int m_muxSelPin1 = 34;
         int m_muxSelPin2 = 33;
+
+        int m_piezoPins[4];                                 // The pin the piezo is connected to.
+        int m_piezoPeaks[4];                                // Remember the last peak value.
+        int m_piezoStates[4];                               // Activity scan state.
+        elapsedMillis m_piezoTimers[4];
 
         int m_muxAButtonStates[8];
         int m_muxBButtonStates[8];
@@ -39,7 +48,7 @@ class Input_Manager
         void poll();
         // void readMux1();
         void readMuxs();
-        void readPiezos();
+        int readPiezo(int index);
         void readDirectPot();
         
 };
