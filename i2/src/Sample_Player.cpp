@@ -71,8 +71,8 @@ void Sample_Player::poll()
       {
         m_leftFade->fadeIn(FADE_IN_MS);                     // ...fade in.
         m_rightFade->fadeIn(FADE_IN_MS);
-        Serial.println("Fading in sample at address: ");
-        Serial.println(int(this));
+        //Serial.println("Fading in sample at address: ");
+        //Serial.println(int(this));
         m_fadeInRequestMade = true;                         // ...log that the request.
       }
     }

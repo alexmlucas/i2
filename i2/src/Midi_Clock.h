@@ -10,6 +10,7 @@ class Midi_Clock
     const int MODULO_32ND = 3;
     const int MODULO_16TH = 6;
     const int MODULO_8TH = 12;
+    const int MODULO_4TH = 24;
     
   public:
     int m_bpm;
@@ -25,6 +26,7 @@ class Midi_Clock
     bool isMidiTick32nd();
     bool isMidiTick16th();
     bool isMidiTick8th();
+    bool isMidiTick4th();
     void poll();
 };
 

@@ -42,6 +42,11 @@ Input_Manager::Input_Manager()
     m_changeMuxChannel = true;
 }
 
+void Input_Manager::setSamplePlayers(Sample_Player *samplePlayers)
+{
+    m_samplePlayers = samplePlayers;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -49,10 +54,15 @@ void Input_Manager::poll()
 
     for(int i = 0; i < 4; i++)
     {
-        int piezoReading = this->readPiezo(i);
+        float piezoReading = this->readPiezo(i);
 
         if(piezoReading > 0)
         {
+            piezoReading = constrain(piezoReading, 0, 100);
+            piezoReading = map(piezoReading, 0, 100, 1, 2.5);       // ...scale reading to appropriate range for logarithmic curve
+            piezoReading = log(piezoReading);
+            (m_samplePlayers+i)->processTriggerEvent(piezoReading);  // fire the event
+
             Serial.print("Piezo ");
             Serial.print(i);
             Serial.print(" = ");

@@ -1,6 +1,9 @@
 #ifndef INPUT_MANAGER
 #define INPUT_MANAGER
 #include <Arduino.h>
+#include "Sample_Player.h"
+#include "Constant_Parameters.h"
+
 
 class Input_Manager
 {
@@ -8,9 +11,9 @@ class Input_Manager
         const unsigned int MUX_READ_DELAY_US = 1;       // the delay between changing mux channel and reading it.
         const unsigned int DEBOUNCE_MS = 20;
         const int POT_NOISE_FILTER = 5;
-        const int PIEZO_THRESHOLD = 5;                 // minimum reading, avoid "noise".
+        const int PIEZO_THRESHOLD = 10;                 // minimum reading, avoid "noise".
         const unsigned int PIEZO_PEAK_MS = 2;                          // time to read peak value.
-        const unsigned int PIEZO_AFTERSHOCK_MS = 10;                   // time of aftershocks and vibration.
+        const unsigned int PIEZO_AFTERSHOCK_MS = 20;                   // time of aftershocks and vibration.
 
         const int m_rhythmPotPin = A19;  
         const int m_muxAInPin = A13;
@@ -41,10 +44,13 @@ class Input_Manager
         bool m_readMuxChannel;
         bool m_changeMuxChannel;
         bool m_readMe;
+        Sample_Player *m_samplePlayers;
+
         void setSensor(int index);
 
     public:
         Input_Manager();
+        void setSamplePlayers(Sample_Player *samplePlayers);
         void poll();
         // void readMux1();
         void readMuxs();

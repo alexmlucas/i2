@@ -2,7 +2,6 @@
 // ...piezo reading - iron out sensitivity issues.
 
 #include "Constant_Parameters.h"
-#include "Piezo_Trigger.h"
 #include "Led_Controller.h"
 #include "Led.h"
 #include "Sample_Player.h"
@@ -18,8 +17,12 @@
 #include <SD.h>
 #include <SerialFlash.h>
 
+#define SDCARD_MOSI_PIN  7
+#define SDCARD_SCK_PIN   14
+
+
 // GUItool: begin automatically generated code
-/*AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
+AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
 AudioPlaySdWav           playSdWav2;     //xy=69,248.00006103515625
 AudioPlaySdWav           playSdWav3;     //xy=71,315.00006103515625
 AudioPlaySdWav           playSdWav7;     //xy=70,582.0000610351562
@@ -104,82 +107,53 @@ AudioConnection          patchCord45(delay1, 0, mixer9, 1);
 AudioConnection          patchCord46(amp1, 0, mixer7, 2);
 AudioConnection          patchCord47(mixer8, 0, i2s1, 0);
 AudioConnection          patchCord48(mixer9, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1290,4462
 // GUItool: end automatically generated code
 
+// Test Tone
+/*AudioSynthWaveform    waveform1;
+AudioOutputI2S        i2s1;
+AudioConnection       patchCord1(waveform1, 0, i2s1, 0);
+AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
+
 // SD card definitions
-#define SDCARD_CS_PIN    10
-#define SDCARD_MOSI_PIN  7
-#define SDCARD_SCK_PIN   14*/
+//#define SDCARD_CS_PIN    10
+//#define SDCARD_MOSI_PIN  7
+//#define SDCARD_SCK_PIN   14
 
 Midi_Clock masterClock(DEFAULT_BPM);
-/*Midi_Clock rhythmClock(DEFAULT_BPM);
-Sample_Player samplePlayers[4] = {(&playSdWav1), (&playSdWav2), (&playSdWav3), (&playSdWav4)};
-Sequencer sequencer(&masterClock, samplePlayers);
-Transport transport(&masterClock, &sequencer);
-Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
-
-bool drumEventFlag = false;
-
-Led drumPadLeds[2] = {0, 1};
-Piezo_Trigger drumPads[2] = {A2, A3};
-double drumPadReadings[2] = {0, 0};*/
-
-// mux 0 LEDs
-Led undo(0, 0);
-Led record(0, 3);
-Led play(0, 4);
-Led volume(0, 5);
-Led tempo(0, 6);
-
-// mux 1 LEDs
-
-Led kit(1, 2);
-Led pattern(1, 1);
-Led kitPattern1(1, 7);
-Led kitPattern2(1, 6);
-Led kitPattern3(1, 5);
-Led kitPattern4(1, 4);
-
-// mux 2 LEDs
-Led slow(2, 2);
-Led fast(2, 1);
-Led rhythm3(2, 7);
-Led rhythm4(2, 6);
-Led rhythm5(2, 5);
-Led rhythm6(2, 4);
-Led rhythm7(2, 3);
-Led rhythm8(2, 0);
-
-// directly wired LED
-Led rhythm(37);
-
-Led *kitPatternMenuLeds[] = {&kit, &pattern};
+//Midi_Clock rhythmClock(DEFAULT_BPM);
 
 Led_Controller ledController(&masterClock);
 Input_Manager inputManager;
+Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
 
-int latchPin = 19;
-int clockPin = 18;
-int dataPin = 21;
-int ledIndex = 0;
-int ledToLight[] = {1, 2, 4, 8, 16, 32, 64, 128};
-elapsedMillis ledTimer;
+
+//Sequencer sequencer(&masterClock, samplePlayers);
+//Transport transport(&masterClock, &sequencer);
+//Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
+
+
+elapsedMillis actionTimer;
+int counter;
 
 void setup() 
 {
   Serial.begin(31250);
+  inputManager.setSamplePlayers(samplePlayers);
 
-  // setup the audio codec
-  /*AudioMemory(8);
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+
+  AudioMemory(10);
+  
+  // Test Tone
+  /*waveform1.begin(WAVEFORM_SINE);
+  waveform1.frequency(440);
+  waveform1.amplitude(0.1);*/
 
   // setup the SD card
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
   
-  if (!(SD.begin(SDCARD_CS_PIN))) 
+  if (!(SD.begin(BUILTIN_SDCARD))) 
   {
     while (1) 
     {
@@ -189,45 +163,63 @@ void setup()
   }
 
   // ### setup sample players ###
-  samplePlayers[0].setSampleName(String("kit_1/0.wav"));
-  samplePlayers[1].setSampleName(String("kit_1/1.wav"));
-  samplePlayers[2].setSampleName(String("kit_1/2.wav"));
-  samplePlayers[3].setSampleName(String("kit_1/3.wav"));
+  samplePlayers[0].setSampleName(String("0/0.wav"));
+  samplePlayers[1].setSampleName(String("0/1.wav"));
+  samplePlayers[2].setSampleName(String("0/2.wav"));
+  samplePlayers[3].setSampleName(String("0/3.wav"));
+  samplePlayers[4].setSampleName(String("0/4.wav"));
+  samplePlayers[5].setSampleName(String("0/5.wav"));
+  samplePlayers[6].setSampleName(String("0/6.wav"));
+  samplePlayers[7].setSampleName(String("0/7.wav"));
 
   samplePlayers[0].assignFadeObjects(&fade1, &fade2);
   samplePlayers[1].assignFadeObjects(&fade3, &fade4);
   samplePlayers[2].assignFadeObjects(&fade5, &fade6);
   samplePlayers[3].assignFadeObjects(&fade7, &fade8);
+  samplePlayers[4].assignFadeObjects(&fade9, &fade10);
+  samplePlayers[5].assignFadeObjects(&fade11, &fade12);
+  samplePlayers[6].assignFadeObjects(&fade13, &fade14);
+  samplePlayers[7].assignFadeObjects(&fade15, &fade16);
 
   samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
   samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
   samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
   samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
-  */
+  samplePlayers[4].assignMixerObjects(&mixer2, &mixer4, 0, 0);
+  samplePlayers[5].assignMixerObjects(&mixer2, &mixer4, 1, 1);
+  samplePlayers[6].assignMixerObjects(&mixer2, &mixer4, 2, 2);
+  samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
 
   while (!Serial && millis() < 2500);                                   // wait for serial monitor
 
-  delay(2000);
-
-  ledController.setKitPattMenuLeds(1, 0);
+  /*ledController.setKitPattMenuLeds(1, 0);
   ledController.setKitPattNumLeds(0, 0, 0, 1);
-
   ledController.setSlowFastMenuLeds(1, 0);
   ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
-
   ledController.setTempoVolMenuLeds(0, 1);
   ledController.setTransportLeds(1, 0, 1);
-
-  ledController.setDrumPadLeds(1, 64, 128, 256);
+  ledController.setDrumPadLeds(1, 64, 128, 256);*/
+  actionTimer = 0;
+  counter = 0;
 }
 
 void loop() 
 { 
-  delay(10);
-  ledController.poll();
+  if(actionTimer > 2000){
+    //ledController.setKitPattMenuLeds(1, 1);
+    //ledController.setKitPattNumLeds(1, 1, 1, 1);
+    //ledController.setSlowFastMenuLeds(1, 1);
+    //ledController.setRhythmNumLeds(1, 1, 1, 1, 1, 1, 1);
+    //ledController.setTempoVolMenuLeds(1, 1);
+    //ledController.setTransportLeds(1, 1, 1);
+    //samplePlayers[0].processTriggerEvent(0.9);
+    actionTimer = 0;
+  }
+  //delay(10);
+  //ledController.poll();
   masterClock.poll();
   inputManager.poll();
-  
+
   /*for(int i = 0; i < 2; i++)
   {
     drumPadReadings[i] = drumPads[i].checkActivity();                   // ### Read the Drum Pads ###
@@ -253,13 +245,15 @@ void loop()
 
   rhythmClock.poll();
 
+  for(int i = 0; i < 2; i++)                                            // refresh drum leds
+  {
+    drumPadLeds[i].refresh();
+  }*/
+
   for(int i = 0; i < TRACK_AMOUNT - 1; i++)                             // poll all samples. polling takes care of fades.
   {
     samplePlayers[i].poll();
   }
 
-  for(int i = 0; i < 2; i++)                                            // refresh drum leds
-  {
-    drumPadLeds[i].refresh();
-  }*/
+  
 }

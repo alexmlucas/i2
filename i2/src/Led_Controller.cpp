@@ -40,11 +40,11 @@ void Led_Controller::poll()       // used solely to flash the play led when enga
       if(m_playLedCurrentState)
       {
         bitSet(m_muxLedStates[0], m_playLedBit);
-        m_playLedCurrentState = true;
+        //m_playLedCurrentState = true;
       } else 
       {
         bitClear(m_muxLedStates[0], m_playLedBit);
-        m_playLedCurrentState = false;
+        //m_playLedCurrentState = false;
       }
 
       this->writeMuxLeds();

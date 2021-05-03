@@ -50,6 +50,11 @@ bool Midi_Clock::isMidiTick8th()
   return ((m_currentMidiTick % MODULO_8TH) == 0);
 }
 
+bool Midi_Clock::isMidiTick4th()                   
+{
+  return ((m_currentMidiTick % MODULO_4TH) == 0);
+}
+
 void Midi_Clock::poll()
 {
   if(m_timer > m_midiTickInterval)                // if the timer has exceed the midi tick interval...
