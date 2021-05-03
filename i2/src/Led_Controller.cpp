@@ -8,10 +8,10 @@ Led_Controller::Led_Controller(Midi_Clock* masterClock)
   pinMode(m_muxClockPin, OUTPUT);
   pinMode(m_muxDataPin, OUTPUT);
   pinMode(m_rhythm2LedPin, OUTPUT);
-  pinMode(m_drumPad0LedPin, OUTPUT);
-  pinMode(m_drumPad1LedPin, OUTPUT);
-  pinMode(m_drumPad2LedPin, OUTPUT);
-  pinMode(m_drumPad3LedPin, OUTPUT);
+  pinMode(m_drumLedPins[0], OUTPUT);
+  pinMode(m_drumLedPins[1], OUTPUT);
+  pinMode(m_drumLedPins[2], OUTPUT);
+  pinMode(m_drumLedPins[3], OUTPUT);
 
   for(int i = 0; i < 3; i++)              // initialise mux LEDs
   {
@@ -23,15 +23,17 @@ Led_Controller::Led_Controller(Midi_Clock* masterClock)
 
   this->writeMuxLeds();
   digitalWrite(m_rhythm2LedPin, LOW);   // intialise directly wired LEDs
-  analogWrite(m_drumPad0LedPin, 0);
-  analogWrite(m_drumPad1LedPin, 0);
-  analogWrite(m_drumPad2LedPin, 0);
-  analogWrite(m_drumPad3LedPin, 0);
+  analogWrite(m_drumLedPins[0], 0);
+  analogWrite(m_drumLedPins[1], 0);
+  analogWrite(m_drumLedPins[2], 0);
+  analogWrite(m_drumLedPins[3], 0);
 }
 
 void Led_Controller::poll()       // used solely to flash the play led when engaged
 {
-  if(m_playStateActive)
+  this->updatePulse();
+
+  /*if(m_playStateActive)
   {
     if(m_masterClock->isMidiTick8th())
     {
@@ -49,7 +51,7 @@ void Led_Controller::poll()       // used solely to flash the play led when enga
 
       this->writeMuxLeds();
     }
-  }
+  }*/
 }
 
 void Led_Controller::assignKitPattMenuLeds(Led *kitPattMenuLeds[])
@@ -268,12 +270,12 @@ void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int 
   this->writeMuxLeds();
 }
 
-void Led_Controller::setDrumPadLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue)
+void Led_Controller::setDrumLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue)
 {
-  analogWrite(m_drumPad0LedPin, drumPad0LedValue);
-  analogWrite(m_drumPad1LedPin, drumPad1LedValue);
-  analogWrite(m_drumPad2LedPin, drumPad2LedValue);
-  analogWrite(m_drumPad3LedPin, drumPad3LedValue);
+  analogWrite(m_drumLedPins[0], drumPad0LedValue);
+  analogWrite(m_drumLedPins[1], drumPad1LedValue);
+  analogWrite(m_drumLedPins[2], drumPad2LedValue);
+  analogWrite(m_drumLedPins[3], drumPad3LedValue);
 }
 
 void Led_Controller::writeMuxLeds()
@@ -286,4 +288,29 @@ void Led_Controller::writeMuxLeds()
     }
 
     digitalWrite(m_muxLatchPin, HIGH);
+}
+
+void Led_Controller::setPulseDrumLed(int ledNumber, int ledValue)
+{
+  Serial.println(ledNumber);
+  m_drumLedPulseFlags[ledNumber] = true;                      // set the pulse flag.
+  analogWrite(m_drumLedPins[ledNumber], ledValue);    // switch on the led.
+  drumLedPulseTimers[ledNumber] = 0;                  // reset the pulse timer.    
+}
+
+void Led_Controller::updatePulse()
+{
+  for(int i = 0; i < 4; i++)
+  {
+    if(m_drumLedPulseFlags[i])                        // if flag is set
+    {
+      if(drumLedPulseTimers[i] > m_pulseLengthMs)     // if timer exceeded
+      {
+        analogWrite(m_drumLedPins[i], 0);             // switch off led at index
+        m_drumLedPulseFlags[i] = false;               // reset flag
+        Serial.print("switching off");
+        Serial.println(i);
+      }
+    }
+  }
 }

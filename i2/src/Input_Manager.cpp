@@ -2,11 +2,10 @@
 
 Input_Manager::Input_Manager()
 {
-
-    m_piezoPins[0] =  A2;
+    /*m_piezoPins[0] =  A2;
     m_piezoPins[1] =  A1;
     m_piezoPins[2] =  A0;
-    m_piezoPins[3] =  A3;
+    m_piezoPins[3] =  A3;*/
     
     pinMode(m_rhythmPotPin, INPUT);
     pinMode(m_muxAInPin, INPUT);
@@ -47,6 +46,11 @@ void Input_Manager::setSamplePlayers(Sample_Player *samplePlayers)
     m_samplePlayers = samplePlayers;
 }
 
+void Input_Manager::setLedController(Led_Controller *ledController)
+{
+    m_ledController = ledController;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -67,6 +71,10 @@ void Input_Manager::poll()
             Serial.print(i);
             Serial.print(" = ");
             Serial.println(piezoReading);
+
+
+            m_ledController->setPulseDrumLed(i, piezoReading * 256);
+
         }
     }
 }
@@ -220,7 +228,7 @@ void Input_Manager::setSensor(int index)
 } 
 
 int Input_Manager::readPiezo(int index){
-  int piezo = analogRead(index);
+  int piezo = analogRead(m_piezoPins[index]);
   int return_value = 0;                   
 
   if(m_piezoStates[index] == 0){                                // ----Idle state-------------

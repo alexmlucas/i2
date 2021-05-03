@@ -4,18 +4,18 @@
 #include "Led.h"
 #include "Midi_Clock.h"
 
+
 class Led_Controller
 {
     private:
-        // slightly hacky implementation of constants
         int m_muxLatchPin = 19;
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
-        int m_drumPad0LedPin = 10;
-        int m_drumPad1LedPin = 2;
-        int m_drumPad2LedPin = 29;
-        int m_drumPad3LedPin = 30;
+        int m_pulseLengthMs = 100;
+        int m_drumLedPins[4] = {30, 29, 2, 10};
+        bool m_drumLedPulseFlags[4] = {false, false, false, false};
+        elapsedMillis drumLedPulseTimers[4] = {false, false, false, false};
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -59,7 +59,10 @@ class Led_Controller
         void setRhythmNumLeds(int num2LedState, int num3LedState, int num4LedState, int num5LedState, int num6LedState, int num7LedState, int num8LedState);
         void setTempoVolMenuLeds(int tempoLedState, int volLedState);
         void setTransportLeds(int playLedState, int recordLedState, int undoLedState);
-        void setDrumPadLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue);
+        void setDrumLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue);
+        void setPulseDrumLed(int ledNumber, int ledValue);
+        void updatePulse();
+
 };
 
 #endif

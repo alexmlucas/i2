@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include "Sample_Player.h"
 #include "Constant_Parameters.h"
-
+#include "Led_Controller.h"
 
 class Input_Manager
 {
@@ -22,8 +22,8 @@ class Input_Manager
         int m_muxSelPin0 = 35;
         int m_muxSelPin1 = 34;
         int m_muxSelPin2 = 33;
-
-        int m_piezoPins[4];                                 // The pin the piezo is connected to.
+        
+        int m_piezoPins[4] = {A2, A1, A0, A3};                                 // The pin the piezo is connected to.
         int m_piezoPeaks[4];                                // Remember the last peak value.
         int m_piezoStates[4];                               // Activity scan state.
         elapsedMillis m_piezoTimers[4];
@@ -45,12 +45,14 @@ class Input_Manager
         bool m_changeMuxChannel;
         bool m_readMe;
         Sample_Player *m_samplePlayers;
+        Led_Controller *m_ledController;
 
         void setSensor(int index);
 
     public:
         Input_Manager();
         void setSamplePlayers(Sample_Player *samplePlayers);
+        void setLedController(Led_Controller *ledController);
         void poll();
         // void readMux1();
         void readMuxs();

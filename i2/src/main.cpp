@@ -140,6 +140,7 @@ void setup()
 {
   Serial.begin(31250);
   inputManager.setSamplePlayers(samplePlayers);
+  inputManager.setLedController(&ledController);
 
 
   AudioMemory(10);
@@ -198,7 +199,8 @@ void setup()
   ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
   ledController.setTempoVolMenuLeds(0, 1);
   ledController.setTransportLeds(1, 0, 1);
-  ledController.setDrumPadLeds(1, 64, 128, 256);*/
+  ledController.setDrumLeds(256, 256, 256, 256);*/
+
   actionTimer = 0;
   counter = 0;
 }
@@ -216,7 +218,7 @@ void loop()
     actionTimer = 0;
   }
   //delay(10);
-  //ledController.poll();
+  ledController.poll();
   masterClock.poll();
   inputManager.poll();
 

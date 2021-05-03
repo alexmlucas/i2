@@ -33,7 +33,7 @@ class Led{
     void pulse();
     void update_flashing();
     void update_pulse();
-    void refresh();
+    void poll();
 };
 
 #endif

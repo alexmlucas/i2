@@ -37,15 +37,17 @@ void Led::set_on(bool _state){
   }
 }
 
-void Led::pulse(){
+void Led::pulse()
+{
   m_pulse_flag = true;            // set the pulse flag
   set_on(true);                   // switch on the led.
   m_ms_since_pulse_on = 0;        // reset the pulse on timer.
 }
 
-void Led::refresh(){              // a generic class for refreshing the led state.
-  update_pulse();                  
-  //update_flashing();
+void Led::poll()                  // a generic class for refreshing the led state.
+{              
+  this->update_pulse();                  
+  this->update_flashing();
 }
 
 void Led::set_flashing(bool _state){
@@ -54,7 +56,8 @@ void Led::set_flashing(bool _state){
   analogWrite(m_pin, 0);
 }
 
-void Led::update_pulse(){
+void Led::update_pulse()
+{
   if(m_pulse_flag){
     if(m_ms_since_pulse_on > PULSE_LENGTH_MS){    // if pulse length is exceeded...
       set_on(false);                              // ...switch off...
@@ -63,7 +66,8 @@ void Led::update_pulse(){
   }
 }
 
-void Led::update_flashing(){
+void Led::update_flashing()
+{
   if(m_flash_flag){
     if((millis() - m_last_flash_time) > m_flash_rate_ms){
 
