@@ -6,7 +6,7 @@
 
 Rhythm_Generator::Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport, Sample_Player* samplePlayers) 
 {
-  m_rhythm = 128;
+  m_rhythm = 212;
   m_rhythmClock = rhythmClock;
   m_transport = transport;
   m_samplePlayers = samplePlayers;
@@ -45,12 +45,12 @@ void Rhythm_Generator::printRhythm()
 
 void Rhythm_Generator::triggerRhythm(int track, float velocity)
 {
-  m_track = track;
-  m_velocity = velocity;
-  m_isPlayingFlag = true;
-  m_rhythmClock->_reset();
-  m_lastMidiTick = -1;
-  m_currentStep = 0;
+  m_track = track;                // the track to play
+  m_velocity = velocity;          // the velocity to play the sample
+  m_isPlayingFlag = true;         // we're now playing
+  m_rhythmClock->_reset();        // reset the clock used by the rhythm generator
+  m_lastMidiTick = -1;            // null value for last tick
+  m_currentStep = 0;              // reset the current step.
 }
 
 void Rhythm_Generator::poll()
@@ -61,9 +61,9 @@ void Rhythm_Generator::poll()
 
     if(currentMidiTick != m_lastMidiTick)                               // if this is a new midi tick...
     {
-      int invertedStep = abs(m_currentStep - 7);
-      bool triggerFlag = bool(bitRead(m_rhythm, invertedStep));
-      bool midiTickOnStepFlag = false;
+      int invertedStep = abs(m_currentStep - 7);                        // convert step to appropriate bit
+      bool triggerFlag = bool(bitRead(m_rhythm, invertedStep));         // read bit.
+      bool midiTickOnStepFlag = false;                                  // reset flag to play when on a new MIDI tick.
       
       switch(m_playbackSpeed)                                           // ...set the midiTickOnStepFlag according to the playback speed.
       {
@@ -82,6 +82,7 @@ void Rhythm_Generator::poll()
       {
         if(triggerFlag)                                                 // if the rhythm generator step is 'on'
         {
+          Serial.println("triggering");
           m_samplePlayers[m_track].processTriggerEvent(m_velocity);     // ...trigger the sample 
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
         }

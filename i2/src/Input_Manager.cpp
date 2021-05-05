@@ -51,6 +51,11 @@ void Input_Manager::setLedController(Led_Controller *ledController)
     m_ledController = ledController;
 }
 
+void Input_Manager::setRhythmGenerator(Rhythm_Generator *rhythmGenerator)
+{
+    m_rhythmGenerator = rhythmGenerator;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -63,18 +68,17 @@ void Input_Manager::poll()
         if(piezoReading > 0)
         {
             piezoReading = constrain(piezoReading, 0, 100);
-            piezoReading = map(piezoReading, 0, 100, 1, 2.5);       // ...scale reading to appropriate range for logarithmic curve
+            piezoReading = map(piezoReading, 0, 100, 1, 2.5);           // ...scale reading to appropriate range for logarithmic curve
             piezoReading = log(piezoReading);
-            (m_samplePlayers+i)->processTriggerEvent(piezoReading);  // fire the event
+            //(m_samplePlayers+i)->processTriggerEvent(piezoReading);     // fire the event
+            m_rhythmGenerator->triggerRhythm(i, piezoReading);          
+            m_ledController->setPulseDrumLed(i, piezoReading * 256);    // pulse the LED
 
-            Serial.print("Piezo ");
+
+            /* Serial.print("Piezo ");
             Serial.print(i);
             Serial.print(" = ");
-            Serial.println(piezoReading);
-
-
-            m_ledController->setPulseDrumLed(i, piezoReading * 256);
-
+            Serial.println(piezoReading);*/
         }
     }
 }

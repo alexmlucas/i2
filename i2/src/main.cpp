@@ -20,7 +20,6 @@
 #define SDCARD_MOSI_PIN  7
 #define SDCARD_SCK_PIN   14
 
-
 // GUItool: begin automatically generated code
 AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
 AudioPlaySdWav           playSdWav2;     //xy=69,248.00006103515625
@@ -121,27 +120,22 @@ AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
 //#define SDCARD_SCK_PIN   14
 
 Midi_Clock masterClock(DEFAULT_BPM);
-//Midi_Clock rhythmClock(DEFAULT_BPM);
+Midi_Clock rhythmClock(DEFAULT_BPM);
 
 Led_Controller ledController(&masterClock);
 Input_Manager inputManager;
 Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
 
-
-//Sequencer sequencer(&masterClock, samplePlayers);
-//Transport transport(&masterClock, &sequencer);
-//Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
-
-
-elapsedMillis actionTimer;
-int counter;
+Sequencer sequencer(&masterClock, samplePlayers);
+Transport transport(&masterClock, &sequencer);
+Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
 
 void setup() 
 {
   Serial.begin(31250);
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
-
+  inputManager.setRhythmGenerator(&rhythmGenerator);
 
   AudioMemory(10);
   
@@ -200,24 +194,10 @@ void setup()
   ledController.setTempoVolMenuLeds(0, 1);
   ledController.setTransportLeds(1, 0, 1);
   ledController.setDrumLeds(256, 256, 256, 256);*/
-
-  actionTimer = 0;
-  counter = 0;
 }
 
 void loop() 
 { 
-  if(actionTimer > 2000){
-    //ledController.setKitPattMenuLeds(1, 1);
-    //ledController.setKitPattNumLeds(1, 1, 1, 1);
-    //ledController.setSlowFastMenuLeds(1, 1);
-    //ledController.setRhythmNumLeds(1, 1, 1, 1, 1, 1, 1);
-    //ledController.setTempoVolMenuLeds(1, 1);
-    //ledController.setTransportLeds(1, 1, 1);
-    //samplePlayers[0].processTriggerEvent(0.9);
-    actionTimer = 0;
-  }
-  //delay(10);
   ledController.poll();
   masterClock.poll();
   inputManager.poll();
@@ -235,19 +215,15 @@ void loop()
       rhythmGenerator.triggerRhythm(i, drumPadReadings[i]);             // ...trigger the rhythm.
       drumPadLeds[i].pulse();                                           // ...set the LED to pulse. 
     }
-  }
+  }*/
 
   transport.poll();                                                     // poll the transport. manages the master clock and sequencer. 
-
   sequencer.poll();                                                     // ask the sequencer to check if it needs to do anything.
-
   rhythmGenerator.poll();
-
   masterClock.poll();                                                   // poll the master clock.
-
   rhythmClock.poll();
 
-  for(int i = 0; i < 2; i++)                                            // refresh drum leds
+  /*for(int i = 0; i < 2; i++)                                            // refresh drum leds
   {
     drumPadLeds[i].refresh();
   }*/
@@ -256,6 +232,4 @@ void loop()
   {
     samplePlayers[i].poll();
   }
-
-  
 }

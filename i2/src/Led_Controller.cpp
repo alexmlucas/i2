@@ -29,7 +29,7 @@ Led_Controller::Led_Controller(Midi_Clock* masterClock)
   analogWrite(m_drumLedPins[3], 0);
 }
 
-void Led_Controller::poll()       // used solely to flash the play led when engaged
+void Led_Controller::poll()
 {
   this->updatePulse();
 
@@ -292,7 +292,6 @@ void Led_Controller::writeMuxLeds()
 
 void Led_Controller::setPulseDrumLed(int ledNumber, int ledValue)
 {
-  Serial.println(ledNumber);
   m_drumLedPulseFlags[ledNumber] = true;                      // set the pulse flag.
   analogWrite(m_drumLedPins[ledNumber], ledValue);    // switch on the led.
   drumLedPulseTimers[ledNumber] = 0;                  // reset the pulse timer.    
@@ -308,8 +307,6 @@ void Led_Controller::updatePulse()
       {
         analogWrite(m_drumLedPins[i], 0);             // switch off led at index
         m_drumLedPulseFlags[i] = false;               // reset flag
-        Serial.print("switching off");
-        Serial.println(i);
       }
     }
   }
