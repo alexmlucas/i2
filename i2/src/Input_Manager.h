@@ -32,8 +32,9 @@ class Input_Manager
         int m_muxAButtonStates[8];
         int m_muxBButtonStates[8];
         int m_muxCButtonStates[8];
-        int m_echoPotLastValue;
-        int m_rhythmPotLastValue;
+        int m_echoPotLastRawValue;
+        int m_rhythmPotLastRawValue;
+        int m_rhythmPotLastMappedValue;
 
         int m_muxAButtonEventTimes[8];
         int m_muxBButtonEventTimes[8];

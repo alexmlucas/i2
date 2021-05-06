@@ -136,6 +136,7 @@ void setup()
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
+  rhythmGenerator.setLedController(&ledController);
 
   AudioMemory(10);
   

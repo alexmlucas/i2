@@ -2,11 +2,6 @@
 
 Input_Manager::Input_Manager()
 {
-    /*m_piezoPins[0] =  A2;
-    m_piezoPins[1] =  A1;
-    m_piezoPins[2] =  A0;
-    m_piezoPins[3] =  A3;*/
-    
     pinMode(m_rhythmPotPin, INPUT);
     pinMode(m_muxAInPin, INPUT);
     pinMode(m_muxBInPin, INPUT);
@@ -33,7 +28,9 @@ Input_Manager::Input_Manager()
         m_muxCButtonEventTimes[i] = 0;
     }
 
-    m_echoPotLastValue = 0;
+    m_echoPotLastRawValue = 0;
+    m_rhythmPotLastRawValue = 0;
+    m_rhythmPotLastMappedValue = 0;
     m_muxReadTimer = 0;
     m_muxReadIndex = 0;
 
@@ -72,8 +69,7 @@ void Input_Manager::poll()
             piezoReading = log(piezoReading);
             //(m_samplePlayers+i)->processTriggerEvent(piezoReading);     // fire the event
             m_rhythmGenerator->triggerRhythm(i, piezoReading);          
-            m_ledController->setPulseDrumLed(i, piezoReading * 256);    // pulse the LED
-
+            
 
             /* Serial.print("Piezo ");
             Serial.print(i);
@@ -128,12 +124,12 @@ void Input_Manager::readMuxs()
             int muxBCurrentValue = analogRead(m_muxBInPin);
 
             // check to see if the pot value has changed.
-            if(muxBCurrentValue <= (m_echoPotLastValue - POT_NOISE_FILTER) || muxBCurrentValue >= (m_echoPotLastValue + POT_NOISE_FILTER))
+            if(muxBCurrentValue <= (m_echoPotLastRawValue - POT_NOISE_FILTER) || muxBCurrentValue >= (m_echoPotLastRawValue + POT_NOISE_FILTER))
             {
                 // the pot value has changed.
-                m_echoPotLastValue = muxBCurrentValue;
+                m_echoPotLastRawValue = muxBCurrentValue;
                 Serial.print("echo pot value = ");
-                Serial.println(m_echoPotLastValue);
+                Serial.println(m_echoPotLastRawValue);
             }
         } else
         {
@@ -209,14 +205,22 @@ void Input_Manager::readMuxs()
 
 void Input_Manager::readDirectPot()
 {
-    int rhythmPotCurrentValue = analogRead(m_rhythmPotPin);
+    int rhythmPotCurrentRawValue = analogRead(m_rhythmPotPin);
 
     // check to see if the pot value has changed.
-    if(rhythmPotCurrentValue <= (m_rhythmPotLastValue - POT_NOISE_FILTER) || rhythmPotCurrentValue >= (m_rhythmPotLastValue + POT_NOISE_FILTER))                {
+    if(rhythmPotCurrentRawValue <= (m_rhythmPotLastRawValue - POT_NOISE_FILTER) || rhythmPotCurrentRawValue >= (m_rhythmPotLastRawValue + POT_NOISE_FILTER))                {
         // the pot value has changed.
-        m_rhythmPotLastValue = rhythmPotCurrentValue;
-        Serial.print("rhythm pot value = ");
-        Serial.println(m_rhythmPotLastValue);
+        m_rhythmPotLastRawValue = rhythmPotCurrentRawValue;
+
+        int rhythmPotCurrentMappedValue = map(m_rhythmPotLastRawValue, 0, 1024, 0, 127);
+
+        if(rhythmPotCurrentMappedValue != m_rhythmPotLastMappedValue)    // further filtering on mapped value.
+        {
+            m_rhythmGenerator->setRhythm(rhythmPotCurrentMappedValue);
+            Serial.print("rhythm pot value = ");
+            Serial.println(rhythmPotCurrentMappedValue);
+            m_rhythmPotLastMappedValue = rhythmPotCurrentMappedValue;
+        }
     }
 }
 

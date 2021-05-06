@@ -5,15 +5,18 @@
 #include "Midi_Clock.h"
 #include "Transport.h"
 #include "Sample_Player.h"
+#include "Led_Controller.h"
 
 class Rhythm_Generator
 {
   private:
     const int RHYTHM_LENGTH = 8;
-    byte m_rhythm;
+    byte m_rhythmValue;
     Midi_Clock* m_rhythmClock;
     Transport* m_transport;
     Sample_Player* m_samplePlayers;
+    Led_Controller *m_ledController;
+
     float m_velocity;
     int m_track;
     int m_currentStep;
@@ -23,11 +26,12 @@ class Rhythm_Generator
     
   public:
     Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport, Sample_Player* samplePlayers);
-    void printRhythm();
     void poll();
+    void setLedController(Led_Controller *ledController);
     void setPlaybackSpeed(int playbackSpeed);
+    void setRhythm(int rhythmValue);
+    void displayRhythm();
     void advance();
-    
     void triggerRhythm(int track, float velocity);
     float getTrigger();
 };
