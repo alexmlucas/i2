@@ -15,7 +15,10 @@ class Led_Controller
         int m_pulseLengthMs = 100;
         int m_drumLedPins[4] = {30, 29, 2, 10};
         bool m_drumLedPulseFlags[4] = {false, false, false, false};
-        elapsedMillis drumLedPulseTimers[4] = {false, false, false, false};
+        elapsedMillis m_drumLedPulseTimers[4] = {false, false, false, false};
+        int m_rhythmLedCurrentStates[7] = {0, 0, 0, 0, 0, 0, 0};
+        bool m_rhythmLedPulseFlags[7] = {false, false, false, false, false, false, false};
+        elapsedMillis m_rhythmLedPulseTimers[7] = {false, false, false, false, false, false, false};
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -56,13 +59,12 @@ class Led_Controller
         void setKitPattMenuLeds(int kitLedState, int pattLedState);
         void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
         void setSlowFastMenuLeds(int slowLedState, int fastLedState);
-        void setRhythmNumLeds(int num2LedState, int num3LedState, int num4LedState, int num5LedState, int num6LedState, int num7LedState, int num8LedState);
+        void setRhythmLed(int index, int state);
         void setTempoVolMenuLeds(int tempoLedState, int volLedState);
         void setTransportLeds(int playLedState, int recordLedState, int undoLedState);
-        void setDrumLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue);
-        void setPulseDrumLed(int ledNumber, int ledValue);
+        void pulseDrumLed(int ledNumber, int ledValue);
+        void pulseRhythmLed(int index);
         void updatePulse();
-
 };
 
 #endif

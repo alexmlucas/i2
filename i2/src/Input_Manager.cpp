@@ -67,10 +67,8 @@ void Input_Manager::poll()
             piezoReading = constrain(piezoReading, 0, 100);
             piezoReading = map(piezoReading, 0, 100, 1, 2.5);           // ...scale reading to appropriate range for logarithmic curve
             piezoReading = log(piezoReading);
-            //(m_samplePlayers+i)->processTriggerEvent(piezoReading);     // fire the event
             m_rhythmGenerator->triggerRhythm(i, piezoReading);          
             
-
             /* Serial.print("Piezo ");
             Serial.print(i);
             Serial.print(" = ");

@@ -49,7 +49,12 @@ void Rhythm_Generator::poll()
           Serial.println("triggering");
           m_samplePlayers[m_track].processTriggerEvent(m_velocity);     // ...trigger the sample 
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
-          m_ledController->setPulseDrumLed(m_track, m_velocity * 256);  // pulse the LED
+          m_ledController->pulseDrumLed(m_track, m_velocity * 256);     // pulse the drum LED
+        }
+
+        if(m_currentStep != 0)                                              // Pulse rhythm LED if not step 0
+        {
+          m_ledController->pulseRhythmLed(m_currentStep - 1);               // tweak the index number slightly                      
         }
 
         this->advance();                                                // advance the step counter. (should set play to off after 7th step!)
@@ -72,37 +77,28 @@ void Rhythm_Generator::setRhythm(int rhythmValue)
 
 void Rhythm_Generator::displayRhythm()
 {
-  int led2State = int(bitRead(m_rhythmValue, 6));
-  int led3State = int(bitRead(m_rhythmValue, 5));
-  int led4State = int(bitRead(m_rhythmValue, 4));
-  int led5State = int(bitRead(m_rhythmValue, 3));
-  int led6State = int(bitRead(m_rhythmValue, 2));
-  int led7State = int(bitRead(m_rhythmValue, 1));
-  int led8State = int(bitRead(m_rhythmValue, 0));
-  
-  m_ledController->setRhythmNumLeds(led2State, led3State, led4State, led5State, led6State, led7State, led8State);
+  m_ledController->setRhythmLed(0, int(bitRead(m_rhythmValue, 6)));
+  m_ledController->setRhythmLed(1, int(bitRead(m_rhythmValue, 5)));
+  m_ledController->setRhythmLed(2, int(bitRead(m_rhythmValue, 4)));
+  m_ledController->setRhythmLed(3, int(bitRead(m_rhythmValue, 3)));
+  m_ledController->setRhythmLed(4, int(bitRead(m_rhythmValue, 2)));
+  m_ledController->setRhythmLed(5, int(bitRead(m_rhythmValue, 1)));
+  m_ledController->setRhythmLed(6, int(bitRead(m_rhythmValue, 0)));
 
   Serial.print(int(bitRead(m_rhythmValue, 7)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 6)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 5)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 4)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 3)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 2)));
   Serial.print(" ");
-
   Serial.print(int(bitRead(m_rhythmValue, 1)));
   Serial.print(" ");
-
   Serial.println(int(bitRead(m_rhythmValue, 0)));
 }
 
@@ -115,8 +111,6 @@ void Rhythm_Generator::triggerRhythm(int track, float velocity)
   m_lastMidiTick = -1;            // null value for last tick
   m_currentStep = 0;              // reset the current step.
 }
-
-
 
 void Rhythm_Generator::advance()                                                         // advance to the next step
 {

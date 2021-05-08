@@ -147,63 +147,85 @@ void Led_Controller::setKitPattNumLeds(int num1LedState, int num2LedState, int n
   this->writeMuxLeds();
 }
 
-void Led_Controller::setRhythmNumLeds(int num2LedState, int num3LedState, int num4LedState, int num5LedState, int num6LedState, int num7LedState, int num8LedState)
+void Led_Controller::setRhythmLed(int index, int state)
 {
-  // depending on the incoming values, set or clear the appropriate bit
-  if(num2LedState == 1)
+  if(index == 0)
   {
-    digitalWrite(m_rhythm2LedPin, HIGH);
-  } else
-  {
-    digitalWrite(m_rhythm2LedPin, LOW);
+    digitalWrite(m_rhythm2LedPin, state);
+    m_rhythmLedCurrentStates[0] = state;            
   }
 
-  if(num3LedState == 1)
+  if(index == 1)
   {
-    bitSet(m_muxLedStates[2], m_rhythm3Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm3Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm3Bit);      // This function differs from the one above as these LEDs are connected via a mux chip
+    } else
+    {
+      bitClear(m_muxLedStates[2], m_rhythm3Bit);
+    }
+    m_rhythmLedCurrentStates[1] = state;
   }
 
-  if(num4LedState == 1)
+  if(index == 2)
   {
-    bitSet(m_muxLedStates[2], m_rhythm4Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm4Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm4Bit);
+    } else
+    {
+      bitClear(m_muxLedStates[2], m_rhythm4Bit);
+    }
+    m_rhythmLedCurrentStates[2] = state;
   }
 
-  if(num5LedState == 1)
+  if(index == 3)
   {
-    bitSet(m_muxLedStates[2], m_rhythm5Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm5Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm5Bit);
+    } else
+    {
+      bitClear(m_muxLedStates[2], m_rhythm5Bit);
+    }
+    m_rhythmLedCurrentStates[3] = state;
   }
 
-  if(num6LedState == 1)
+  if(index == 4)
   {
-    bitSet(m_muxLedStates[2], m_rhythm6Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm6Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm6Bit);
+    } else
+    {
+      bitClear(m_muxLedStates[2], m_rhythm6Bit);
+    }
+    m_rhythmLedCurrentStates[4] = state;
   }
 
-  if(num7LedState == 1)
+  if(index == 5)
   {
-    bitSet(m_muxLedStates[2], m_rhythm7Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm7Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm7Bit);
+
+    } else
+    {
+      bitClear(m_muxLedStates[2], m_rhythm7Bit);
+    }
+    m_rhythmLedCurrentStates[5] = state;
   }
 
-  if(num8LedState == 1)
+  if(index == 6)
   {
-    bitSet(m_muxLedStates[2], m_rhythm8Bit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_rhythm8Bit);
+    if(state == HIGH)
+    {
+      bitSet(m_muxLedStates[2], m_rhythm8Bit);
+    } else 
+    {
+      bitClear(m_muxLedStates[2], m_rhythm8Bit);
+    }
+    m_rhythmLedCurrentStates[6] = state;
   }
 
   // write the changes;
@@ -270,14 +292,6 @@ void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int 
   this->writeMuxLeds();
 }
 
-void Led_Controller::setDrumLeds(int drumPad0LedValue, int drumPad1LedValue, int drumPad2LedValue, int drumPad3LedValue)
-{
-  analogWrite(m_drumLedPins[0], drumPad0LedValue);
-  analogWrite(m_drumLedPins[1], drumPad1LedValue);
-  analogWrite(m_drumLedPins[2], drumPad2LedValue);
-  analogWrite(m_drumLedPins[3], drumPad3LedValue);
-}
-
 void Led_Controller::writeMuxLeds()
 {
     digitalWrite(m_muxLatchPin, LOW);
@@ -290,23 +304,43 @@ void Led_Controller::writeMuxLeds()
     digitalWrite(m_muxLatchPin, HIGH);
 }
 
-void Led_Controller::setPulseDrumLed(int ledNumber, int ledValue)
+void Led_Controller::pulseDrumLed(int ledNumber, int ledValue)
 {
-  m_drumLedPulseFlags[ledNumber] = true;                      // set the pulse flag.
-  analogWrite(m_drumLedPins[ledNumber], ledValue);    // switch on the led.
-  drumLedPulseTimers[ledNumber] = 0;                  // reset the pulse timer.    
+  m_drumLedPulseFlags[ledNumber] = true;                // set the pulse flag.
+  analogWrite(m_drumLedPins[ledNumber], ledValue);      // switch on the led.
+  m_drumLedPulseTimers[ledNumber] = 0;                  // reset the pulse timer.    
 }
+
+void Led_Controller::pulseRhythmLed(int index)
+{
+  m_rhythmLedPulseFlags[index] = true;                            // set the pulse flag.
+  this->setRhythmLed(index, !m_rhythmLedCurrentStates[index]);    // light and flip the led state
+  m_rhythmLedPulseTimers[index] = true;                           // reset the pulse timers
+}
+
 
 void Led_Controller::updatePulse()
 {
-  for(int i = 0; i < 4; i++)
+  for(int i = 0; i < 4; i++)                          // update drum LED pulse
   {
     if(m_drumLedPulseFlags[i])                        // if flag is set
     {
-      if(drumLedPulseTimers[i] > m_pulseLengthMs)     // if timer exceeded
+      if(m_drumLedPulseTimers[i] > m_pulseLengthMs)   // if timer exceeded
       {
         analogWrite(m_drumLedPins[i], 0);             // switch off led at index
         m_drumLedPulseFlags[i] = false;               // reset flag
+      }
+    }
+  }
+
+  for(int i = 0; i < 8; i++)                          // update rhythm LED pulse
+  {
+    if(m_rhythmLedPulseFlags[i])
+    {
+      if(m_rhythmLedPulseTimers[i] > m_pulseLengthMs)
+      {
+        this->setRhythmLed(i, !m_rhythmLedCurrentStates[i]);
+        m_rhythmLedPulseFlags[i] = false;
       }
     }
   }
