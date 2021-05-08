@@ -12,7 +12,7 @@ class Led_Controller
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
-        int m_pulseLengthMs = 100;
+        int m_pulseLengthMs = 50;
         int m_drumLedPins[4] = {30, 29, 2, 10};
         bool m_drumLedPulseFlags[4] = {false, false, false, false};
         elapsedMillis m_drumLedPulseTimers[4] = {false, false, false, false};
@@ -58,7 +58,7 @@ class Led_Controller
         void assignKitPattMenuLeds(Led *kitPattMenuLeds[2]);
         void setKitPattMenuLeds(int kitLedState, int pattLedState);
         void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
-        void setSlowFastMenuLeds(int slowLedState, int fastLedState);
+        void setSpeedMenuLeds(int state);
         void setRhythmLed(int index, int state);
         void setTempoVolMenuLeds(int tempoLedState, int volLedState);
         void setTransportLeds(int playLedState, int recordLedState, int undoLedState);

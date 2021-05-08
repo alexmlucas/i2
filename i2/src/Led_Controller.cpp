@@ -85,25 +85,24 @@ void Led_Controller::setKitPattMenuLeds(int kitLedState, int pattLedState)
   this->writeMuxLeds();
 }
 
-void Led_Controller::setSlowFastMenuLeds(int slowLedState, int fastLedState)
+void Led_Controller::setSpeedMenuLeds(int state)
 {
   // depending on the incoming values, set or clear the appropriate bit
-  if(slowLedState == 1)
+  switch(state)
   {
-    bitSet(m_muxLedStates[2], m_slowMenuLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_slowMenuLedBit);
+    case(0):
+      bitSet(m_muxLedStates[2], m_slowMenuLedBit);
+      bitClear(m_muxLedStates[2], m_fastMenuLedBit);
+      break;
+    case(1):
+      bitClear(m_muxLedStates[2], m_slowMenuLedBit);
+      bitClear(m_muxLedStates[2], m_fastMenuLedBit);
+      break;
+    case(2):
+      bitClear(m_muxLedStates[2], m_slowMenuLedBit);
+      bitSet(m_muxLedStates[2], m_fastMenuLedBit);
+      break;
   }
-
-  if(fastLedState == 1)
-  {
-    bitSet(m_muxLedStates[2], m_fastMenuLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[2], m_fastMenuLedBit);
-  }
-
   // write the changes;
   this->writeMuxLeds();
 }

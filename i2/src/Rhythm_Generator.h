@@ -21,15 +21,16 @@ class Rhythm_Generator
     int m_track;
     int m_currentStep;
     int m_lastMidiTick;
-    int m_playbackSpeed;
+    int m_speed;
     bool m_isPlayingFlag;
     
   public:
     Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport, Sample_Player* samplePlayers);
     void poll();
     void setLedController(Led_Controller *ledController);
-    void setPlaybackSpeed(int playbackSpeed);
+    void decrementSpeed();
     void setRhythm(int rhythmValue);
+    void flipRhythmBit(int bitIndex);
     void displayRhythm();
     void advance();
     void triggerRhythm(int track, float velocity);

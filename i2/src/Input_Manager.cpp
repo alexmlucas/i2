@@ -101,17 +101,15 @@ void Input_Manager::readMuxs()
 
                 if(m_muxAButtonStates[m_muxReadIndex] == 1)
                 {
-                    // button on
-                    Serial.print("muxA button ");
-                    Serial.print(m_muxReadIndex);
-                    Serial.println("on.");
+                    switch(m_muxReadIndex)                  // filter index 7; the speed control which needs different treatment.
+                    {
+                        case 7:
+                            m_rhythmGenerator->decrementSpeed();
+                            break;
+                        default:
+                            m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);
 
-                } else if(m_muxAButtonStates[m_muxReadIndex] == 0)
-                {
-                    // button off 
-                    Serial.print("muxA button ");
-                    Serial.print(m_muxReadIndex);
-                    Serial.println("off.");
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ Rhythm_Generator::Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport
   m_currentStep = 0;
   m_isPlayingFlag = false;
   m_lastMidiTick = -1;
-  m_playbackSpeed = 1;
+  m_speed = 1;
 }
 
 void Rhythm_Generator::poll()
@@ -23,13 +23,13 @@ void Rhythm_Generator::poll()
   {
     int currentMidiTick = m_rhythmClock->getMidiTick();
 
-    if(currentMidiTick != m_lastMidiTick)                               // if this is a new midi tick...
+    if(currentMidiTick != m_lastMidiTick)                             // if this is a new midi tick...
     {
-      int invertedStep = abs(m_currentStep - 7);                        // convert step to appropriate bit
-      bool triggerFlag = bool(bitRead(m_rhythmValue, invertedStep));         // read bit.
-      bool midiTickOnStepFlag = false;                                  // reset flag to play when on a new MIDI tick.
+      int invertedStep = abs(m_currentStep - 7);                      // convert step to appropriate bit
+      bool triggerFlag = bool(bitRead(m_rhythmValue, invertedStep));  // read bit.
+      bool midiTickOnStepFlag = false;                                // reset flag to play when on a new MIDI tick.
       
-      switch(m_playbackSpeed)                                           // ...set the midiTickOnStepFlag according to the playback speed.
+      switch(m_speed)                                                 // ...set the midiTickOnStepFlag according to the playback speed.
       {
         case 0:
           midiTickOnStepFlag = m_rhythmClock->isMidiTick8th();
@@ -72,6 +72,21 @@ void Rhythm_Generator::setLedController(Led_Controller *ledController)
 void Rhythm_Generator::setRhythm(int rhythmValue)
 {
   m_rhythmValue = 128 + rhythmValue;
+  this->displayRhythm();
+}
+
+void Rhythm_Generator::flipRhythmBit(int bitIndex)
+{
+  //int modifiedBitIndex = abs(bitIndex - 7);
+  
+  if(int(bitRead(m_rhythmValue, bitIndex)))
+  {
+    bitClear(m_rhythmValue, bitIndex);
+  } else
+  {
+    bitSet(m_rhythmValue, bitIndex);
+  }
+
   this->displayRhythm();
 }
 
@@ -122,4 +137,16 @@ void Rhythm_Generator::advance()                                                
     m_isPlayingFlag = false;
     m_currentStep = 0;
   }
+}
+
+void Rhythm_Generator::decrementSpeed()
+{
+  if(m_speed > 0)                                 // decrement looks more natural on the UI
+  {
+    m_speed--;
+  } else
+  {
+    m_speed = 2;
+  }
+  m_ledController->setSpeedMenuLeds(m_speed);
 }
