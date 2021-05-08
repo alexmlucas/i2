@@ -10,6 +10,7 @@
 #include "Sequencer.h"
 #include "Rhythm_Generator.h"
 #include "Input_Manager.h"
+#include "Display_Controller.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -122,6 +123,7 @@ AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
 Midi_Clock masterClock(DEFAULT_BPM);
 Midi_Clock rhythmClock(DEFAULT_BPM);
 
+Display_Controller displayController;
 Led_Controller ledController(&masterClock);
 Input_Manager inputManager;
 Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
@@ -137,6 +139,8 @@ void setup()
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
   rhythmGenerator.setLedController(&ledController);
+  rhythmGenerator.setDisplayController(&displayController);
+  
 
   AudioMemory(10);
   
@@ -202,6 +206,7 @@ void loop()
   ledController.poll();
   masterClock.poll();
   inputManager.poll();
+  displayController.poll();
 
   /*for(int i = 0; i < 2; i++)
   {

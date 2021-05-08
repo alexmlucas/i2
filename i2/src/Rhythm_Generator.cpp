@@ -69,8 +69,14 @@ void Rhythm_Generator::setLedController(Led_Controller *ledController)
     m_ledController = ledController;
 }
 
+void Rhythm_Generator::setDisplayController(Display_Controller *displayController)
+{
+    m_displayController = displayController;
+}
+
 void Rhythm_Generator::setRhythm(int rhythmValue)
 {
+  m_displayController->displayNumber(rhythmValue);
   m_rhythmValue = 128 + rhythmValue;
   this->displayRhythm();
 }
