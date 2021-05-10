@@ -5,6 +5,7 @@
 #include "Constant_Parameters.h"
 #include "Led_Controller.h"
 #include "Rhythm_Generator.h"
+#include "Parameter_Manager.h"
 
 class Input_Manager
 {
@@ -50,6 +51,7 @@ class Input_Manager
         Sample_Player *m_samplePlayers;
         Led_Controller *m_ledController;
         Rhythm_Generator *m_rhythmGenerator;
+        Parameter_Manager *m_parameterManager;
 
         void setSensor(int index);
 
@@ -58,12 +60,11 @@ class Input_Manager
         void setSamplePlayers(Sample_Player *samplePlayers);
         void setLedController(Led_Controller *ledController);
         void setRhythmGenerator(Rhythm_Generator *rhtyhmGenerator);
+        void setParameterManager(Parameter_Manager *parameterManager);
         void poll();
-        // void readMux1();
         void readMuxs();
         int readPiezo(int index);
         void readDirectPot();
-        
 };
 
 #endif

@@ -56,7 +56,7 @@ class Led_Controller
         void poll();
         void setTempo(int tempoBpm);
         void assignKitPattMenuLeds(Led *kitPattMenuLeds[2]);
-        void setKitPattMenuLeds(int kitLedState, int pattLedState);
+        void setKitPattMenuLeds(int state);
         void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
         void setSpeedMenuLeds(int state);
         void setRhythmLed(int index, int state);

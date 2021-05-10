@@ -53,6 +53,11 @@ void Input_Manager::setRhythmGenerator(Rhythm_Generator *rhythmGenerator)
     m_rhythmGenerator = rhythmGenerator;
 }
 
+void Input_Manager::setParameterManager(Parameter_Manager *parameterManager)
+{
+    m_parameterManager = parameterManager;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -166,7 +171,6 @@ void Input_Manager::readMuxs()
             // check to see if the debounce time has been exceeded
             if((millis() - m_muxCButtonEventTimes[m_muxReadIndex]) > DEBOUNCE_MS)    // debounce
             {
-
                 m_muxCButtonStates[m_muxReadIndex] = muxCCurrentValue;           // update array
                 m_muxCButtonEventTimes[m_muxReadIndex] = millis();               // update event time
 
@@ -176,6 +180,26 @@ void Input_Manager::readMuxs()
                     Serial.print("muxC button ");
                     Serial.print(m_muxReadIndex);
                     Serial.println("on.");
+
+                    switch(m_muxReadIndex)
+                    {
+                        case 3:
+                            // kit/pattern button 4
+                            break;
+                        case 4:
+                            // kit/pattern button 3
+                            break;
+                        case 5:
+                            // kit/pattern button 2
+                            break;
+                        case 6:
+                            // kit/pattern button 1
+                            break;
+                        case 7:
+                            // kit/pattern button 0
+                            m_parameterManager->flipKitPatternMenu();
+                            break;
+                    }
 
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
                 {

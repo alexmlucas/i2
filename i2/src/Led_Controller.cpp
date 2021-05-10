@@ -62,29 +62,6 @@ void Led_Controller::assignKitPattMenuLeds(Led *kitPattMenuLeds[])
   }
 }
 
-void Led_Controller::setKitPattMenuLeds(int kitLedState, int pattLedState)
-{
-  // depending on the incoming values, set or clear the appropriate bit
-  if(kitLedState == 1)
-  {
-    bitSet(m_muxLedStates[1], m_kitMenuLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_kitMenuLedBit);
-  }
-
-  if(pattLedState == 1)
-  {
-    bitSet(m_muxLedStates[1], m_pattMenuLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_pattMenuLedBit);
-  }
-
-  // write the changes;
-  this->writeMuxLeds();
-}
-
 void Led_Controller::setSpeedMenuLeds(int state)
 {
   // depending on the incoming values, set or clear the appropriate bit
@@ -142,6 +119,21 @@ void Led_Controller::setKitPattNumLeds(int num1LedState, int num2LedState, int n
     bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
   }
 
+  // write the changes;
+  this->writeMuxLeds();
+}
+
+void Led_Controller::setKitPattMenuLeds(int state)
+{
+  if(state == 0)
+  {
+    bitSet(m_muxLedStates[1], m_kitMenuLedBit);
+    bitClear(m_muxLedStates[1], m_pattMenuLedBit);
+  } else
+  {
+    bitClear(m_muxLedStates[1], m_kitMenuLedBit);
+    bitSet(m_muxLedStates[1], m_pattMenuLedBit);
+  }
   // write the changes;
   this->writeMuxLeds();
 }
