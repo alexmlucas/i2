@@ -6,7 +6,7 @@
 #include "Transport.h"
 #include "Sample_Player.h"
 #include "Led_Controller.h"
-#include "Display_COntroller.h"
+//#include "Display_Controller.h"
 
 class Rhythm_Generator
 {
@@ -17,7 +17,7 @@ class Rhythm_Generator
     Transport* m_transport;
     Sample_Player* m_samplePlayers;
     Led_Controller *m_ledController;
-    Display_Controller *m_displayController;
+    //Display_Controller *m_displayController;
 
     float m_velocity;
     int m_track;
@@ -30,14 +30,14 @@ class Rhythm_Generator
     Rhythm_Generator(Midi_Clock* rhythmClock, Transport* transport, Sample_Player* samplePlayers);
     void poll();
     void setLedController(Led_Controller *ledController);
-    void setDisplayController(Display_Controller *displayController);
-    void decrementSpeed();
+    //void setDisplayController(Display_Controller *displayController);
     void setRhythm(int rhythmValue);
     void flipRhythmBit(int bitIndex);
     void displayRhythm();
     void advance();
     void triggerRhythm(int track, float velocity);
     float getTrigger();
+    void setSpeed(int speed);
 };
 
 #endif

@@ -8,7 +8,7 @@ class Display_Controller
 {
     private:
         const int ADDRESS = 0x70;
-        const int CLEAR_TIMER = 2000;
+        const unsigned int CLEAR_TIMER = 2000;
         elapsedMillis m_timeSinceWrite = 0;
         bool m_clearFlag = false;
         Adafruit_7segment display = Adafruit_7segment();

@@ -15,7 +15,8 @@ class Input_Manager
         const int POT_NOISE_FILTER = 10;
         const int PIEZO_THRESHOLD = 10;                 // minimum reading, avoid "noise".
         const unsigned int PIEZO_PEAK_MS = 2;                          // time to read peak value.
-        const unsigned int PIEZO_AFTERSHOCK_MS = 20;                   // time of aftershocks and vibration.
+        const unsigned int PIEZO_AFTERSHOCK_MS = 20;
+        const unsigned int PRESS_HOLD_TIMER_MS = 1000;           // time of aftershocks and vibration.
 
         const int m_rhythmPotPin = A19;  
         const int m_muxAInPin = A13;
@@ -29,6 +30,8 @@ class Input_Manager
         int m_piezoPeaks[4];                                // Remember the last peak value.
         int m_piezoStates[4];                               // Activity scan state.
         elapsedMillis m_piezoTimers[4];
+        elapsedMillis m_undoTimer = 0;
+        bool m_undoHeld = false;
 
         int m_muxAButtonStates[8];
         int m_muxBButtonStates[8];

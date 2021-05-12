@@ -80,6 +80,15 @@ void Input_Manager::poll()
             Serial.println(piezoReading);*/
         }
     }
+
+    if(m_undoHeld)
+    {
+        if(m_undoTimer > PRESS_HOLD_TIMER_MS)
+        {
+            m_parameterManager->triggerUndoEvent();
+            m_undoHeld = false;
+        }
+    }
 }
 
 void Input_Manager::readMuxs()
@@ -106,21 +115,21 @@ void Input_Manager::readMuxs()
 
                 if(m_muxAButtonStates[m_muxReadIndex] == 1)
                 {
-                    switch(m_muxReadIndex)                  // filter index 7; the speed control which needs different treatment.
+                    switch(m_muxReadIndex)                  
+                        case 7:                                                     // filter index 7, the speed control which needs different treatment.
                     {
-                        case 7:
-                            m_rhythmGenerator->decrementSpeed();
+                            m_parameterManager->decrementSpeed();
                             break;
                         default:
-                            m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);
-
+                            m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);       // perhaps this needs moving to the parameter manager?
+                            break;
                     }
                 }
             }
         }
         
         // ** mux B **
-        if(m_muxReadIndex == 4)                                              // handle pot differently
+        if(m_muxReadIndex == 4)                                                     // handle pot differently
         {
             int muxBCurrentValue = analogRead(m_muxBInPin);
 
@@ -141,7 +150,6 @@ void Input_Manager::readMuxs()
                 // check to see if the debounce time has been exceeded
                 if((millis() - m_muxBButtonEventTimes[m_muxReadIndex]) > DEBOUNCE_MS)    // debounce
                 {
-
                     m_muxBButtonStates[m_muxReadIndex] = muxBCurrentValue;           // update array
                     m_muxBButtonEventTimes[m_muxReadIndex] = millis();               // update event time
 
@@ -152,12 +160,32 @@ void Input_Manager::readMuxs()
                         Serial.print(m_muxReadIndex);
                         Serial.println("on.");
 
+                        if(m_muxReadIndex == 5)                     // play button
+                        {
+                            m_parameterManager->flipPlayState();
+                        }
+
+                        if(m_muxReadIndex == 6)                     // undo
+                        {
+                            m_undoHeld = true;                     // detect press and hold.
+                            m_undoTimer = 0;
+                        }
+
+                        if(m_muxReadIndex == 7)                     // record
+                        {
+                            m_parameterManager->flipRecordState();
+                        }
                     } else if(m_muxBButtonStates[m_muxReadIndex] == 0)
                     {
                         // button off 
                         Serial.print("muxB button ");
                         Serial.print(m_muxReadIndex);
                         Serial.println("off.");
+
+                        if(m_muxReadIndex == 6)                     // undo
+                        {
+                            m_undoHeld = false;                     // cease press and hold.
+                        }
                     }
                 }
             }
@@ -177,26 +205,26 @@ void Input_Manager::readMuxs()
                 if(m_muxCButtonStates[m_muxReadIndex] == 1)
                 {
                     // button on
-                    Serial.print("muxC button ");
-                    Serial.print(m_muxReadIndex);
-                    Serial.println("on.");
-
                     switch(m_muxReadIndex)
                     {
                         case 3:
                             // kit/pattern button 4
+                            m_parameterManager->setKitPattern(3);
                             break;
                         case 4:
                             // kit/pattern button 3
+                            m_parameterManager->setKitPattern(2);
                             break;
                         case 5:
                             // kit/pattern button 2
+                            m_parameterManager->setKitPattern(1);
                             break;
                         case 6:
                             // kit/pattern button 1
+                            m_parameterManager->setKitPattern(0);
                             break;
                         case 7:
-                            // kit/pattern button 0
+                            // kit/pattern menu button
                             m_parameterManager->flipKitPatternMenu();
                             break;
                     }
@@ -204,9 +232,6 @@ void Input_Manager::readMuxs()
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
                 {
                     // button off 
-                    Serial.print("muxC button ");
-                    Serial.print(m_muxReadIndex);
-                    Serial.println("off.");
                 }
             }
         }

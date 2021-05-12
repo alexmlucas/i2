@@ -1,14 +1,16 @@
 #ifndef PARAMETER_MANAGER
 #define PARAMETER_MANAGER
 #include "Arduino.h"                            // Include the header file that defines INPUT and HIGH
-#include "Parameter.h"
+#include "Eeprom_Parameter.h"
 #include "Led_Controller.h"
 #include "Sample_Player.h"
+#include "Rhythm_Generator.h"
+#include "Display_Controller.h"
 
 class Parameter_Manager
 { 
   protected:
-    const int WRITE_TIME = 2000;
+    const unsigned int WRITE_TIME = 2000;
     // parameter could have
     // an EEPROM index
     // a value
@@ -26,13 +28,33 @@ class Parameter_Manager
     // Rhythm
     // Echo
     Led_Controller *m_ledController;
-    Parameter m_kitPatternMenu;
-    elapsedMillis m_timeSinceParameterChange;
+    Rhythm_Generator *m_rhythmGenerator;
+    Display_Controller *m_displayController;
+    Eeprom_Parameter m_kitPatternMenu;
+    Eeprom_Parameter m_kit;
+    Eeprom_Parameter m_pattern;
+    Eeprom_Parameter m_speed;
 
+    // non-eeprom parameters
+    bool m_playState = false;
+    bool m_recordState = false;
+    
+    elapsedMillis m_timeSinceParameterChange;
+    
   public:
-    Parameter_Manager(Led_Controller *ledController);
+    
+
+    Parameter_Manager(Led_Controller *ledController, Display_Controller *m_displayController, Rhythm_Generator *rhythmGenerator);
     void poll();
     void flipKitPatternMenu();
+
+    void decrementSpeed();
+    void setKitPattern(int index);
+    void flipPlayState();
+    void flipRecordState();
+    bool getPlayState();
+    bool getRecordState();
+    void triggerUndoEvent();
 };
 
 #endif

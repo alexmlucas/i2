@@ -4,7 +4,6 @@
 #include "Constant_Parameters.h"
 #include "Parameter_Manager.h"
 #include "Led_Controller.h"
-#include "Led.h"
 #include "Sample_Player.h"
 #include "Transport.h"
 #include "Midi_Clock.h"
@@ -125,13 +124,15 @@ Midi_Clock masterClock(DEFAULT_BPM);
 Midi_Clock rhythmClock(DEFAULT_BPM);
 Display_Controller displayController;
 Led_Controller ledController(&masterClock);
-Parameter_Manager parameterManager(&ledController);
+
 Input_Manager inputManager;
 Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
 
 Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
+Parameter_Manager parameterManager(&ledController, &displayController, &rhythmGenerator);
+
 
 void setup() 
 {
@@ -141,7 +142,7 @@ void setup()
   inputManager.setRhythmGenerator(&rhythmGenerator);
   inputManager.setParameterManager(&parameterManager);
   rhythmGenerator.setLedController(&ledController);
-  rhythmGenerator.setDisplayController(&displayController);
+  //rhythmGenerator.setDisplayController(&displayController);
   
 
   AudioMemory(10);

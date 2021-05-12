@@ -69,14 +69,14 @@ void Rhythm_Generator::setLedController(Led_Controller *ledController)
     m_ledController = ledController;
 }
 
-void Rhythm_Generator::setDisplayController(Display_Controller *displayController)
+/*void Rhythm_Generator::setDisplayController(Display_Controller *displayController)
 {
     m_displayController = displayController;
-}
+}*/
 
 void Rhythm_Generator::setRhythm(int rhythmValue)
 {
-  m_displayController->displayNumber(rhythmValue);
+  //m_displayController->displayNumber(rhythmValue);
   m_rhythmValue = 128 + rhythmValue;
   this->displayRhythm();
 }
@@ -145,7 +145,7 @@ void Rhythm_Generator::advance()                                                
   }
 }
 
-void Rhythm_Generator::decrementSpeed()
+/*void Rhythm_Generator::decrementSpeed()
 {
   if(m_speed > 0)                                 // decrement looks more natural on the UI
   {
@@ -155,4 +155,14 @@ void Rhythm_Generator::decrementSpeed()
     m_speed = 2;
   }
   m_ledController->setSpeedMenuLeds(m_speed);
+}*/
+
+void Rhythm_Generator::setSpeed(int speed)
+{
+  m_speed = speed;
 }
+
+/*int Rhythm_Generator::getSpeed()
+{
+  return m_speed;
+}*/

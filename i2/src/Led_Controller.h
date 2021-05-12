@@ -1,9 +1,8 @@
 #ifndef LED_CONTROLLER
 #define LED_CONTROLLER
 #include <Arduino.h>
-#include "Led.h"
+//#include "Led.h"
 #include "Midi_Clock.h"
-
 
 class Led_Controller
 {
@@ -12,13 +11,17 @@ class Led_Controller
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
-        int m_pulseLengthMs = 50;
+        const unsigned int PULSE_LENGTH_MS = 50;
         int m_drumLedPins[4] = {30, 29, 2, 10};
+        int m_rhythmLedCurrentStates[7] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW};        // perhaps better as a bool?
+        int m_kitPattNumLedStates[4] = {LOW, LOW, LOW, LOW};
+        bool m_kitPattNumLedFlashFlags[4] = {false, false, false, false};
         bool m_drumLedPulseFlags[4] = {false, false, false, false};
-        elapsedMillis m_drumLedPulseTimers[4] = {false, false, false, false};
-        int m_rhythmLedCurrentStates[7] = {0, 0, 0, 0, 0, 0, 0};
         bool m_rhythmLedPulseFlags[7] = {false, false, false, false, false, false, false};
-        elapsedMillis m_rhythmLedPulseTimers[7] = {false, false, false, false, false, false, false};
+        bool m_undoLedPulseFlag = false;
+        elapsedMillis m_undoLedPulseTimer;
+        elapsedMillis m_drumLedPulseTimers[4] = {0, 0, 0, 0};
+        elapsedMillis m_rhythmLedPulseTimers[7] = {0, 0, 0, 0, 0, 0, 0};
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -42,12 +45,13 @@ class Led_Controller
         int m_recordLedBit = 3;
         int m_undoLedBit = 0;
     
-        Led *m_kitPattMenuLeds[2];
+        //Led *m_kitPattMenuLeds[2];
         byte m_muxLedStates[3];
         bool m_playLedCurrentState;
         bool m_playStateActive;
         
-        Midi_Clock* m_masterClock; 
+        Midi_Clock *m_masterClock; 
+        elapsedMillis m_dummyTimer;
 
         void writeMuxLeds();
 
@@ -55,15 +59,16 @@ class Led_Controller
         Led_Controller(Midi_Clock* masterClock);
         void poll();
         void setTempo(int tempoBpm);
-        void assignKitPattMenuLeds(Led *kitPattMenuLeds[2]);
         void setKitPattMenuLeds(int state);
-        void setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState);
+        void setKitPattNumLeds(int index);
         void setSpeedMenuLeds(int state);
         void setRhythmLed(int index, int state);
         void setTempoVolMenuLeds(int tempoLedState, int volLedState);
-        void setTransportLeds(int playLedState, int recordLedState, int undoLedState);
+        void setPlayLed(int state);
+        void setRecordLed(int state);
         void pulseDrumLed(int ledNumber, int ledValue);
         void pulseRhythmLed(int index);
+        void pulseUndoLed();
         void updatePulse();
 };
 

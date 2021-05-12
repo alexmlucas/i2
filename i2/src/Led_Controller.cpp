@@ -33,33 +33,6 @@ void Led_Controller::poll()
 {
   this->updatePulse();
 
-  /*if(m_playStateActive)
-  {
-    if(m_masterClock->isMidiTick8th())
-    {
-      m_playLedCurrentState = !m_playLedCurrentState;
-
-      if(m_playLedCurrentState)
-      {
-        bitSet(m_muxLedStates[0], m_playLedBit);
-        //m_playLedCurrentState = true;
-      } else 
-      {
-        bitClear(m_muxLedStates[0], m_playLedBit);
-        //m_playLedCurrentState = false;
-      }
-
-      this->writeMuxLeds();
-    }
-  }*/
-}
-
-void Led_Controller::assignKitPattMenuLeds(Led *kitPattMenuLeds[])
-{
-  for(int i = 0; i < 2; i++)
-  {
-    m_kitPattMenuLeds[i] = kitPattMenuLeds[i];
-  }
 }
 
 void Led_Controller::setSpeedMenuLeds(int state)
@@ -84,43 +57,37 @@ void Led_Controller::setSpeedMenuLeds(int state)
   this->writeMuxLeds();
 }
 
-void Led_Controller::setKitPattNumLeds(int num1LedState, int num2LedState, int num3LedState, int num4LedState )
+void Led_Controller::setKitPattNumLeds(int index)
 {
-  // depending on the incoming values, set or clear the appropriate bit
-  if(num1LedState == 1)
+  switch(index)
   {
-    bitSet(m_muxLedStates[1], m_kitPattNum1LedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+    case(0):
+      bitSet(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      break;
+    case(1):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      break;
+    case(2):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      break;
+    case(3):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum4LedBit);
+      break;
   }
 
-  if(num2LedState == 1)
-  {
-    bitSet(m_muxLedStates[1], m_kitPattNum2LedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
-  }
-
-  if(num3LedState == 1)
-  {
-    bitSet(m_muxLedStates[1], m_kitPattNum3LedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
-  }
-
-  if(num4LedState == 1)
-  {
-    bitSet(m_muxLedStates[1], m_kitPattNum4LedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
-  }
-
-  // write the changes;
-  this->writeMuxLeds();
+  this->writeMuxLeds();   // write the changes;
 }
 
 void Led_Controller::setKitPattMenuLeds(int state)
@@ -246,40 +213,29 @@ void Led_Controller::setTempoVolMenuLeds(int tempoLedState, int volLedState)
   this->writeMuxLeds();
 }
 
-void Led_Controller::setTransportLeds(int playLedState, int recordLedState, int undoLedState)
+void Led_Controller::setPlayLed(int state)
 {
-  // depending on the incoming values, set or clear the appropriate bit
-  if(playLedState == 1)
+  if(state == HIGH)
   {
     bitSet(m_muxLedStates[0], m_playLedBit);
-    m_playLedCurrentState = true;
-    m_playStateActive = true;
-
-  } else
+  } else if (state == LOW)
   {
     bitClear(m_muxLedStates[0], m_playLedBit);
-    m_playLedCurrentState = false;
-    m_playStateActive = false;
-
   }
 
-  if(recordLedState == 1)
+  this->writeMuxLeds();
+}
+
+void Led_Controller::setRecordLed(int state)
+{
+  if(state == HIGH)
   {
     bitSet(m_muxLedStates[0], m_recordLedBit);
-  } else
+  } else if (state == LOW)
   {
     bitClear(m_muxLedStates[0], m_recordLedBit);
   }
 
-  if(undoLedState == 1)
-  {
-    bitSet(m_muxLedStates[0], m_undoLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[0], m_undoLedBit);
-  }
-
-  // write the changes;
   this->writeMuxLeds();
 }
 
@@ -306,9 +262,8 @@ void Led_Controller::pulseRhythmLed(int index)
 {
   m_rhythmLedPulseFlags[index] = true;                            // set the pulse flag.
   this->setRhythmLed(index, !m_rhythmLedCurrentStates[index]);    // light and flip the led state
-  m_rhythmLedPulseTimers[index] = true;                           // reset the pulse timers
+  m_rhythmLedPulseTimers[index] = 0;                              // reset the pulse timers
 }
-
 
 void Led_Controller::updatePulse()
 {
@@ -316,7 +271,7 @@ void Led_Controller::updatePulse()
   {
     if(m_drumLedPulseFlags[i])                        // if flag is set
     {
-      if(m_drumLedPulseTimers[i] > m_pulseLengthMs)   // if timer exceeded
+      if(m_drumLedPulseTimers[i] > PULSE_LENGTH_MS)   // if timer exceeded
       {
         analogWrite(m_drumLedPins[i], 0);             // switch off led at index
         m_drumLedPulseFlags[i] = false;               // reset flag
@@ -324,15 +279,34 @@ void Led_Controller::updatePulse()
     }
   }
 
-  for(int i = 0; i < 8; i++)                          // update rhythm LED pulse
+  for(int i = 0; i < 7; i++)                          // update rhythm LED pulse
   {
-    if(m_rhythmLedPulseFlags[i])
+    if(m_rhythmLedPulseFlags[i] == true)
     {
-      if(m_rhythmLedPulseTimers[i] > m_pulseLengthMs)
+      if(m_rhythmLedPulseTimers[i] > PULSE_LENGTH_MS)
       {
         this->setRhythmLed(i, !m_rhythmLedCurrentStates[i]);
         m_rhythmLedPulseFlags[i] = false;
       }
     }
   }
+
+  if(m_undoLedPulseFlag)
+  {
+    Serial.println(m_undoLedPulseTimer);
+    if(m_undoLedPulseTimer >= PULSE_LENGTH_MS)
+    {
+      bitClear(m_muxLedStates[0], m_undoLedBit);
+      this->writeMuxLeds();
+      m_undoLedPulseFlag = false;
+    }
+  }
+}
+
+void Led_Controller::pulseUndoLed()
+{
+  bitSet(m_muxLedStates[0], m_undoLedBit);
+  this->writeMuxLeds();
+  m_undoLedPulseTimer = 0;
+  m_undoLedPulseFlag = true;
 }
