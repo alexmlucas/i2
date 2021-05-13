@@ -1,6 +1,3 @@
-// TNT: 
-// ...piezo reading - iron out sensitivity issues.
-
 #include "Constant_Parameters.h"
 #include "Parameter_Manager.h"
 #include "Led_Controller.h"
@@ -129,9 +126,9 @@ Input_Manager inputManager;
 Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
 
 Sequencer sequencer(&masterClock, samplePlayers);
-Transport transport(&masterClock, &sequencer);
+Transport transport(&masterClock, &sequencer, &ledController);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
-Parameter_Manager parameterManager(&ledController, &displayController, &rhythmGenerator);
+Parameter_Manager parameterManager(&rhythmGenerator);
 
 
 void setup() 
@@ -141,7 +138,10 @@ void setup()
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
   inputManager.setParameterManager(&parameterManager);
+  inputManager.setTransport(&transport);
   rhythmGenerator.setLedController(&ledController);
+  rhythmClock.setRunFlag(true);
+
   //rhythmGenerator.setDisplayController(&displayController);
   
 
@@ -194,51 +194,24 @@ void setup()
   samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
 
   while (!Serial && millis() < 2500);                                   // wait for serial monitor
-
-  /*ledController.setKitPattMenuLeds(1, 0);
-  ledController.setKitPattNumLeds(0, 0, 0, 1);
-  ledController.setSlowFastMenuLeds(1, 0);
-  ledController.setRhythmNumLeds(0, 0, 0, 1, 0, 1, 0);
-  ledController.setTempoVolMenuLeds(0, 1);
-  ledController.setTransportLeds(1, 0, 1);
-  ledController.setDrumLeds(256, 256, 256, 256);*/
 }
 
 void loop() 
 { 
-  ledController.poll();
   masterClock.poll();
+  rhythmClock.poll();
+
+
+  rhythmGenerator.poll();
+  sequencer.poll(); 
+  transport.poll();  
+
   inputManager.poll();
   displayController.poll();
-
-  /*for(int i = 0; i < 2; i++)
-  {
-    drumPadReadings[i] = drumPads[i].checkActivity();                   // ### Read the Drum Pads ###
-
-    if(drumPadReadings[i] > 0)                                          // if a trigger has been detected...
-    {
-      drumPadReadings[i] = map(drumPadReadings[i], 0, 1023, 1, 10);     // ...scale reading to appropriate range for logarithmic curve
-      drumPadReadings[i] = log(drumPadReadings[i]);                     // ...apply logarithmic curve.
-
-      Serial.println(drumPadReadings[i]);
-      rhythmGenerator.triggerRhythm(i, drumPadReadings[i]);             // ...trigger the rhythm.
-      drumPadLeds[i].pulse();                                           // ...set the LED to pulse. 
-    }
-  }*/
-
-  transport.poll();                                                     // poll the transport. manages the master clock and sequencer. 
-  sequencer.poll();                                                     // ask the sequencer to check if it needs to do anything.
-  rhythmGenerator.poll();
-  masterClock.poll();                                                   // poll the master clock.
-  rhythmClock.poll();
   parameterManager.poll();
+  ledController.poll();
 
-  /*for(int i = 0; i < 2; i++)                                            // refresh drum leds
-  {
-    drumPadLeds[i].refresh();
-  }*/
-
-  for(int i = 0; i < TRACK_AMOUNT - 1; i++)                             // poll all samples. polling takes care of fades.
+  for(int i = 0; i < TRACK_AMOUNT - 1; i++) 
   {
     samplePlayers[i].poll();
   }

@@ -38,6 +38,8 @@ class Rhythm_Generator
     void triggerRhythm(int track, float velocity);
     float getTrigger();
     void setSpeed(int speed);
+    int getSpeed();
+    void decrementSpeed();
 };
 
 #endif

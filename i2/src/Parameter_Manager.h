@@ -27,9 +27,9 @@ class Parameter_Manager
 
     // Rhythm
     // Echo
-    Led_Controller *m_ledController;
+    //Led_Controller *m_ledController;
     Rhythm_Generator *m_rhythmGenerator;
-    Display_Controller *m_displayController;
+    //Display_Controller *m_displayController;
     Eeprom_Parameter m_kitPatternMenu;
     Eeprom_Parameter m_kit;
     Eeprom_Parameter m_pattern;
@@ -43,18 +43,19 @@ class Parameter_Manager
     
   public:
     
-
-    Parameter_Manager(Led_Controller *ledController, Display_Controller *m_displayController, Rhythm_Generator *rhythmGenerator);
+    Parameter_Manager(Rhythm_Generator *rhythmGenerator);
+    //Parameter_Manager(Led_Controller *ledController, Display_Controller *m_displayController, Rhythm_Generator *rhythmGenerator);
     void poll();
-    void flipKitPatternMenu();
-
-    void decrementSpeed();
     void setKitPattern(int index);
+    void setSpeed(int speed);
+    
+    /*void flipKitPatternMenu();
+    void decrementSpeed();
     void flipPlayState();
     void flipRecordState();
     bool getPlayState();
     bool getRecordState();
-    void triggerUndoEvent();
+    void triggerUndoEvent();*/
 };
 
 #endif

@@ -58,6 +58,11 @@ void Input_Manager::setParameterManager(Parameter_Manager *parameterManager)
     m_parameterManager = parameterManager;
 }
 
+void Input_Manager::setTransport(Transport *transport)
+{
+    m_transport = transport;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -85,7 +90,8 @@ void Input_Manager::poll()
     {
         if(m_undoTimer > PRESS_HOLD_TIMER_MS)
         {
-            m_parameterManager->triggerUndoEvent();
+            // trigger record undo.   
+            m_ledController->pulseUndoLed();
             m_undoHeld = false;
         }
     }
@@ -115,13 +121,14 @@ void Input_Manager::readMuxs()
 
                 if(m_muxAButtonStates[m_muxReadIndex] == 1)
                 {
-                    switch(m_muxReadIndex)                  
-                        case 7:                                                     // filter index 7, the speed control which needs different treatment.
-                    {
-                            m_parameterManager->decrementSpeed();
+                    switch(m_muxReadIndex)  
+                    {                
+                        case 7:                                                                 // filter index 7, the speed control which needs different treatment.
+                            m_rhythmGenerator->decrementSpeed();                                // decrement speed
+                            m_parameterManager->setSpeed(m_rhythmGenerator->getSpeed());        // update the parameter manager
                             break;
                         default:
-                            m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);       // perhaps this needs moving to the parameter manager?
+                            m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);       
                             break;
                     }
                 }
@@ -162,7 +169,7 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 5)                     // play button
                         {
-                            m_parameterManager->flipPlayState();
+                            m_transport->flipPlayState();
                         }
 
                         if(m_muxReadIndex == 6)                     // undo
@@ -173,7 +180,7 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 7)                     // record
                         {
-                            m_parameterManager->flipRecordState();
+                            m_transport->flipRecordState();
                         }
                     } else if(m_muxBButtonStates[m_muxReadIndex] == 0)
                     {
@@ -225,7 +232,7 @@ void Input_Manager::readMuxs()
                             break;
                         case 7:
                             // kit/pattern menu button
-                            m_parameterManager->flipKitPatternMenu();
+                            //m_parameterManager->flipKitPatternMenu();
                             break;
                     }
 

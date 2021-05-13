@@ -145,7 +145,7 @@ void Rhythm_Generator::advance()                                                
   }
 }
 
-/*void Rhythm_Generator::decrementSpeed()
+void Rhythm_Generator::decrementSpeed()
 {
   if(m_speed > 0)                                 // decrement looks more natural on the UI
   {
@@ -155,12 +155,18 @@ void Rhythm_Generator::advance()                                                
     m_speed = 2;
   }
   m_ledController->setSpeedMenuLeds(m_speed);
-}*/
+}
 
 void Rhythm_Generator::setSpeed(int speed)
 {
   m_speed = speed;
 }
+
+int Rhythm_Generator::getSpeed()
+{
+  return m_speed;
+}
+
 
 /*int Rhythm_Generator::getSpeed()
 {

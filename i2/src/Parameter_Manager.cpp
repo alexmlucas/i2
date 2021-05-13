@@ -1,9 +1,7 @@
 #include "Parameter_Manager.h"
 
-Parameter_Manager::Parameter_Manager(Led_Controller *ledController, Display_Controller *displayController, Rhythm_Generator *rhythmGenerator)
+Parameter_Manager::Parameter_Manager(Rhythm_Generator *rhythmGenerator)
 {
-    m_ledController = ledController;
-    m_displayController = displayController;
     m_rhythmGenerator = rhythmGenerator;
     
     // ### Set parameter EEPROM storage indexes ###
@@ -28,7 +26,7 @@ Parameter_Manager::Parameter_Manager(Led_Controller *ledController, Display_Cont
     m_rhythmGenerator->setSpeed(m_speed.value);                     
     
     // ### Update LED states ###
-    m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);    
+    /*m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);    
     if(m_kitPatternMenu.value == 0)                                 // determine if the selected kit or pattern needs to be displayed.
     {
         m_ledController->setKitPattNumLeds(m_kit.value);
@@ -37,7 +35,7 @@ Parameter_Manager::Parameter_Manager(Led_Controller *ledController, Display_Cont
         m_ledController->setKitPattNumLeds(m_pattern.value);
     }
 
-    m_ledController->setSpeedMenuLeds(m_speed.value);               
+    m_ledController->setSpeedMenuLeds(m_speed.value);*/               
 }
 
 void Parameter_Manager::poll()
@@ -59,7 +57,25 @@ void Parameter_Manager::poll()
     }    
 }
 
-void Parameter_Manager::flipKitPatternMenu()
+void Parameter_Manager::setKitPattern(int index)
+{
+    if(m_kitPatternMenu.value == 0)
+    {
+        Serial.print("Setting kit ");
+    } else if(m_kitPatternMenu.value == 1)
+    {
+        Serial.print("Setting pattern ");
+    }
+}
+
+void Parameter_Manager::setSpeed(int speed)
+{
+    m_speed.value = speed;
+    m_speed.writeFlag = true;
+    m_timeSinceParameterChange = 0;
+}
+
+/*void Parameter_Manager::flipKitPatternMenu()
 {
     m_kitPatternMenu.value = !m_kitPatternMenu.value;
     m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);
@@ -83,19 +99,6 @@ void Parameter_Manager::decrementSpeed()
     m_ledController->setSpeedMenuLeds(m_speed.value);   // update the LEDs
 }
 
-void Parameter_Manager::setKitPattern(int index)
-{
-    if(m_kitPatternMenu.value == 0)
-    {
-        Serial.print("Setting kit ");
-    } else if(m_kitPatternMenu.value == 1)
-    {
-        Serial.print("Setting pattern ");
-    }
-
-    Serial.println(index);
-    m_ledController->setKitPattNumLeds(index);
-}
 
 void Parameter_Manager::flipPlayState()
 {
@@ -125,4 +128,4 @@ void Parameter_Manager::triggerUndoEvent()
 {
     // trigger the undo event - I'm not sure this really belongs here.
     m_ledController->pulseUndoLed();
-}
+}*/

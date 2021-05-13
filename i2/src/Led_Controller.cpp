@@ -32,7 +32,6 @@ Led_Controller::Led_Controller(Midi_Clock* masterClock)
 void Led_Controller::poll()
 {
   this->updatePulse();
-
 }
 
 void Led_Controller::setSpeedMenuLeds(int state)

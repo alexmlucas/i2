@@ -4,6 +4,7 @@ Midi_Clock::Midi_Clock(int bpm)
 {
   m_bpm = bpm;
   m_midiTickInterval = this->calculateMidiTickInterval(bpm);
+  bool m_runFlag = false;
 }
 
 int Midi_Clock::calculateMidiTickInterval(int incomingBpm)
@@ -57,9 +58,17 @@ bool Midi_Clock::isMidiTick4th()
 
 void Midi_Clock::poll()
 {
-  if(m_timer > m_midiTickInterval)                // if the timer has exceed the midi tick interval...
+  if(m_runFlag)
   {
-    this->updateMidiTickCounter();                // ...update the midi tick counter.
-    m_timer = 0;                                  // reset the timer. 
+    if(m_timer > m_midiTickInterval)                // if the timer has exceed the midi tick interval...
+    {
+      this->updateMidiTickCounter();                // ...update the midi tick counter.
+      m_timer = 0;                                  // reset the timer. 
+    }    
   }
+}
+
+void Midi_Clock::setRunFlag(int state)
+{
+  m_runFlag = state;
 }

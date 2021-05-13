@@ -16,6 +16,7 @@ class Midi_Clock
     int m_bpm;
     int m_currentMidiTick;
     int m_midiTickInterval;
+    bool m_runFlag;
     elapsedMicros m_timer;
     
     Midi_Clock(int bpm);
@@ -28,6 +29,7 @@ class Midi_Clock
     bool isMidiTick8th();
     bool isMidiTick4th();
     void poll();
+    void setRunFlag(int state);
 };
 
 #endif

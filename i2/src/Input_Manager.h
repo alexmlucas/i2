@@ -6,6 +6,7 @@
 #include "Led_Controller.h"
 #include "Rhythm_Generator.h"
 #include "Parameter_Manager.h"
+#include "Transport.h"
 
 class Input_Manager
 {
@@ -55,6 +56,7 @@ class Input_Manager
         Led_Controller *m_ledController;
         Rhythm_Generator *m_rhythmGenerator;
         Parameter_Manager *m_parameterManager;
+        Transport *m_transport;
 
         void setSensor(int index);
 
@@ -64,6 +66,7 @@ class Input_Manager
         void setLedController(Led_Controller *ledController);
         void setRhythmGenerator(Rhythm_Generator *rhtyhmGenerator);
         void setParameterManager(Parameter_Manager *parameterManager);
+        void setTransport(Transport *transport);
         void poll();
         void readMuxs();
         int readPiezo(int index);
