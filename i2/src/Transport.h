@@ -12,6 +12,7 @@ class Transport
     Midi_Clock *m_masterClock;
     Sequencer *m_sequencer;
     Led_Controller *m_ledController; 
+    void collectUndoEvent(int patternNumber, int sequenceIndex, int trackNumber);
 
   public:
     bool m_playFlag;
@@ -19,6 +20,19 @@ class Transport
     bool m_newPlayEvent;
     bool m_recordFlag;
     bool m_eventFlag;
+    int m_undoIndexCounter;
+    int m_undoCollector[8][2]         // index, track
+    {
+      {0, 0},
+      {0, 0},
+      {0, 0},
+      {0, 0},
+      {0, 0},
+      {0, 0},
+      {0, 0},
+      {0, 0}
+    };
+
     int m_track;
     float m_velocity;
 
@@ -27,6 +41,9 @@ class Transport
     void poll();
     void flipPlayState();
     void flipRecordState();
+    void resetUndoCollector();
+    void printUndoData();
+    void undoRecordedData();
 };
 
 #endif

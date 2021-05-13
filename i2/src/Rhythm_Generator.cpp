@@ -51,7 +51,8 @@ void Rhythm_Generator::poll()
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
           m_ledController->pulseDrumLed(m_track, m_velocity * 256);     // pulse the drum LED
         }
-
+        
+        
         if(m_currentStep != 0)                                              // Pulse rhythm LED if not step 0
         {
           m_ledController->pulseRhythmLed(m_currentStep - 1);               // tweak the index number slightly                      
@@ -135,6 +136,7 @@ void Rhythm_Generator::triggerRhythm(int track, float velocity)
 
 void Rhythm_Generator::advance()                                                         // advance to the next step
 {
+  Serial.println(m_currentStep);
   if(m_currentStep < (RHYTHM_LENGTH - 1))
   {       
     m_currentStep++;

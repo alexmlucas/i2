@@ -77,7 +77,9 @@ void Input_Manager::poll()
             piezoReading = constrain(piezoReading, 0, 100);
             piezoReading = map(piezoReading, 0, 100, 1, 2.5);           // ...scale reading to appropriate range for logarithmic curve
             piezoReading = log(piezoReading);
-            m_rhythmGenerator->triggerRhythm(i, piezoReading);          
+            m_transport->resetUndoCollector();
+            m_rhythmGenerator->triggerRhythm(i, piezoReading);
+                   
             
             /* Serial.print("Piezo ");
             Serial.print(i);
@@ -174,6 +176,8 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 6)                     // undo
                         {
+                            m_transport->printUndoData();
+                            m_transport->undoRecordedData();
                             m_undoHeld = true;                     // detect press and hold.
                             m_undoTimer = 0;
                         }

@@ -61,9 +61,9 @@ void Sequencer::addQueuedEvents()                                               
   }
 }
 
-void Sequencer::quantiseTriggerEvent(int trackNumber, float velocity)             // ### this function will add the trigger events to the queue ###
+void Sequencer::setTriggerEvent(int trackNumber, float velocity, int quantisedStep) // ### this function will add the trigger events to the queue ###
 {
-  int quantisedStep = this->getQuantisedStep();                                   // get the quantised step
+  //int quantisedStep = this->getQuantisedStep();                                   // get the quantised step
 
   if(quantisedStep == m_currentStep)
   {
@@ -106,4 +106,18 @@ void Sequencer::poll()
     m_lastMidiTick = currentMidiTick;                       // capture the midiTick value.
   }
 }
-        
+
+void Sequencer::setCaptureUndoData(int state)
+{
+  m_captureUndoData = state;
+}
+
+void Sequencer::logUndoData(int stepIndex, int sampleIndex)
+{
+  m_undoData[stepIndex] = sampleIndex;
+}
+
+void Sequencer::removeStepData(int stepIndex, int trackIndex)
+{
+  patterns[trackIndex].m_steps[stepIndex][trackIndex] = 0;
+}
