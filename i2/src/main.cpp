@@ -120,7 +120,7 @@ AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
 Midi_Clock masterClock(DEFAULT_BPM);
 Midi_Clock rhythmClock(DEFAULT_BPM);
 Display_Controller displayController;
-Led_Controller ledController(&masterClock);
+Led_Controller ledController;
 Input_Manager inputManager;
 
 elapsedMillis testTimer  = 0;
@@ -145,33 +145,46 @@ Parameter_Manager parameterManager;
 void setup() 
 {
   Serial.begin(31250);
-  Serial.println("loaded");
-  ledController.setRecordLed(HIGH);
+  
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
-  //inputManager.setParameterManager(&parameterManager);
+  inputManager.setParameterManager(&parameterManager);
   inputManager.setTransport(&transport);
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
 
   //rhythmGenerator.setDisplayController(&displayController);
   
-  //int savedKit = parameterManager.getKit();
-  //int savedPattern = parameterManager.getPattern();
+   // default values not loaded from Eeprom
+  inputManager.setKitPatternMenuState(0);
+  inputManager.setTempoVolMenuState(0);
+  rhythmGenerator.setSpeed(0);
 
-  // action all recalled parameters
-  /*for(int i = 0; i < 8; i++)
+  // ### Drum Kit ###
+  int savedKit = parameterManager.getKit();     // get the saved value
+  
+  for(int i = 0; i < 8; i++)                    // set all sample players
   {
     samplePlayers[i].setKit(savedKit);
-  }*/
+  }
+
+  ledController.setKitPattNumLeds(4);    // set the UI
+
+
+
+
+
+
+
+  int savedPattern = parameterManager.getPattern();
+
+  // action all recalled parameters
+  
 
   //sequencer.setPattern(savedPattern);
   
-  // default values not loaded from Eeprom
-  inputManager.setKitPatternMenuState(0);
-  //inputManager.setTempoVolMenuState(0);
-  //rhythmGenerator.setSpeed(0);
+ 
   
   // ## setup LEDs ##
   //ledController.setKitPattMenuLeds(0);
@@ -237,7 +250,7 @@ void loop()
 
   inputManager.poll();
   displayController.poll();
-  //parameterManager.poll();
+  parameterManager.poll();
   ledController.poll();
 
   for(int i = 0; i < TRACK_AMOUNT - 1; i++) 

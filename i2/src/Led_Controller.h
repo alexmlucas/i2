@@ -7,24 +7,29 @@
 class Led_Controller
 {
     private:
+        const unsigned int FLASH_TIME_MS = 500;
+        const unsigned int PULSE_LENGTH_MS = 50;
         int m_muxLatchPin = 19;
         int m_muxClockPin = 18;
         int m_muxDataPin = 21;
         int m_rhythm2LedPin = 37;
-        const unsigned int PULSE_LENGTH_MS = 50;
         int m_drumLedPins[4] = {30, 29, 2, 10};
         int m_rhythmLedCurrentStates[7] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW};        // perhaps better as a bool?
         int m_kitPattNumLedStates[4] = {LOW, LOW, LOW, LOW};
-        bool m_kitPattNumLedFlashFlags[4] = {false, false, false, false};
         bool m_drumLedPulseFlags[4] = {false, false, false, false};
         bool m_rhythmLedPulseFlags[7] = {false, false, false, false, false, false, false};
         bool m_undoLedPulseFlag = false;
         elapsedMillis m_undoLedPulseTimer;
         elapsedMillis m_drumLedPulseTimers[4] = {0, 0, 0, 0};
         elapsedMillis m_rhythmLedPulseTimers[7] = {0, 0, 0, 0, 0, 0, 0};
+        elapsedMillis m_flashTimer = 0;
+        bool m_kitPattLedFlashFlag = false;
+        int m_kitPattLedState = true;
+        int m_currentKitPatt;
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
+        int m_kitPattNumLedBits[4] = {7, 6, 5, 4};
         int m_kitPattNum1LedBit = 7;
         int m_kitPattNum2LedBit = 6;
         int m_kitPattNum3LedBit = 5;
@@ -49,14 +54,13 @@ class Led_Controller
         byte m_muxLedStates[3];
         bool m_playLedCurrentState;
         bool m_playStateActive;
-        
-        Midi_Clock *m_masterClock; 
+    
         elapsedMillis m_dummyTimer;
 
         void writeMuxLeds();
 
     public:
-        Led_Controller(Midi_Clock* masterClock);
+        Led_Controller();
         void poll();
         void setTempo(int tempoBpm);
         void setKitPattMenuLeds(int state);

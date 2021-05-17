@@ -358,13 +358,13 @@ int Input_Manager::readPiezo(int index){
 void Input_Manager::setKitPatternMenuState(int state)
 {
     m_kitPatternMenuState = state;
-    //m_ledController->setKitPattMenuLeds(state);
+    m_ledController->setKitPattMenuLeds(state);
 }
 
 void Input_Manager::setTempoVolMenuState(int state)
 {
     m_tempoVolMenuState = state;
-    //m_ledController->setTempoVolMenuLeds(state);
+    m_ledController->setTempoVolMenuLeds(state);
 }
 
 void Input_Manager::flipKitPatternMenuState()

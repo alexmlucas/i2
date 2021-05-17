@@ -1,9 +1,7 @@
 #include "Led_Controller.h"
 
-Led_Controller::Led_Controller(Midi_Clock* masterClock)
+Led_Controller::Led_Controller()
 {
-  m_masterClock = masterClock;
-
   pinMode(m_muxLatchPin, OUTPUT);
   pinMode(m_muxClockPin, OUTPUT);
   pinMode(m_muxDataPin, OUTPUT);
@@ -32,6 +30,26 @@ Led_Controller::Led_Controller(Midi_Clock* masterClock)
 void Led_Controller::poll()
 {
   this->updatePulse();
+
+  if(m_flashTimer > FLASH_TIME_MS)    // if flash time exceeded
+  {
+    if(m_kitPattLedFlashFlag)         // check to see if flash flag is set
+    {
+      if(m_kitPattLedState == HIGH)   // then flip
+      {
+        bitClear(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPatt]);
+        m_kitPattLedState = LOW;
+      } else
+      {
+        bitSet(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPatt]);
+        m_kitPattLedState = HIGH;
+      }
+
+      this->writeMuxLeds();
+    }
+
+    m_flashTimer = 0;
+  } 
 }
 
 void Led_Controller::setSpeedMenuLeds(int state)
@@ -65,24 +83,68 @@ void Led_Controller::setKitPattNumLeds(int index)
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 0;
+      m_kitPattLedFlashFlag = false;
       break;
     case(1):
       bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
       bitSet(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 1;
+      m_kitPattLedFlashFlag = false;
       break;
     case(2):
       bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitSet(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 2;
+      m_kitPattLedFlashFlag = false;
       break;
     case(3):
       bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitSet(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 3;
+      m_kitPattLedFlashFlag = false;
+      break;
+    case(4):
+      bitSet(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 0;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(5):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 1;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(6):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 2;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(7):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitSet(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPatt = 3;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
       break;
   }
 
@@ -194,11 +256,11 @@ void Led_Controller::setTempoVolMenuLeds(int state)
  if(state == 0)
   {
     bitSet(m_muxLedStates[0], m_tempoMenuLedBit);
-    bitClear(m_muxLedStates[0], m_tempoMenuLedBit);
+    bitClear(m_muxLedStates[0], m_volMenuLedBit);
   } else
   {
     bitClear(m_muxLedStates[0], m_tempoMenuLedBit);
-    bitSet(m_muxLedStates[0], m_tempoMenuLedBit);
+    bitSet(m_muxLedStates[0], m_volMenuLedBit);
   }
   // write the changes;
   this->writeMuxLeds();
