@@ -63,7 +63,7 @@ class Led_Controller
         void setKitPattNumLeds(int index);
         void setSpeedMenuLeds(int state);
         void setRhythmLed(int index, int state);
-        void setTempoVolMenuLeds(int tempoLedState, int volLedState);
+        void setTempoVolMenuLeds(int state);
         void setPlayLed(int state);
         void setRecordLed(int state);
         void pulseDrumLed(int ledNumber, int ledValue);

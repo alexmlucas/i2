@@ -165,6 +165,7 @@ void Rhythm_Generator::decrementSpeed()
 void Rhythm_Generator::setSpeed(int speed)
 {
   m_speed = speed;
+  m_ledController->setSpeedMenuLeds(m_speed);
 }
 
 int Rhythm_Generator::getSpeed()

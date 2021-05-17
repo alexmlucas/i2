@@ -30,7 +30,7 @@ void Transport::poll()
       {
         quantisedStep = m_sequencer->getQuantisedStep();
         m_sequencer->setTriggerEvent(m_track, m_velocity, quantisedStep);     // ...forward to quantiser.
-        this->collectUndoEvent(0, quantisedStep, m_track);                    // ...log undo event.
+        this->collectUndoEvent(quantisedStep, m_track);                    // ...log undo event.
         m_eventFlag = false;                                                  // ...reset the event flag.
         Serial.println("event");
       }
@@ -79,8 +79,13 @@ void Transport::resetUndoCollector()
   }
 }
 
-void Transport::collectUndoEvent(int patternNumber, int sequenceIndex, int trackNumber)
+void Transport::collectUndoEvent(int sequenceIndex, int trackNumber)
 {
+  if(m_undoIndexCounter == 0)               // capture the pattern index at onset
+  {
+    m_undoPatternIndex = m_sequencer->m_currentPattern;
+  }
+
   m_undoCollector[m_undoIndexCounter][0] = sequenceIndex;
   m_undoCollector[m_undoIndexCounter][1] = trackNumber;
   m_undoIndexCounter++;
@@ -106,18 +111,12 @@ void Transport::undoRecordedData()
   {
     if(m_undoCollector[i][0] > -1)       // if not a null value...
     {
-      m_sequencer->removeStepData(m_undoCollector[i][0], m_undoCollector[i][1]);   // ...remove data from pattern
+      m_sequencer->removeStepData(m_undoPatternIndex, m_undoCollector[i][0], m_undoCollector[i][1]);   // ...remove data from pattern
     }
   }
 }
 
-void Transport::clearCurrentPattern()
+void Transport::requestPatternClear()
 {
-  for(int i = 0; i < 32; i++)
-  {
-    for(int ii = 0; ii < 8; ii++)
-    {
-      m_sequencer->removeStepData(i, ii);
-    }
-  }
+  m_sequencer->clearCurrentPattern();
 }

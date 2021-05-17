@@ -1,11 +1,37 @@
 #include "Sample_Player.h"
 
-Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
+/*Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
 {
   m_sdWav = sdWav;
   m_fadeAndRetriggerActive = false;
   m_stopRequestMade = false;
   m_fadeInRequestMade = false;
+}*/
+
+Sample_Player::Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleIndex)
+{
+  m_sdWav = sdWav;
+  m_fadeAndRetriggerActive = false;
+  m_stopRequestMade = false;
+  m_fadeInRequestMade = false;
+  m_sampleIndex = sampleIndex;
+  m_sampleName = this->buildFilename(kitIndex, sampleIndex);
+}
+
+String Sample_Player::buildFilename(int kitIndex, int sampleIndex)
+{
+  //example "0/7.wav"
+  String filename = String(kitIndex);        // build filename & location
+  filename += "/";
+  filename += String(sampleIndex);
+  filename += ".wav";
+  Serial.println(filename);
+  return filename;
+}
+
+void Sample_Player::setKit(int kitIndex)
+{
+  m_sampleName = this->buildFilename(kitIndex, m_sampleIndex);
 }
 
 void Sample_Player::processTriggerEvent(float velocity)
@@ -27,6 +53,7 @@ void Sample_Player::processTriggerEvent(float velocity)
 
 void Sample_Player::playWithVelocity(float velocity)
 {
+  Serial.println(m_sampleName);
   this->setMixerLevels(velocity);                           // set the mixer levels.
   m_sdWav->play(m_sampleName.c_str());                      // play the sample.
 }

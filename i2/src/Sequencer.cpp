@@ -113,11 +113,23 @@ void Sequencer::logUndoData(int stepIndex, int sampleIndex)
   m_undoData[stepIndex] = sampleIndex;
 }
 
-void Sequencer::removeStepData(int stepIndex, int trackIndex)
+void Sequencer::removeStepData(int patternIndex, int stepIndex, int trackIndex)
 {
-  Serial.print("Step # ");
-  Serial.print(stepIndex);
-  Serial.print("Track # ");
-  Serial.println(trackIndex);
-  patterns[m_currentPattern].m_steps[stepIndex][trackIndex] = 0;
+  patterns[patternIndex].m_steps[stepIndex][trackIndex] = 0;
+}
+
+void Sequencer::clearCurrentPattern()
+{
+  for(int i = 0; i < 32; i++)
+  {
+    for(int ii = 0; ii < 8; ii++)
+    {
+      patterns[m_currentPattern].m_steps[i][ii] = 0;
+    }
+  }
+}
+
+void Sequencer::setPattern(int patternIndex)
+{
+  m_currentPattern = patternIndex;
 }

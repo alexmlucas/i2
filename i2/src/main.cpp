@@ -121,29 +121,66 @@ Midi_Clock masterClock(DEFAULT_BPM);
 Midi_Clock rhythmClock(DEFAULT_BPM);
 Display_Controller displayController;
 Led_Controller ledController(&masterClock);
-
 Input_Manager inputManager;
-Sample_Player samplePlayers[8] = {&playSdWav1, &playSdWav2, &playSdWav3, &playSdWav4, &playSdWav5, &playSdWav6, &playSdWav7, &playSdWav8};
+
+elapsedMillis testTimer  = 0;
+
+ Sample_Player samplePlayers[8] =        // index, track
+  {
+    Sample_Player(&playSdWav1, 0, 0),
+    Sample_Player(&playSdWav1, 0, 1),
+    Sample_Player(&playSdWav1, 0, 2),
+    Sample_Player(&playSdWav1, 0, 3),
+    Sample_Player(&playSdWav1, 0, 4),
+    Sample_Player(&playSdWav1, 0, 5),
+    Sample_Player(&playSdWav1, 0, 6),
+    Sample_Player(&playSdWav1, 0, 7)
+  };
 
 Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer, &ledController);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
-Parameter_Manager parameterManager(&rhythmGenerator);
-
+Parameter_Manager parameterManager;
 
 void setup() 
 {
   Serial.begin(31250);
+  Serial.println("loaded");
+  ledController.setRecordLed(HIGH);
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
-  inputManager.setParameterManager(&parameterManager);
+  //inputManager.setParameterManager(&parameterManager);
   inputManager.setTransport(&transport);
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
 
   //rhythmGenerator.setDisplayController(&displayController);
   
+  //int savedKit = parameterManager.getKit();
+  //int savedPattern = parameterManager.getPattern();
+
+  // action all recalled parameters
+  /*for(int i = 0; i < 8; i++)
+  {
+    samplePlayers[i].setKit(savedKit);
+  }*/
+
+  //sequencer.setPattern(savedPattern);
+  
+  // default values not loaded from Eeprom
+  inputManager.setKitPatternMenuState(0);
+  //inputManager.setTempoVolMenuState(0);
+  //rhythmGenerator.setSpeed(0);
+  
+  // ## setup LEDs ##
+  //ledController.setKitPattMenuLeds(0);
+  //ledController.setKitPattNumLeds(savedKit);      // 'kit' is the default
+
+
+
+  
+
 
   AudioMemory(10);
   
@@ -166,15 +203,6 @@ void setup()
   }
 
   // ### setup sample players ###
-  samplePlayers[0].setSampleName(String("0/0.wav"));
-  samplePlayers[1].setSampleName(String("0/1.wav"));
-  samplePlayers[2].setSampleName(String("0/2.wav"));
-  samplePlayers[3].setSampleName(String("0/3.wav"));
-  samplePlayers[4].setSampleName(String("0/4.wav"));
-  samplePlayers[5].setSampleName(String("0/5.wav"));
-  samplePlayers[6].setSampleName(String("0/6.wav"));
-  samplePlayers[7].setSampleName(String("0/7.wav"));
-
   samplePlayers[0].assignFadeObjects(&fade1, &fade2);
   samplePlayers[1].assignFadeObjects(&fade3, &fade4);
   samplePlayers[2].assignFadeObjects(&fade5, &fade6);
@@ -193,7 +221,8 @@ void setup()
   samplePlayers[6].assignMixerObjects(&mixer2, &mixer4, 2, 2);
   samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
 
-  while (!Serial && millis() < 2500);                                   // wait for serial monitor
+  while (!Serial && millis() < 2500); 
+                                    // wait for serial monitor
 }
 
 void loop() 
@@ -208,11 +237,17 @@ void loop()
 
   inputManager.poll();
   displayController.poll();
-  parameterManager.poll();
+  //parameterManager.poll();
   ledController.poll();
 
   for(int i = 0; i < TRACK_AMOUNT - 1; i++) 
   {
     samplePlayers[i].poll();
+  }
+
+  if(testTimer > 2000)
+  {
+    Serial.println("Hi");
+    testTimer = 0;
   }
 }

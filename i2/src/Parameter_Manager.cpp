@@ -1,29 +1,21 @@
 #include "Parameter_Manager.h"
 
-Parameter_Manager::Parameter_Manager(Rhythm_Generator *rhythmGenerator)
+Parameter_Manager::Parameter_Manager()
 {
-    m_rhythmGenerator = rhythmGenerator;
     
     // ### Set parameter EEPROM storage indexes ###
-    m_kitPatternMenu.storageIndex = 0;
     m_kit.storageIndex = 1;
     m_pattern.storageIndex = 2;
     m_speed.storageIndex = 3;
 
-    // ### Read data from EEPROM ### (dummy data used at the moment!)
-    m_kitPatternMenu.value = 1;                                     
-    m_kit.value = 0;
-    m_pattern.value = 1;  
-    m_speed.value = 1;
-    
-    // ### Reset all write flags ###
-    m_kitPatternMenu.writeFlag = false;            
+     
+    // ### Reset all write flags ###          
     m_kit.writeFlag = false;
     m_pattern.writeFlag = false;
     m_speed.writeFlag = false;  
 
     // ### Set parameters in RAM ###         
-    m_rhythmGenerator->setSpeed(m_speed.value);                     
+    //m_rhythmGenerator->setSpeed(m_speed.value);                     
     
     // ### Update LED states ###
     /*m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);    
@@ -42,12 +34,6 @@ void Parameter_Manager::poll()
 {
     if(m_timeSinceParameterChange > WRITE_TIME)
     {
-        if(m_kitPatternMenu.writeFlag)
-        {
-            // write to EEPROM here
-            m_kitPatternMenu.writeFlag = false;                     // reset flag
-        }
-
         if(m_speed.writeFlag)
         {
             // write to EEPROM here
@@ -57,23 +43,27 @@ void Parameter_Manager::poll()
     }    
 }
 
-void Parameter_Manager::setKitPattern(int index)
-{
-    if(m_kitPatternMenu.value == 0)
-    {
-        Serial.print("Setting kit ");
-    } else if(m_kitPatternMenu.value == 1)
-    {
-        Serial.print("Setting pattern ");
-    }
-}
-
 void Parameter_Manager::setSpeed(int speed)
 {
     m_speed.value = speed;
     m_speed.writeFlag = true;
     m_timeSinceParameterChange = 0;
 }
+
+int Parameter_Manager::getKit()
+{
+    return m_kit.value;
+}
+
+int Parameter_Manager::getPattern()
+{
+    return m_pattern.value;
+}
+
+
+
+
+
 
 /*void Parameter_Manager::flipKitPatternMenu()
 {
@@ -129,3 +119,15 @@ void Parameter_Manager::triggerUndoEvent()
     // trigger the undo event - I'm not sure this really belongs here.
     m_ledController->pulseUndoLed();
 }*/
+
+void Parameter_Manager::saveKit(int kitIndex)
+{
+    m_kit.value = kitIndex;
+    m_kit.writeFlag = true;
+}
+
+void Parameter_Manager::savePattern(int patternIndex)
+{
+    m_pattern.value = patternIndex;
+    m_pattern.writeFlag = true;
+}

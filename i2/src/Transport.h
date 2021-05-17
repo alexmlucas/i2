@@ -11,8 +11,9 @@ class Transport
   private:
     Midi_Clock *m_masterClock;
     Sequencer *m_sequencer;
-    Led_Controller *m_ledController; 
-    void collectUndoEvent(int patternNumber, int sequenceIndex, int trackNumber);
+    Led_Controller *m_ledController;
+    int m_undoPatternIndex;
+    void collectUndoEvent(int sequenceIndex, int trackNumber);
 
   public:
     bool m_playFlag;
@@ -44,7 +45,7 @@ class Transport
     void resetUndoCollector();
     void printUndoData();
     void undoRecordedData();
-    void clearCurrentPattern();
+    void requestPatternClear();
 };
 
 #endif

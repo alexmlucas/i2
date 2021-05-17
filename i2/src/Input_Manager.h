@@ -7,6 +7,7 @@
 #include "Rhythm_Generator.h"
 #include "Parameter_Manager.h"
 #include "Transport.h"
+#include "Sequencer.h"
 
 class Input_Manager
 {
@@ -51,12 +52,15 @@ class Input_Manager
         bool m_readMuxChannel;
         bool m_changeMuxChannel;
         bool m_readMe;
+        int m_kitPatternMenuState;
+        int m_tempoVolMenuState;
 
         Sample_Player *m_samplePlayers;
         Led_Controller *m_ledController;
         Rhythm_Generator *m_rhythmGenerator;
         Parameter_Manager *m_parameterManager;
         Transport *m_transport;
+        Sequencer *m_sequencer;
 
         void setSensor(int index);
 
@@ -71,6 +75,10 @@ class Input_Manager
         void readMuxs();
         int readPiezo(int index);
         void readDirectPot();
+        void setKitPatternMenuState(int state);
+        void setTempoVolMenuState(int state);
+        void flipKitPatternMenuState();
+        void setSequencer(Sequencer *m_sequencer);
 };
 
 #endif

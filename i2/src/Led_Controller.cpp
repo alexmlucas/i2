@@ -189,25 +189,17 @@ void Led_Controller::setRhythmLed(int index, int state)
   this->writeMuxLeds();
 }
 
-void Led_Controller::setTempoVolMenuLeds(int tempoLedState, int volLedState)
+void Led_Controller::setTempoVolMenuLeds(int state)
 {
-  // depending on the incoming values, set or clear the appropriate bit
-  if(tempoLedState == 1)
+ if(state == 0)
   {
     bitSet(m_muxLedStates[0], m_tempoMenuLedBit);
+    bitClear(m_muxLedStates[0], m_tempoMenuLedBit);
   } else
   {
     bitClear(m_muxLedStates[0], m_tempoMenuLedBit);
+    bitSet(m_muxLedStates[0], m_tempoMenuLedBit);
   }
-
-  if(volLedState == 1)
-  {
-    bitSet(m_muxLedStates[0], m_volMenuLedBit);
-  } else
-  {
-    bitClear(m_muxLedStates[0], m_volMenuLedBit);
-  }
-
   // write the changes;
   this->writeMuxLeds();
 }

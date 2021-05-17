@@ -23,6 +23,7 @@ class Sample_Player{
     int m_leftMixerChannelNumber;
     int m_rightMixerChannelNumber;
     String m_sampleName;
+    int m_sampleIndex;
 
     void playWithVelocity(float velocity);
     void fadeAndRetrigger(float velocity);
@@ -31,12 +32,17 @@ class Sample_Player{
   public:
     elapsedMillis m_latencyTimer; 
   
-    Sample_Player(AudioPlaySdWav *sdWav);
+    //Sample_Player(AudioPlaySdWav *sdWav);
+
+    Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleIndex);
     void processTriggerEvent(float velocity);
     void assignMixerObjects(AudioMixer4 *leftMixer, AudioMixer4 *rightMixer, int leftMixerChannelNumber, int rightMixerChannelNumber);
     void assignFadeObjects(AudioEffectFade *leftFade, AudioEffectFade *rightFade);
+    void setKit(int kitIndex);
     void setSampleName(String sampleName);
     void poll();
+    String buildFilename(int kitIndex, int sampleIndex);
+
 };
 
 #endif

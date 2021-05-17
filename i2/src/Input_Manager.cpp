@@ -63,6 +63,11 @@ void Input_Manager::setTransport(Transport *transport)
     m_transport = transport;
 }
 
+void Input_Manager::setSequencer(Sequencer *sequencer)
+{
+    m_sequencer = sequencer;
+}
+
 void Input_Manager::poll()
 {
     this->readMuxs();
@@ -93,7 +98,7 @@ void Input_Manager::poll()
         if(m_undoTimer > PRESS_HOLD_TIMER_MS)
         {
             // clear pattern
-            m_transport->clearCurrentPattern();
+            m_transport->requestPatternClear();
             m_ledController->setUndoLed(LOW);
             m_undoHeld = false;
         }
@@ -196,8 +201,6 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 6)                     // undo
                         {
-                            
-                            m_transport->clearCurrentPattern();
                             m_ledController->setUndoLed(LOW);
                             m_undoHeld = false;                     // cease press and hold.
                         }
@@ -219,31 +222,51 @@ void Input_Manager::readMuxs()
 
                 if(m_muxCButtonStates[m_muxReadIndex] == 1)
                 {
-                    // button on
-                    switch(m_muxReadIndex)
+                    if(m_muxReadIndex == 7)
                     {
-                        case 3:
-                            // kit/pattern button 4
-                            m_parameterManager->setKitPattern(3);
-                            break;
-                        case 4:
-                            // kit/pattern button 3
-                            m_parameterManager->setKitPattern(2);
-                            break;
-                        case 5:
-                            // kit/pattern button 2
-                            m_parameterManager->setKitPattern(1);
-                            break;
-                        case 6:
-                            // kit/pattern button 1
-                            m_parameterManager->setKitPattern(0);
-                            break;
-                        case 7:
-                            // kit/pattern menu button
-                            //m_parameterManager->flipKitPatternMenu();
-                            break;
-                    }
+                        // flip kit pattern menu
+                        this->flipKitPatternMenuState();                                    // flip the state internal to this class.
+                        m_ledController->setKitPattMenuLeds(m_kitPatternMenuState);         // update leds
+                    } else
+                    {
+                        int index = 0;
+                        switch(m_muxReadIndex)                  // get a valid index number
+                        {
+                            case 3:
+                                // kit/pattern button 4
+                                index = 3;
+                                break;
+                            case 4:
+                                // kit/pattern button 3
+                                index = 2;
+                                break;
+                            case 5:
+                                // kit/pattern button 2
+                                index = 1;
+                                break;
+                            case 6:
+                                // kit/pattern button 1
+                                index  = 0;
+                                break;
+                        }
 
+                        if(m_kitPatternMenuState)
+                        {
+                            m_sequencer->setPattern(index);                     // change the pattern in the sequencer
+                            m_parameterManager->savePattern(index);             // save the change to eeprom
+                        } else
+                        {
+                            // set kit
+                            for(int i = 0; i < 8; i++)
+                            {
+                                m_samplePlayers[i].setKit(index);               // update the filename of all sample players           
+
+                            }  
+                            m_parameterManager->saveKit(index);                 // save the change to eeprom
+                        }
+
+                        m_ledController->setKitPattNumLeds(index);              // update the LEDs regardless
+                    }
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
                 {
                     // button off 
@@ -330,4 +353,21 @@ int Input_Manager::readPiezo(int index){
   }
 
   return return_value;
+}
+
+void Input_Manager::setKitPatternMenuState(int state)
+{
+    m_kitPatternMenuState = state;
+    //m_ledController->setKitPattMenuLeds(state);
+}
+
+void Input_Manager::setTempoVolMenuState(int state)
+{
+    m_tempoVolMenuState = state;
+    //m_ledController->setTempoVolMenuLeds(state);
+}
+
+void Input_Manager::flipKitPatternMenuState()
+{
+    m_kitPatternMenuState = !m_kitPatternMenuState;
 }
