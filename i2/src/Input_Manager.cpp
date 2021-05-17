@@ -288,13 +288,29 @@ void Input_Manager::readMuxs()
 
                         if(m_kitPatternMenuState == 1)                                      // the pattern menu is selected
                         {
+                            Serial.println("we're in");
+                            if(newKitPattIndex == m_lastPatternValue)                       // the button has been pressed a second time
+                            {
+                                m_patternBankState = !m_patternBankState;                   // flip the bank state
+                            } else 
+                            {
+                                m_patternBankState = 0;                                     // otherwise reset the state
+                            }
+
+                            if(m_patternBankState == 0)                                     // if not banked...
+                            {
+                                m_sequencer->setPatternIndex(newKitPattIndex);              // set pattern
+                                m_parameterManager->savePattern(newKitPattIndex);           // save the change to eeprom              
+                                m_ledController->setKitPattFlashing(false);
+                                m_ledController->setKitPattNumLeds(newKitPattIndex);
+                            } else                                                          // else we are banked
+                            {
+                                m_sequencer->setPatternIndex(newKitPattIndex + 4);
+                                m_ledController->setKitPattFlashing(true);
+                            }
                             
-
+                            m_lastPatternValue = newKitPattIndex;
                         }
-
-
-
-
 
                         /*int newKitPattIndex = 0;
                         int currentKitPatternIndex = 0;

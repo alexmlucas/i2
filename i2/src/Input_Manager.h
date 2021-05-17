@@ -55,14 +55,14 @@ class Input_Manager
         int m_kitPatternMenuState;
         int m_tempoVolMenuState;
 
-        int lastPatternValue;
-        int m_lastKitValue;
+        int m_lastPatternValue = -1;    // do we need to set these during setup?
+        int m_lastKitValue = -1;
 
 
 
         //int m_lastKitPattIndex;
-        bool m_kitBankState;
-        bool m_patternBankState;
+        bool m_kitBankState = false;
+        bool m_patternBankState = false;
         //bool m_bankState;
 
         Sample_Player *m_samplePlayers;

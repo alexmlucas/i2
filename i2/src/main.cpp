@@ -144,6 +144,7 @@ void setup()
 {
   Serial.begin(31250);
   
+  inputManager.setSequencer(&sequencer);
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
   inputManager.setRhythmGenerator(&rhythmGenerator);
