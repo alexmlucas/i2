@@ -63,15 +63,11 @@ void Sequencer::addQueuedEvents()                                               
 
 void Sequencer::setTriggerEvent(int trackNumber, float velocity, int quantisedStep) // ### this function will add the trigger events to the queue ###
 {
-  //int quantisedStep = this->getQuantisedStep();                                   // get the quantised step
-
   if(quantisedStep == m_currentStep)
   {
-    //Serial.println("adding immediately");
     patterns[m_currentPattern].m_steps[quantisedStep][trackNumber] = velocity;    // ...add to pattern immediately - this step won't play again until the next pattern iteration.
   } else                                                                          // else, it has been quantised to the next step, therefore...
   {
-    //Serial.println("adding to queue");
     m_quantiseQueue[trackNumber] = velocity;                                      // ...add to the queue.
   }
 }
@@ -119,5 +115,9 @@ void Sequencer::logUndoData(int stepIndex, int sampleIndex)
 
 void Sequencer::removeStepData(int stepIndex, int trackIndex)
 {
-  patterns[trackIndex].m_steps[stepIndex][trackIndex] = 0;
+  Serial.print("Step # ");
+  Serial.print(stepIndex);
+  Serial.print("Track # ");
+  Serial.println(trackIndex);
+  patterns[m_currentPattern].m_steps[stepIndex][trackIndex] = 0;
 }

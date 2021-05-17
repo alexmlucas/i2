@@ -44,6 +44,7 @@ class Transport
     void resetUndoCollector();
     void printUndoData();
     void undoRecordedData();
+    void clearCurrentPattern();
 };
 
 #endif

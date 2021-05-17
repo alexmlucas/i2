@@ -70,6 +70,7 @@ class Led_Controller
         void pulseRhythmLed(int index);
         void pulseUndoLed();
         void updatePulse();
+        void setUndoLed(int state);
 };
 
 #endif

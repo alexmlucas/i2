@@ -13,9 +13,9 @@ class Rhythm_Generator
   private:
     const int RHYTHM_LENGTH = 8;
     byte m_rhythmValue;
-    Midi_Clock* m_rhythmClock;
-    Transport* m_transport;
-    Sample_Player* m_samplePlayers;
+    Midi_Clock *m_rhythmClock;
+    Transport *m_transport;
+    Sample_Player *m_samplePlayers;
     Led_Controller *m_ledController;
     //Display_Controller *m_displayController;
 

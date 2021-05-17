@@ -92,8 +92,9 @@ void Input_Manager::poll()
     {
         if(m_undoTimer > PRESS_HOLD_TIMER_MS)
         {
-            // trigger record undo.   
-            m_ledController->pulseUndoLed();
+            // clear pattern
+            m_transport->clearCurrentPattern();
+            m_ledController->setUndoLed(LOW);
             m_undoHeld = false;
         }
     }
@@ -176,7 +177,7 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 6)                     // undo
                         {
-                            m_transport->printUndoData();
+                            m_ledController->setUndoLed(HIGH);
                             m_transport->undoRecordedData();
                             m_undoHeld = true;                     // detect press and hold.
                             m_undoTimer = 0;
@@ -195,6 +196,9 @@ void Input_Manager::readMuxs()
 
                         if(m_muxReadIndex == 6)                     // undo
                         {
+                            
+                            m_transport->clearCurrentPattern();
+                            m_ledController->setUndoLed(LOW);
                             m_undoHeld = false;                     // cease press and hold.
                         }
                     }

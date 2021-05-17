@@ -33,11 +33,6 @@ void Transport::poll()
         this->collectUndoEvent(0, quantisedStep, m_track);                    // ...log undo event.
         m_eventFlag = false;                                                  // ...reset the event flag.
         Serial.println("event");
-
-        /*if(m_captureUndoFlag)
-        {
-          // add to undo array here.
-        }*/
       }
     }
   }
@@ -45,9 +40,12 @@ void Transport::poll()
 
 void Transport::logTriggerEvent(int track, float velocity)
 {
-  m_track = track;
-  m_velocity = velocity;
-  m_eventFlag = true;
+  if(m_recordFlag)                      // if recording...
+  {
+    m_track = track;                    // log event.
+    m_velocity = velocity;
+    m_eventFlag = true;
+  }
 }
 
 void Transport::flipPlayState()
@@ -109,6 +107,17 @@ void Transport::undoRecordedData()
     if(m_undoCollector[i][0] > -1)       // if not a null value...
     {
       m_sequencer->removeStepData(m_undoCollector[i][0], m_undoCollector[i][1]);   // ...remove data from pattern
+    }
+  }
+}
+
+void Transport::clearCurrentPattern()
+{
+  for(int i = 0; i < 32; i++)
+  {
+    for(int ii = 0; ii < 8; ii++)
+    {
+      m_sequencer->removeStepData(i, ii);
     }
   }
 }

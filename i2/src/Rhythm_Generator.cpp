@@ -25,7 +25,11 @@ void Rhythm_Generator::poll()
 
     if(currentMidiTick != m_lastMidiTick)                             // if this is a new midi tick...
     {
+      //Serial.print("Current Step = ");
+      //Serial.println(m_currentStep);
       int invertedStep = abs(m_currentStep - 7);                      // convert step to appropriate bit
+      //Serial.print("Inverted Step = ");
+      //Serial.println(invertedStep);
       bool triggerFlag = bool(bitRead(m_rhythmValue, invertedStep));  // read bit.
       bool midiTickOnStepFlag = false;                                // reset flag to play when on a new MIDI tick.
       
@@ -51,7 +55,6 @@ void Rhythm_Generator::poll()
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
           m_ledController->pulseDrumLed(m_track, m_velocity * 256);     // pulse the drum LED
         }
-        
         
         if(m_currentStep != 0)                                              // Pulse rhythm LED if not step 0
         {
@@ -136,7 +139,7 @@ void Rhythm_Generator::triggerRhythm(int track, float velocity)
 
 void Rhythm_Generator::advance()                                                         // advance to the next step
 {
-  Serial.println(m_currentStep);
+  //Serial.println(m_currentStep);
   if(m_currentStep < (RHYTHM_LENGTH - 1))
   {       
     m_currentStep++;

@@ -292,7 +292,7 @@ void Led_Controller::updatePulse()
 
   if(m_undoLedPulseFlag)
   {
-    Serial.println(m_undoLedPulseTimer);
+    //Serial.println(m_undoLedPulseTimer);
     if(m_undoLedPulseTimer >= PULSE_LENGTH_MS)
     {
       bitClear(m_muxLedStates[0], m_undoLedBit);
@@ -308,4 +308,17 @@ void Led_Controller::pulseUndoLed()
   this->writeMuxLeds();
   m_undoLedPulseTimer = 0;
   m_undoLedPulseFlag = true;
+}
+
+void Led_Controller::setUndoLed(int state)
+{
+  if(state == HIGH)
+  {
+    bitSet(m_muxLedStates[0], m_undoLedBit);
+  } else if (state == LOW)
+  {
+    bitClear(m_muxLedStates[0], m_undoLedBit);
+  }
+
+  this->writeMuxLeds();
 }
