@@ -85,8 +85,7 @@ void Input_Manager::poll()
             m_transport->resetUndoCollector();
 
             if(m_kitBankState)                                         // add 4 to the trigger index if bank active
-            {
-                
+            {   
                 m_rhythmGenerator->triggerRhythm(i + 4, piezoReading);
             } else
             {

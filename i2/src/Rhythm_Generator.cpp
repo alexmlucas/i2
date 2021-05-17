@@ -50,8 +50,9 @@ void Rhythm_Generator::poll()
       {
         if(triggerFlag)                                                 // if the rhythm generator step is 'on'
         {
-          Serial.println("triggering");
+          
           m_samplePlayers[m_track].processTriggerEvent(m_velocity);     // ...trigger the sample 
+          Serial.println("triggering");
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
           
           if(m_track > 3)

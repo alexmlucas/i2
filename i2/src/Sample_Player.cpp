@@ -45,6 +45,7 @@ void Sample_Player::processTriggerEvent(float velocity)
       this->playWithVelocity(velocity);       // ...play the sample.
     } else                                    //  else the sample is playing. therefore...
     {
+      Serial.println("fade and retrigger");
       this->fadeAndRetrigger(velocity);       // ...instigate a fadeAndRetrigger event.
     }
   } else                                      // else a fadeAndRetrigger event is active. 

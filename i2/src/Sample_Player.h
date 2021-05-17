@@ -3,12 +3,13 @@
 #include "Arduino.h"
 #include <Audio.h>
 
-#define FADE_OUT_MS 5
-#define FADE_IN_MS 1
+
 
 class Sample_Player{
   
   private:
+    const unsigned int FADE_OUT_MS = 5;
+    const unsigned int FADE_IN_MS = 1;
     AudioPlaySdWav *m_sdWav;
     AudioMixer4 *m_leftMixer;
     AudioMixer4 *m_rightMixer;

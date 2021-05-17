@@ -126,13 +126,13 @@ Input_Manager inputManager;
  Sample_Player samplePlayers[8] =        // index, track
   {
     Sample_Player(&playSdWav1, 0, 0),
-    Sample_Player(&playSdWav1, 0, 1),
-    Sample_Player(&playSdWav1, 0, 2),
-    Sample_Player(&playSdWav1, 0, 3),
-    Sample_Player(&playSdWav1, 0, 4),
-    Sample_Player(&playSdWav1, 0, 5),
-    Sample_Player(&playSdWav1, 0, 6),
-    Sample_Player(&playSdWav1, 0, 7)
+    Sample_Player(&playSdWav2, 0, 1),
+    Sample_Player(&playSdWav3, 0, 2),
+    Sample_Player(&playSdWav4, 0, 3),
+    Sample_Player(&playSdWav5, 0, 4),
+    Sample_Player(&playSdWav6, 0, 5),
+    Sample_Player(&playSdWav7, 0, 6),
+    Sample_Player(&playSdWav8, 0, 7)
   };
 
 Sequencer sequencer(&masterClock, samplePlayers);
@@ -243,7 +243,7 @@ void loop()
   parameterManager.poll();
   ledController.poll();
 
-  for(int i = 0; i < TRACK_AMOUNT - 1; i++) 
+  for(int i = 0; i < TRACK_AMOUNT; i++) 
   {
     samplePlayers[i].poll();
   }
