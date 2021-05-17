@@ -24,6 +24,7 @@ class Sample_Player{
     int m_rightMixerChannelNumber;
     String m_sampleName;
     int m_sampleIndex;
+    int m_kitIndex;
 
     void playWithVelocity(float velocity);
     void fadeAndRetrigger(float velocity);

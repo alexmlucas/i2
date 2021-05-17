@@ -123,8 +123,6 @@ Display_Controller displayController;
 Led_Controller ledController;
 Input_Manager inputManager;
 
-elapsedMillis testTimer  = 0;
-
  Sample_Player samplePlayers[8] =        // index, track
   {
     Sample_Player(&playSdWav1, 0, 0),
@@ -159,7 +157,7 @@ void setup()
    // default values not loaded from Eeprom
   inputManager.setKitPatternMenuState(0);
   inputManager.setTempoVolMenuState(0);
-  rhythmGenerator.setSpeed(0);
+  rhythmGenerator.setSpeed(1);
 
   // ### Drum Kit ###
   int savedKit = parameterManager.getKit();     // get the saved value
@@ -169,13 +167,7 @@ void setup()
     samplePlayers[i].setKit(savedKit);
   }
 
-  ledController.setKitPattNumLeds(4);    // set the UI
-
-
-
-
-
-
+  ledController.setKitPattNumLeds(savedKit);    // set the UI
 
   int savedPattern = parameterManager.getPattern();
 
@@ -242,12 +234,9 @@ void loop()
 { 
   masterClock.poll();
   rhythmClock.poll();
-
-
   rhythmGenerator.poll();
   sequencer.poll(); 
   transport.poll();  
-
   inputManager.poll();
   displayController.poll();
   parameterManager.poll();
@@ -256,11 +245,5 @@ void loop()
   for(int i = 0; i < TRACK_AMOUNT - 1; i++) 
   {
     samplePlayers[i].poll();
-  }
-
-  if(testTimer > 2000)
-  {
-    Serial.println("Hi");
-    testTimer = 0;
   }
 }

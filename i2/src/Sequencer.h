@@ -33,7 +33,7 @@ class Sequencer
     void logUndoData(int stepIndex, int sampleIndex);
     void removeStepData(int patternIndex, int stepIndex, int trackIndex);
     void clearCurrentPattern();
-    void setPattern(int patternIndex);
+    void setPatternIndex(int patternIndex);
 };
 
 #endif

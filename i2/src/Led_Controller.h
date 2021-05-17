@@ -75,6 +75,7 @@ class Led_Controller
         void pulseUndoLed();
         void updatePulse();
         void setUndoLed(int state);
+        void setKitPattFlashing(int state);
 };
 
 #endif

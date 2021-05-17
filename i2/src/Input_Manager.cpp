@@ -83,7 +83,15 @@ void Input_Manager::poll()
             piezoReading = map(piezoReading, 0, 100, 1, 2.5);           // ...scale reading to appropriate range for logarithmic curve
             piezoReading = log(piezoReading);
             m_transport->resetUndoCollector();
-            m_rhythmGenerator->triggerRhythm(i, piezoReading);
+
+            if(m_kitBankState)                                         // add 4 to the trigger index if bank active
+            {
+                
+                m_rhythmGenerator->triggerRhythm(i + 4, piezoReading);
+            } else
+            {
+                m_rhythmGenerator->triggerRhythm(i, piezoReading);
+            }
                    
             
             /* Serial.print("Piezo ");
@@ -226,46 +234,140 @@ void Input_Manager::readMuxs()
                     {
                         // flip kit pattern menu
                         this->flipKitPatternMenuState();                                    // flip the state internal to this class.
-                        m_ledController->setKitPattMenuLeds(m_kitPatternMenuState);         // update leds
-                    } else
+                    } else                                                                  // else, we're dealing with a kitPatt button.
                     {
-                        int index = 0;
-                        switch(m_muxReadIndex)                  // get a valid index number
+                        int newKitPattIndex = 0;
+
+                        switch(m_muxReadIndex)                                              // convert the incomming index to a sensible value
                         {
                             case 3:
                                 // kit/pattern button 4
-                                index = 3;
+                                newKitPattIndex = 3;
                                 break;
                             case 4:
                                 // kit/pattern button 3
-                                index = 2;
+                                newKitPattIndex = 2;
                                 break;
                             case 5:
                                 // kit/pattern button 2
-                                index = 1;
+                                newKitPattIndex = 1;
                                 break;
                             case 6:
                                 // kit/pattern button 1
-                                index  = 0;
+                                newKitPattIndex = 0;
                                 break;
                         }
 
-                        if(m_kitPatternMenuState)
-                        {
-                            m_sequencer->setPattern(index);                     // change the pattern in the sequencer
-                            m_parameterManager->savePattern(index);             // save the change to eeprom
-                        } else
-                        {
-                            // set kit
-                            for(int i = 0; i < 8; i++)
-                            {
-                                m_samplePlayers[i].setKit(index);               // update the filename of all sample players           
 
-                            }  
-                            m_parameterManager->saveKit(index);                 // save the change to eeprom
+                        if(m_kitPatternMenuState == 0)                                      // the kit menu is selected
+                        {
+                            if(newKitPattIndex == m_lastKitValue)                           // the button has been pressed a second time
+                            {
+                                m_kitBankState = !m_kitBankState;                           // flip the bank state
+                            } else 
+                            {
+                                m_kitBankState = 0;                                         // otherwise reset the state
+                            }
+
+                            if(m_kitBankState == 0)                                         // if not banked...
+                            {
+                                for(int i = 0; i < 8; i++)
+                                {
+                                    m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, i.e set the filename of all sample players           
+                                }  
+                                m_parameterManager->saveKit(newKitPattIndex);               // save the change to eeprom
+                                m_ledController->setKitPattFlashing(false);
+                                m_ledController->setKitPattNumLeds(newKitPattIndex);
+                            } else 
+                            {
+                                m_ledController->setKitPattFlashing(true);
+                            }
+
+                            m_lastKitValue = newKitPattIndex;
                         }
 
-                        m_ledController->setKitPattNumLeds(index);              // update the LEDs regardless
+                        if(m_kitPatternMenuState == 1)                                      // the pattern menu is selected
+                        {
+                            
+
+                        }
+
+
+
+
+
+                        /*int newKitPattIndex = 0;
+                        int currentKitPatternIndex = 0;
+
+                        if(m_kitPatternMenuState)
+                        {
+                            currentKitPatternIndex = m_parameterManager->getPattern();
+                        } else
+                        {
+                            currentKitPatternIndex = m_parameterManager->getKit();
+                        }
+
+                        switch(m_muxReadIndex)
+                        {
+                            case 3:
+                                // kit/pattern button 4
+                                newKitPattIndex = 3;
+                                break;
+                            case 4:
+                                // kit/pattern button 3
+                                newKitPattIndex = 2;
+                                break;
+                            case 5:
+                                // kit/pattern button 2
+                                newKitPattIndex = 1;
+                                break;
+                            case 6:
+                                // kit/pattern button 1
+                                newKitPattIndex = 0;
+                                break;
+                        }
+
+                        if(newKitPattIndex == m_lastKitPattIndex)           // flip the bank state if required.
+                        {
+                            m_bankState = !m_bankState;
+                        }
+
+                        Serial.print("new index = ");
+                        Serial.println(newKitPattIndex);
+                        Serial.print("last index = ");
+                        Serial.println(m_lastKitPattIndex);
+                        Serial.print("bank state = ");
+                        Serial.println(m_bankState);
+
+                        m_lastKitPattIndex = newKitPattIndex;
+
+                        if(m_kitPatternMenuState)                                           // if pattern is selected
+                        {
+                            if(m_bankState)                                                 // if in bank state...
+                            {
+                                newKitPattIndex = newKitPattIndex + 4;                      // ...add four to index
+                            }
+                            
+                            m_sequencer->setPatternIndex(newKitPattIndex);                  // change the pattern in the sequencer
+                            m_parameterManager->savePattern(newKitPattIndex);               // save the change to eeprom
+                        } else                                                              // otherwise, kit is selected
+                        {
+                            m_kitBankState = m_bankState;                                   // update the kitBankState
+
+                            if(!m_kitBankState)                                             // if not in a bankstate...
+                            {
+                                for(int i = 0; i < 8; i++)
+                                {
+                                    m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, i.e set the filename of all sample players           
+                                }  
+                                m_parameterManager->saveKit(newKitPattIndex);               // save the change to eeprom
+                                //m_kitPatternMenuState = false;         
+                            }    
+                        }
+
+
+
+                        m_ledController->setKitPattNumLeds(newKitPattIndex);    */            // update the LEDs
                     }
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
                 {
@@ -370,4 +472,5 @@ void Input_Manager::setTempoVolMenuState(int state)
 void Input_Manager::flipKitPatternMenuState()
 {
     m_kitPatternMenuState = !m_kitPatternMenuState;
+    m_ledController->setKitPattMenuLeds(m_kitPatternMenuState);         // update leds
 }

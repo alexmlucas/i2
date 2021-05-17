@@ -15,6 +15,7 @@ Sample_Player::Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleInde
   m_stopRequestMade = false;
   m_fadeInRequestMade = false;
   m_sampleIndex = sampleIndex;
+  m_kitIndex = kitIndex;
   m_sampleName = this->buildFilename(kitIndex, sampleIndex);
 }
 
@@ -31,7 +32,8 @@ String Sample_Player::buildFilename(int kitIndex, int sampleIndex)
 
 void Sample_Player::setKit(int kitIndex)
 {
-  m_sampleName = this->buildFilename(kitIndex, m_sampleIndex);
+  m_kitIndex = kitIndex;
+  m_sampleName = this->buildFilename(m_kitIndex, m_sampleIndex);
 }
 
 void Sample_Player::processTriggerEvent(float velocity)

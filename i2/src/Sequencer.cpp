@@ -129,7 +129,7 @@ void Sequencer::clearCurrentPattern()
   }
 }
 
-void Sequencer::setPattern(int patternIndex)
+void Sequencer::setPatternIndex(int patternIndex)
 {
   m_currentPattern = patternIndex;
 }

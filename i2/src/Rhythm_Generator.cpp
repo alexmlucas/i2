@@ -53,7 +53,14 @@ void Rhythm_Generator::poll()
           Serial.println("triggering");
           m_samplePlayers[m_track].processTriggerEvent(m_velocity);     // ...trigger the sample 
           m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
-          m_ledController->pulseDrumLed(m_track, m_velocity * 256);     // pulse the drum LED
+          
+          if(m_track > 3)
+          {
+            m_ledController->pulseDrumLed(m_track-4, m_velocity * 256);     // pulse the drum LED with corrected index
+          } else
+          {
+            m_ledController->pulseDrumLed(m_track, m_velocity * 256);       // pulse the drum LED
+          }
         }
         
         if(m_currentStep != 0)                                              // Pulse rhythm LED if not step 0
