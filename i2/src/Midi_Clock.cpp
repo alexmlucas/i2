@@ -1,9 +1,9 @@
 #include "Midi_Clock.h"
 
-Midi_Clock::Midi_Clock(int bpm)
+Midi_Clock::Midi_Clock()
 {
-  m_bpm = bpm;
-  m_midiTickInterval = this->calculateMidiTickInterval(bpm);
+  m_bpm = DEFAULT_BPM;
+  m_midiTickInterval = this->calculateMidiTickInterval(m_bpm);
   bool m_runFlag = false;
 }
 
@@ -72,3 +72,33 @@ void Midi_Clock::setRunFlag(int state)
 {
   m_runFlag = state;
 }
+
+void Midi_Clock::setBpm(int bpm)
+{
+  m_bpm = bpm;
+  m_midiTickInterval = this->calculateMidiTickInterval(m_bpm);
+}
+
+void Midi_Clock::incrementBpm()
+{
+  if(m_bpm < 300)
+  {
+    m_bpm = m_bpm + 5;
+    m_midiTickInterval = this->calculateMidiTickInterval(m_bpm);
+  }
+}
+
+void Midi_Clock::decrementBpm()
+{
+  if(m_bpm > 20)
+  {
+    m_bpm = m_bpm - 5;
+    m_midiTickInterval = this->calculateMidiTickInterval(m_bpm);
+  }
+}
+
+int Midi_Clock::getBpm()
+{
+  return m_bpm;
+}
+

@@ -8,13 +8,16 @@
 #include "Parameter_Manager.h"
 #include "Transport.h"
 #include "Sequencer.h"
+#include "Midi_Clock.h"
+#include "Display_Controller.h"
+#include "Output_Amplifier.h"
 
 class Input_Manager
 {
     private:
         const unsigned int MUX_READ_DELAY_US = 1;       // the delay between changing mux channel and reading it.
         const unsigned int DEBOUNCE_MS = 20;
-        const int POT_NOISE_FILTER = 10;
+        const int POT_NOISE_FILTER = 7;
         const int PIEZO_THRESHOLD = 10;                 // minimum reading, avoid "noise".
         const unsigned int PIEZO_PEAK_MS = 2;                          // time to read peak value.
         const unsigned int PIEZO_AFTERSHOCK_MS = 20;
@@ -52,18 +55,13 @@ class Input_Manager
         bool m_readMuxChannel;
         bool m_changeMuxChannel;
         bool m_readMe;
-        int m_kitPatternMenuState;
-        int m_tempoVolMenuState;
-
+        int m_kitPatternMenuState = 0;  // can perhaps remove default values and set extenally?
+        int m_tempoVolMenuState = 0;
         int m_lastPatternValue = -1;    // do we need to set these during setup?
         int m_lastKitValue = -1;
-
-
-
-        //int m_lastKitPattIndex;
         bool m_kitBankState = false;
         bool m_patternBankState = false;
-        //bool m_bankState;
+
 
         Sample_Player *m_samplePlayers;
         Led_Controller *m_ledController;
@@ -71,6 +69,10 @@ class Input_Manager
         Parameter_Manager *m_parameterManager;
         Transport *m_transport;
         Sequencer *m_sequencer;
+        Midi_Clock *m_masterClock;
+        Midi_Clock *m_rhythmClock;
+        Display_Controller *m_displayController;
+        Output_Amplifier *m_outputAmplifier;
 
     public:
         Input_Manager();
@@ -79,6 +81,7 @@ class Input_Manager
         void setRhythmGenerator(Rhythm_Generator *rhtyhmGenerator);
         void setParameterManager(Parameter_Manager *parameterManager);
         void setTransport(Transport *transport);
+        void setClocks(Midi_Clock *masterClock, Midi_Clock *rhythmClock);
         void poll();
         void readMuxs();
         int readPiezo(int index);
@@ -86,8 +89,10 @@ class Input_Manager
         void setKitPatternMenuState(int state);
         void setTempoVolMenuState(int state);
         void flipKitPatternMenuState();
-        void setSequencer(Sequencer *m_sequencer);
+        void setSequencer(Sequencer *sequencer);
         void setSensor(int index);
+        void setDisplayController(Display_Controller *displayController);
+        void setOutputAmplifier(Output_Amplifier *outputAmplifier);
 };
 
 #endif

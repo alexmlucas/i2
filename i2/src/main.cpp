@@ -8,6 +8,7 @@
 #include "Rhythm_Generator.h"
 #include "Input_Manager.h"
 #include "Display_Controller.h"
+#include "Output_Amplifier.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -19,43 +20,45 @@
 #define SDCARD_SCK_PIN   14
 
 // GUItool: begin automatically generated code
-AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
-AudioPlaySdWav           playSdWav2;     //xy=69,248.00006103515625
-AudioPlaySdWav           playSdWav3;     //xy=71,315.00006103515625
-AudioPlaySdWav           playSdWav7;     //xy=70,582.0000610351562
-AudioPlaySdWav           playSdWav8;     //xy=70,648.0000610351562
-AudioPlaySdWav           playSdWav6;     //xy=71,515.0000610351562
-AudioPlaySdWav           playSdWav4;     //xy=72,382.00006103515625
-AudioPlaySdWav           playSdWav5;     //xy=74,449.00006103515625
-AudioEffectFade          fade1;          //xy=227,175.00006103515625
-AudioEffectFade          fade2;          //xy=227,208.00006103515625
-AudioEffectFade          fade3;          //xy=227,242.00006103515625
-AudioEffectFade          fade4;          //xy=227,275.00006103515625
-AudioEffectFade          fade5;          //xy=227,308.00006103515625
-AudioEffectFade          fade6;          //xy=228,342.00006103515625
-AudioEffectFade          fade7;          //xy=229,375.00006103515625
-AudioEffectFade          fade8;          //xy=229,409.00006103515625
-AudioEffectFade          fade9;          //xy=229,442.00006103515625
-AudioEffectFade          fade10;         //xy=229,475.00006103515625
-AudioEffectFade          fade11;         //xy=230,509.00006103515625
-AudioEffectFade          fade16;         //xy=230,675.0000610351562
-AudioEffectFade          fade12;         //xy=231,542.0000610351562
-AudioEffectFade          fade13;         //xy=231,575.0000610351562
-AudioEffectFade          fade14;         //xy=231,608.0000610351562
-AudioEffectFade          fade15;         //xy=231,642.0000610351562
-AudioMixer4              mixer1;         //xy=438,195.00006103515625
-AudioMixer4              mixer3;         //xy=437,500.00006103515625
-AudioMixer4              mixer2;         //xy=438,265.00006103515625
-AudioMixer4              mixer4;         //xy=437,568.0000610351562
-AudioMixer4              mixer5;         //xy=571,214.00006103515625
-AudioMixer4              mixer6;         //xy=571,520.0000610351562
-AudioMixer4              mixer7;         //xy=606,346
-AudioFilterStateVariable filter1;        //xy=734,352
-AudioEffectDelay         delay1;         //xy=859,365
-AudioAmplifier           amp1;           //xy=859,447
-AudioMixer4              mixer8;         //xy=996,234
-AudioMixer4              mixer9;         //xy=995,539
-AudioOutputI2S           i2s1;           //xy=1135,356.00006103515625
+AudioPlaySdWav           playSdWav1;     //xy=571,215
+AudioPlaySdWav           playSdWav2;     //xy=571,281
+AudioPlaySdWav           playSdWav3;     //xy=573,348
+AudioPlaySdWav           playSdWav7;     //xy=572,615
+AudioPlaySdWav           playSdWav8;     //xy=572,681
+AudioPlaySdWav           playSdWav6;     //xy=573,548
+AudioPlaySdWav           playSdWav4;     //xy=574,415
+AudioPlaySdWav           playSdWav5;     //xy=576,482
+AudioEffectFade          fade1;          //xy=729,208
+AudioEffectFade          fade2;          //xy=729,241
+AudioEffectFade          fade3;          //xy=729,275
+AudioEffectFade          fade4;          //xy=729,308
+AudioEffectFade          fade5;          //xy=729,341
+AudioEffectFade          fade6;          //xy=730,375
+AudioEffectFade          fade7;          //xy=731,408
+AudioEffectFade          fade8;          //xy=731,442
+AudioEffectFade          fade9;          //xy=731,475
+AudioEffectFade          fade10;         //xy=731,508
+AudioEffectFade          fade11;         //xy=732,542
+AudioEffectFade          fade16;         //xy=732,708
+AudioEffectFade          fade12;         //xy=733,575
+AudioEffectFade          fade13;         //xy=733,608
+AudioEffectFade          fade14;         //xy=733,641
+AudioEffectFade          fade15;         //xy=733,675
+AudioMixer4              mixer1;         //xy=940,228
+AudioMixer4              mixer3;         //xy=939,533
+AudioMixer4              mixer2;         //xy=940,298
+AudioMixer4              mixer4;         //xy=939,601
+AudioMixer4              mixer5;         //xy=1073,247
+AudioMixer4              mixer6;         //xy=1073,553
+AudioMixer4              mixer7;         //xy=1108,379
+AudioFilterStateVariable filter1;        //xy=1236,385
+AudioEffectDelay         delay1;         //xy=1361,398
+AudioAmplifier           amp1;           //xy=1361,480
+AudioMixer4              mixer8;         //xy=1498,267
+AudioMixer4              mixer9;         //xy=1497,572
+AudioAmplifier           amp2;           //xy=1603,377
+AudioAmplifier           amp3;           //xy=1603,435
+AudioOutputI2S           i2s1;           //xy=1743,394
 AudioConnection          patchCord1(playSdWav1, 0, fade1, 0);
 AudioConnection          patchCord2(playSdWav1, 1, fade2, 0);
 AudioConnection          patchCord3(playSdWav2, 0, fade3, 0);
@@ -102,8 +105,10 @@ AudioConnection          patchCord43(delay1, 0, amp1, 0);
 AudioConnection          patchCord44(delay1, 0, mixer8, 1);
 AudioConnection          patchCord45(delay1, 0, mixer9, 1);
 AudioConnection          patchCord46(amp1, 0, mixer7, 2);
-AudioConnection          patchCord47(mixer8, 0, i2s1, 0);
-AudioConnection          patchCord48(mixer9, 0, i2s1, 1);
+AudioConnection          patchCord47(mixer8, amp2);
+AudioConnection          patchCord48(mixer9, amp3);
+AudioConnection          patchCord49(amp2, 0, i2s1, 0);
+AudioConnection          patchCord50(amp3, 0, i2s1, 1);
 // GUItool: end automatically generated code
 
 // Test Tone
@@ -117,8 +122,8 @@ AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
 //#define SDCARD_MOSI_PIN  7
 //#define SDCARD_SCK_PIN   14
 
-Midi_Clock masterClock(DEFAULT_BPM);
-Midi_Clock rhythmClock(DEFAULT_BPM);
+Midi_Clock masterClock;
+Midi_Clock rhythmClock;
 Display_Controller displayController;
 Led_Controller ledController;
 Input_Manager inputManager;
@@ -139,11 +144,14 @@ Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer, &ledController);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
 Parameter_Manager parameterManager;
+Output_Amplifier outputAmplifier(&amp2, &amp3);
 
 void setup() 
 {
   Serial.begin(31250);
-  
+  inputManager.setClocks(&masterClock, &rhythmClock);
+  inputManager.setDisplayController(&displayController);
+  inputManager.setOutputAmplifier(&outputAmplifier);
   inputManager.setSequencer(&sequencer);
   inputManager.setSamplePlayers(samplePlayers);
   inputManager.setLedController(&ledController);
@@ -153,7 +161,7 @@ void setup()
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
 
-  //rhythmGenerator.setDisplayController(&displayController);
+  rhythmGenerator.setDisplayController(&displayController);
   
    // default values not loaded from Eeprom
   inputManager.setKitPatternMenuState(0);
@@ -161,7 +169,7 @@ void setup()
   rhythmGenerator.setSpeed(1);
 
   // ### Drum Kit ###
-  int savedKit = parameterManager.getKit();     // get the saved value
+  int savedKit = parameterManager.getKitIndex();     // get the saved value
   
   for(int i = 0; i < 8; i++)                    // set all sample players
   {
@@ -170,7 +178,7 @@ void setup()
 
   ledController.setKitPattNumLeds(savedKit);    // set the UI
 
-  int savedPattern = parameterManager.getPattern();
+  int savedPattern = parameterManager.getPatternIndex();
 
   // action all recalled parameters
   

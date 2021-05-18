@@ -27,39 +27,24 @@ class Parameter_Manager
 
     // Rhythm
     // Echo
-    //Led_Controller *m_ledController;
-    Rhythm_Generator *m_rhythmGenerator;
-    //Display_Controller *m_displayController;
-    Eeprom_Parameter m_kit;
-    Eeprom_Parameter m_pattern;
-    Eeprom_Parameter m_speed;
 
-    // non-eeprom parameters
-    bool m_playState = false;
-    bool m_recordState = false;
-    
+    Rhythm_Generator *m_rhythmGenerator;
+    Eeprom_Parameter m_kitIndex;
+    Eeprom_Parameter m_patternIndex;
+    Eeprom_Parameter m_masterTempo;
+    Eeprom_Parameter m_masterVolume;
     elapsedMillis m_timeSinceParameterChange;
     
   public:
-    
     Parameter_Manager();
-    //Parameter_Manager(Led_Controller *ledController, Display_Controller *m_displayController, Rhythm_Generator *rhythmGenerator);
     void poll();
-    void setSpeed(int speed);
-    int getKit();
-    int getPattern();
-    void saveKit(int kitIndex);
-    void savePattern(int patternIndex);
-    
-
-
-    /*void flipKitPatternMenu();
-    void decrementSpeed();
-    void flipPlayState();
-    void flipRecordState();
-    bool getPlayState();
-    bool getRecordState();
-    void triggerUndoEvent();*/
+    int getKitIndex();
+    int getPatternIndex();
+    int getMasterTempo();
+    void saveKitIndex(int kitIndex);
+    void savePatternIndex(int patternIndex);
+    void saveMasterTempo(int masterTempo);
+    void saveMasterVolume(int masterVolume);
 };
 
 #endif

@@ -21,7 +21,6 @@ Sample_Player::Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleInde
 
 String Sample_Player::buildFilename(int kitIndex, int sampleIndex)
 {
-  //example "0/7.wav"
   String filename = String(kitIndex);        // build filename & location
   filename += "/";
   filename += String(sampleIndex);

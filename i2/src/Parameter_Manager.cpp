@@ -4,130 +4,93 @@ Parameter_Manager::Parameter_Manager()
 {
     
     // ### Set parameter EEPROM storage indexes ###
-    m_kit.storageIndex = 1;
-    m_pattern.storageIndex = 2;
-    m_speed.storageIndex = 3;
+    m_kitIndex.storageIndex = 1;
+    m_patternIndex.storageIndex = 2;
+    m_masterTempo.storageIndex = 3;
+    m_masterVolume.storageIndex = 4;
 
-     
     // ### Reset all write flags ###          
-    m_kit.writeFlag = false;
-    m_pattern.writeFlag = false;
-    m_speed.writeFlag = false;  
+    m_kitIndex.writeFlag = false;
+    m_patternIndex.writeFlag = false;
+    m_masterTempo.writeFlag = false; 
+    m_masterVolume.writeFlag = false;
 
-    // ### Set parameters in RAM ###         
-    //m_rhythmGenerator->setSpeed(m_speed.value);                     
-    
-    // ### Update LED states ###
-    /*m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);    
-    if(m_kitPatternMenu.value == 0)                                 // determine if the selected kit or pattern needs to be displayed.
-    {
-        m_ledController->setKitPattNumLeds(m_kit.value);
-    } else if(m_kitPatternMenu.value == 1)
-    {
-        m_ledController->setKitPattNumLeds(m_pattern.value);
-    }
-
-    m_ledController->setSpeedMenuLeds(m_speed.value);*/               
+    // ### Dummay data, will need to read from Eepromm ###  
+    m_kitIndex.value = 1;
+    m_patternIndex.value = 2;
+    m_masterTempo.value = 110; 
+    m_masterVolume.value = 9;
 }
 
 void Parameter_Manager::poll()
 {
     if(m_timeSinceParameterChange > WRITE_TIME)
     {
-        if(m_speed.writeFlag)
+        if(m_kitIndex.writeFlag)
         {
             // write to EEPROM here
-            Serial.println("writing speed");
-            m_speed.writeFlag = false;                              // reset flag
+            Serial.println("writing kit index");
+            m_kitIndex.writeFlag = false;                              // reset flag
+        }
+
+        if(m_patternIndex.writeFlag)
+        {
+            // write to EEPROM here
+            Serial.println("writing pattern index");
+            m_patternIndex.writeFlag = false;                              // reset flag
+        }
+
+        if(m_masterTempo.writeFlag)
+        {
+            // write to EEPROM here
+            Serial.println("writing master tempo");
+            m_masterTempo.writeFlag = false;                              // reset flag
+        }
+
+        if(m_masterVolume.writeFlag)
+        {
+            // write to EEPROM here
+            Serial.println("writing master volume");
+            m_masterVolume.writeFlag = false;                              // reset flag
         }
     }    
 }
 
-void Parameter_Manager::setSpeed(int speed)
+int Parameter_Manager::getKitIndex()
 {
-    m_speed.value = speed;
-    m_speed.writeFlag = true;
-    m_timeSinceParameterChange = 0;
+    return m_kitIndex.value;
 }
 
-int Parameter_Manager::getKit()
+int Parameter_Manager::getPatternIndex()
 {
-    return m_kit.value;
+    return m_patternIndex.value;
 }
 
-int Parameter_Manager::getPattern()
+int Parameter_Manager::getMasterTempo()
 {
-    return m_pattern.value;
+    return m_masterTempo.value;
 }
 
-
-
-
-
-
-/*void Parameter_Manager::flipKitPatternMenu()
+void Parameter_Manager::saveKitIndex(int kitIndex)
 {
-    m_kitPatternMenu.value = !m_kitPatternMenu.value;
-    m_ledController->setKitPattMenuLeds(m_kitPatternMenu.value);
-    m_kitPatternMenu.writeFlag = true;
-    m_timeSinceParameterChange = 0;
+    m_kitIndex.value = kitIndex;
+    m_kitIndex.writeFlag = true;
 }
 
-void Parameter_Manager::decrementSpeed()
+void Parameter_Manager::savePatternIndex(int patternIndex)
 {
-    if(m_speed.value > 0)                               // decrement looks more natural on the UI
-    {
-        m_speed.value--;
-    } else
-    {
-        m_speed.value = 2;
-    }
-
-    m_rhythmGenerator->setSpeed(m_speed.value);         // set the speed of the rhythm generator
-    m_speed.writeFlag = true;                           // flag EEPROM write.
-    m_timeSinceParameterChange = 0;                     // reset timer.
-    m_ledController->setSpeedMenuLeds(m_speed.value);   // update the LEDs
+    m_patternIndex.value = patternIndex;
+    m_patternIndex.writeFlag = true;
 }
 
-
-void Parameter_Manager::flipPlayState()
+void Parameter_Manager::saveMasterTempo(int masterTempo)
 {
-    m_playState = !m_playState;
-    // set the sequencer running here.
-    m_ledController->setPlayLed(m_playState);
+    m_masterTempo.value = masterTempo;
+    m_masterTempo.writeFlag = true;
 }
 
-void Parameter_Manager::flipRecordState()
+void Parameter_Manager::saveMasterVolume(int masterVolume)
 {
-    m_recordState = !m_recordState;
-    // set the sequencer into record here.
-    m_ledController->setRecordLed(m_recordState);
-}
-
-bool Parameter_Manager::getPlayState()
-{
-    return m_playState;
-}
-
-bool Parameter_Manager::getRecordState()
-{
-    return m_recordState;
-}
-
-void Parameter_Manager::triggerUndoEvent()
-{
-    // trigger the undo event - I'm not sure this really belongs here.
-    m_ledController->pulseUndoLed();
-}*/
-
-void Parameter_Manager::saveKit(int kitIndex)
-{
-    m_kit.value = kitIndex;
-    m_kit.writeFlag = true;
-}
-
-void Parameter_Manager::savePattern(int patternIndex)
-{
-    m_pattern.value = patternIndex;
-    m_pattern.writeFlag = true;
+    m_masterVolume.value = masterVolume;
+    m_masterVolume.writeFlag = true;
 }

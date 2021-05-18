@@ -91,12 +91,6 @@ void Input_Manager::poll()
             {
                 m_rhythmGenerator->triggerRhythm(i, piezoReading);
             }
-                   
-            
-            /* Serial.print("Piezo ");
-            Serial.print(i);
-            Serial.print(" = ");
-            Serial.println(piezoReading);*/
         }
     }
 
@@ -140,7 +134,6 @@ void Input_Manager::readMuxs()
                     {                
                         case 7:                                                                 // filter index 7, the speed control which needs different treatment.
                             m_rhythmGenerator->decrementSpeed();                                // decrement speed
-                            m_parameterManager->setSpeed(m_rhythmGenerator->getSpeed());        // update the parameter manager
                             break;
                         default:
                             m_rhythmGenerator->flipRhythmBit(m_muxReadIndex);       
@@ -170,10 +163,10 @@ void Input_Manager::readMuxs()
             if(muxBCurrentValue != m_muxBButtonStates[m_muxReadIndex])
             {
                 // check to see if the debounce time has been exceeded
-                if((millis() - m_muxBButtonEventTimes[m_muxReadIndex]) > DEBOUNCE_MS)    // debounce
+                if((millis() - m_muxBButtonEventTimes[m_muxReadIndex]) > DEBOUNCE_MS)           // debounce
                 {
-                    m_muxBButtonStates[m_muxReadIndex] = muxBCurrentValue;           // update array
-                    m_muxBButtonEventTimes[m_muxReadIndex] = millis();               // update event time
+                    m_muxBButtonStates[m_muxReadIndex] = muxBCurrentValue;                      // update array
+                    m_muxBButtonEventTimes[m_muxReadIndex] = millis();                          // update event time
 
                     if(m_muxBButtonStates[m_muxReadIndex] == 1)
                     {
@@ -181,6 +174,52 @@ void Input_Manager::readMuxs()
                         Serial.print("muxB button ");
                         Serial.print(m_muxReadIndex);
                         Serial.println("on.");
+
+                        if(m_muxReadIndex == 0)                                                                 // tempo volume menu button
+                        {
+                            m_tempoVolMenuState = !m_tempoVolMenuState;
+                            m_ledController->setTempoVolMenuLeds(m_tempoVolMenuState);
+
+                            if(m_tempoVolMenuState == 0)                                                        // if tempo menu selected...
+                            {
+                                m_displayController->displayNumber(m_masterClock->getBpm());                    // ...display the tempo.
+                            } else if(m_tempoVolMenuState == 1)
+                            {
+                                m_displayController->displayNumber(m_outputAmplifier->getLevelAsInt());         // ...display the tempo.
+                            }
+                        }
+
+                        if(m_muxReadIndex == 1)                     // up button
+                        {
+                            if(m_tempoVolMenuState == 0)            // if tempo menu selected
+                            {
+                                m_masterClock->incrementBpm();
+                                m_rhythmClock->incrementBpm();
+                                m_displayController->displayNumber(m_masterClock->getBpm());
+                                m_parameterManager->saveMasterTempo(m_masterClock->getBpm());
+                            } else if (m_tempoVolMenuState == 1)
+                            {
+                                m_outputAmplifier->incrementLevel();
+                                m_displayController->displayNumber(m_outputAmplifier->getLevelAsInt());
+                                m_parameterManager->saveMasterVolume(m_outputAmplifier->getLevelAsInt());
+                            }
+                        }
+
+                        if(m_muxReadIndex == 2)                     // down button
+                        {
+                             if(m_tempoVolMenuState == 0)           // if tempo menu selected
+                            {
+                                m_masterClock->decrementBpm();
+                                m_rhythmClock->decrementBpm();
+                                m_displayController->displayNumber(m_masterClock->getBpm());
+                                m_parameterManager->saveMasterTempo(m_masterClock->getBpm());
+                            } else if(m_tempoVolMenuState == 1)
+                            {
+                                m_outputAmplifier->decrementLevel();
+                                m_displayController->displayNumber(m_outputAmplifier->getLevelAsInt());
+                                m_parameterManager->saveMasterVolume(m_outputAmplifier->getLevelAsInt());
+                            }
+                        }
 
                         if(m_muxReadIndex == 5)                     // play button
                         {
@@ -257,7 +296,6 @@ void Input_Manager::readMuxs()
                                 break;
                         }
 
-
                         if(m_kitPatternMenuState == 0)                                      // the kit menu is selected
                         {
                             if(newKitPattIndex == m_lastKitValue)                           // the button has been pressed a second time
@@ -274,7 +312,7 @@ void Input_Manager::readMuxs()
                                 {
                                     m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, i.e set the filename of all sample players           
                                 }  
-                                m_parameterManager->saveKit(newKitPattIndex);               // save the change to eeprom
+                                m_parameterManager->saveKitIndex(newKitPattIndex);               // save the change to eeprom
                                 m_ledController->setKitPattFlashing(false);
                                 m_ledController->setKitPattNumLeds(newKitPattIndex);
                             } else 
@@ -299,7 +337,7 @@ void Input_Manager::readMuxs()
                             if(m_patternBankState == 0)                                     // if not banked...
                             {
                                 m_sequencer->setPatternIndex(newKitPattIndex);              // set pattern
-                                m_parameterManager->savePattern(newKitPattIndex);           // save the change to eeprom              
+                                m_parameterManager->savePatternIndex(newKitPattIndex);           // save the change to eeprom              
                                 m_ledController->setKitPattFlashing(false);
                                 m_ledController->setKitPattNumLeds(newKitPattIndex);
                             } else                                                          // else we are banked
@@ -310,79 +348,6 @@ void Input_Manager::readMuxs()
                             
                             m_lastPatternValue = newKitPattIndex;
                         }
-
-                        /*int newKitPattIndex = 0;
-                        int currentKitPatternIndex = 0;
-
-                        if(m_kitPatternMenuState)
-                        {
-                            currentKitPatternIndex = m_parameterManager->getPattern();
-                        } else
-                        {
-                            currentKitPatternIndex = m_parameterManager->getKit();
-                        }
-
-                        switch(m_muxReadIndex)
-                        {
-                            case 3:
-                                // kit/pattern button 4
-                                newKitPattIndex = 3;
-                                break;
-                            case 4:
-                                // kit/pattern button 3
-                                newKitPattIndex = 2;
-                                break;
-                            case 5:
-                                // kit/pattern button 2
-                                newKitPattIndex = 1;
-                                break;
-                            case 6:
-                                // kit/pattern button 1
-                                newKitPattIndex = 0;
-                                break;
-                        }
-
-                        if(newKitPattIndex == m_lastKitPattIndex)           // flip the bank state if required.
-                        {
-                            m_bankState = !m_bankState;
-                        }
-
-                        Serial.print("new index = ");
-                        Serial.println(newKitPattIndex);
-                        Serial.print("last index = ");
-                        Serial.println(m_lastKitPattIndex);
-                        Serial.print("bank state = ");
-                        Serial.println(m_bankState);
-
-                        m_lastKitPattIndex = newKitPattIndex;
-
-                        if(m_kitPatternMenuState)                                           // if pattern is selected
-                        {
-                            if(m_bankState)                                                 // if in bank state...
-                            {
-                                newKitPattIndex = newKitPattIndex + 4;                      // ...add four to index
-                            }
-                            
-                            m_sequencer->setPatternIndex(newKitPattIndex);                  // change the pattern in the sequencer
-                            m_parameterManager->savePattern(newKitPattIndex);               // save the change to eeprom
-                        } else                                                              // otherwise, kit is selected
-                        {
-                            m_kitBankState = m_bankState;                                   // update the kitBankState
-
-                            if(!m_kitBankState)                                             // if not in a bankstate...
-                            {
-                                for(int i = 0; i < 8; i++)
-                                {
-                                    m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, i.e set the filename of all sample players           
-                                }  
-                                m_parameterManager->saveKit(newKitPattIndex);               // save the change to eeprom
-                                //m_kitPatternMenuState = false;         
-                            }    
-                        }
-
-
-
-                        m_ledController->setKitPattNumLeds(newKitPattIndex);    */            // update the LEDs
                     }
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
                 {
@@ -488,4 +453,20 @@ void Input_Manager::flipKitPatternMenuState()
 {
     m_kitPatternMenuState = !m_kitPatternMenuState;
     m_ledController->setKitPattMenuLeds(m_kitPatternMenuState);         // update leds
+}
+
+void Input_Manager::setClocks(Midi_Clock *masterClock, Midi_Clock *rhythmClock)
+{
+    m_masterClock = masterClock;
+    m_rhythmClock = rhythmClock;
+}
+
+void Input_Manager::setDisplayController(Display_Controller *displayController)
+{
+    m_displayController = displayController;
+}
+
+void Input_Manager::setOutputAmplifier(Output_Amplifier *outputAmplifier)
+{
+    m_outputAmplifier = outputAmplifier;
 }

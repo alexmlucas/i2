@@ -6,7 +6,6 @@ const int PATTERN_AMOUNT = 8;
 const int TRACK_AMOUNT = 8;
 const int PPQN = 24;
 const int QUANTISE_MODULO = 3;
-const int DEFAULT_BPM = 120;
 const int TRIGGER_AMOUNT = 4;
 const unsigned long US_IN_MINUTE = 60000000;
 

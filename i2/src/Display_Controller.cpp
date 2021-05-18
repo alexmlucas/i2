@@ -43,7 +43,6 @@ void Display_Controller::poll()                 // used to clear the screen
             display.clear();
             display.writeDisplay();
             m_clearFlag = false;
-            Serial.println("clearing");
         }
     }
 }
