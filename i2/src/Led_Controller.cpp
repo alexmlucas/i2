@@ -37,11 +37,11 @@ void Led_Controller::poll()
     {
       if(m_kitPattLedState == HIGH)   // then flip
       {
-        bitClear(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPatt]);
+        bitClear(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPattIndex]);
         m_kitPattLedState = LOW;
       } else
       {
-        bitSet(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPatt]);
+        bitSet(m_muxLedStates[1], m_kitPattNumLedBits[m_currentKitPattIndex]);
         m_kitPattLedState = HIGH;
       }
 
@@ -83,7 +83,7 @@ void Led_Controller::setKitPattNumLeds(int index)
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
-      m_currentKitPatt = 0;
+      m_currentKitPattIndex = 0;
       m_kitPattLedFlashFlag = false;
       break;
     case(1):
@@ -91,7 +91,7 @@ void Led_Controller::setKitPattNumLeds(int index)
       bitSet(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
-      m_currentKitPatt = 1;
+      m_currentKitPattIndex = 1;
       m_kitPattLedFlashFlag = false;
       break;
     case(2):
@@ -99,7 +99,7 @@ void Led_Controller::setKitPattNumLeds(int index)
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitSet(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
-      m_currentKitPatt = 2;
+      m_currentKitPattIndex = 2;
       m_kitPattLedFlashFlag = false;
       break;
     case(3):
@@ -107,8 +107,44 @@ void Led_Controller::setKitPattNumLeds(int index)
       bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
       bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
       bitSet(m_muxLedStates[1], m_kitPattNum4LedBit);
-      m_currentKitPatt = 3;
+      m_currentKitPattIndex = 3;
       m_kitPattLedFlashFlag = false;
+      break;
+    case(4):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);     // clear all as flashing will light LED shortly
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPattIndex = 0;                            // index is tweaked for bit-setting.
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(5):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPattIndex = 1;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(6):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPattIndex = 2;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
+      break;
+    case(7):
+      bitClear(m_muxLedStates[1], m_kitPattNum1LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum2LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum3LedBit);
+      bitClear(m_muxLedStates[1], m_kitPattNum4LedBit);
+      m_currentKitPattIndex = 3;
+      m_kitPattLedFlashFlag = true;
+      m_flashTimer = 0;
       break;
   }
 
@@ -338,12 +374,5 @@ void Led_Controller::setUndoLed(int state)
     bitClear(m_muxLedStates[0], m_undoLedBit);
   }
 
-  this->writeMuxLeds();
-}
-
-void Led_Controller::setKitPattFlashing(int state)
-{
-  m_kitPattLedFlashFlag = state;
-  m_flashTimer = 0;
   this->writeMuxLeds();
 }

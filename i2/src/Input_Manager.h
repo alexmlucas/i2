@@ -57,11 +57,13 @@ class Input_Manager
         bool m_readMe;
         int m_kitPatternMenuState = 0;  // can perhaps remove default values and set extenally?
         int m_tempoVolMenuState = 0;
-        int m_lastPatternValue = -1;    // do we need to set these during setup?
-        int m_lastKitValue = -1;
+        int m_currentPattIndex;   // do we need to set these during setup?
+        int m_currentKitIndex;
         bool m_kitBankState = false;
         bool m_patternBankState = false;
-
+        bool m_kitBankFlags[4] ={false, false, false, false};
+        bool m_patternBankFlags[4] ={false, false, false, false};
+        
 
         Sample_Player *m_samplePlayers;
         Led_Controller *m_ledController;
@@ -93,6 +95,10 @@ class Input_Manager
         void setSensor(int index);
         void setDisplayController(Display_Controller *displayController);
         void setOutputAmplifier(Output_Amplifier *outputAmplifier);
+        void setKitIndex(int kitIndex);
+        void setPattIndex(int patternIndex);
+
+        //void initialiseKitPattern(int kitIndex, int patternIndex);
 };
 
 #endif

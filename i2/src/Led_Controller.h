@@ -1,7 +1,6 @@
 #ifndef LED_CONTROLLER
 #define LED_CONTROLLER
 #include <Arduino.h>
-//#include "Led.h"
 #include "Midi_Clock.h"
 
 class Led_Controller
@@ -25,7 +24,7 @@ class Led_Controller
         elapsedMillis m_flashTimer = 0;
         bool m_kitPattLedFlashFlag = false;
         int m_kitPattLedState = true;
-        int m_currentKitPatt;
+        int m_currentKitPattIndex;
 
         int m_kitMenuLedBit = 2;
         int m_pattMenuLedBit = 1;
@@ -50,7 +49,6 @@ class Led_Controller
         int m_recordLedBit = 3;
         int m_undoLedBit = 0;
     
-        //Led *m_kitPattMenuLeds[2];
         byte m_muxLedStates[3];
         bool m_playLedCurrentState;
         bool m_playStateActive;
@@ -75,7 +73,6 @@ class Led_Controller
         void pulseUndoLed();
         void updatePulse();
         void setUndoLed(int state);
-        void setKitPattFlashing(int state);
 };
 
 #endif

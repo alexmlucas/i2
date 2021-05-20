@@ -169,16 +169,34 @@ void setup()
   rhythmGenerator.setSpeed(1);
 
   // ### Drum Kit ###
-  int savedKit = parameterManager.getKitIndex();     // get the saved value
-  
-  for(int i = 0; i < 8; i++)                    // set all sample players
+  int recalledKitIndex = parameterManager.getKitIndex();    // get the saved value
+
+  if(recalledKitIndex > 3)
   {
-    samplePlayers[i].setKit(savedKit);
+    recalledKitIndex = recalledKitIndex - 4;                // tweak the index to account for banking
+  }
+  
+  for(int i = 0; i < 8; i++)                                // set all sample players
+  {
+    samplePlayers[i].setKit(recalledKitIndex);
   }
 
-  ledController.setKitPattNumLeds(savedKit);    // set the UI
+  inputManager.setKitIndex(recalledKitIndex);
 
-  int savedPattern = parameterManager.getPatternIndex();
+  // ### Pattern ###
+  int recalledPattIndex = parameterManager.getPatternIndex();
+
+  sequencer.setPatternIndex(recalledPattIndex);
+  inputManager.setPattIndex(recalledPattIndex);
+
+
+
+  // set the input manager
+
+  
+  //ledController.setKitPattNumLeds(savedKit);    // set the UI
+
+  //int savedPattern = parameterManager.getPatternIndex();
 
   // action all recalled parameters
   

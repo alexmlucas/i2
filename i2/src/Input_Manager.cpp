@@ -33,9 +33,9 @@ Input_Manager::Input_Manager()
     m_rhythmPotLastMappedValue = 0;
     m_muxReadTimer = 0;
     m_muxReadIndex = 0;
-
     m_readMuxChannel = false;
     m_changeMuxChannel = true;
+
 }
 
 void Input_Manager::setSamplePlayers(Sample_Player *samplePlayers)
@@ -80,13 +80,13 @@ void Input_Manager::poll()
         if(piezoReading > 0)
         {
             piezoReading = constrain(piezoReading, 0, 100);
-            piezoReading = map(piezoReading, 0, 100, 1, 2.5);           // ...scale reading to appropriate range for logarithmic curve
+            piezoReading = map(piezoReading, 0, 100, 1, 2.5);               // ...scale reading to appropriate range for logarithmic curve
             piezoReading = log(piezoReading);
             m_transport->resetUndoCollector();
 
-            if(m_kitBankState)                                         // add 4 to the trigger index if bank active
-            {   
-                m_rhythmGenerator->triggerRhythm(i + 4, piezoReading);
+            if(m_currentKitIndex > 3)
+            {
+                m_rhythmGenerator->triggerRhythm(i + 4, piezoReading);      // shift index by 4 to trigger second bank
             } else
             {
                 m_rhythmGenerator->triggerRhythm(i, piezoReading);
@@ -296,57 +296,47 @@ void Input_Manager::readMuxs()
                                 break;
                         }
 
-                        if(m_kitPatternMenuState == 0)                                      // the kit menu is selected
+                        if(m_kitPatternMenuState == 0)                                  // the kit menu is selected
                         {
-                            if(newKitPattIndex == m_lastKitValue)                           // the button has been pressed a second time
+                            for(int i = 0; i < 8; i++)
                             {
-                                m_kitBankState = !m_kitBankState;                           // flip the bank state
-                            } else 
-                            {
-                                m_kitBankState = 0;                                         // otherwise reset the state
+                                m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, always use an index of 0-3          
                             }
 
-                            if(m_kitBankState == 0)                                         // if not banked...
+                            if(newKitPattIndex == m_currentKitIndex)                    // if second press
                             {
-                                for(int i = 0; i < 8; i++)
+                                if(m_currentKitIndex < 4)                               // if below 4... 
                                 {
-                                    m_samplePlayers[i].setKit(newKitPattIndex);             // set kit, i.e set the filename of all sample players           
-                                }  
-                                m_parameterManager->saveKitIndex(newKitPattIndex);               // save the change to eeprom
-                                m_ledController->setKitPattFlashing(false);
-                                m_ledController->setKitPattNumLeds(newKitPattIndex);
-                            } else 
-                            {
-                                m_ledController->setKitPattFlashing(true);
-                            }
-
-                            m_lastKitValue = newKitPattIndex;
-                        }
-
-                        if(m_kitPatternMenuState == 1)                                      // the pattern menu is selected
-                        {
-                            Serial.println("we're in");
-                            if(newKitPattIndex == m_lastPatternValue)                       // the button has been pressed a second time
-                            {
-                                m_patternBankState = !m_patternBankState;                   // flip the bank state
-                            } else 
-                            {
-                                m_patternBankState = 0;                                     // otherwise reset the state
-                            }
-
-                            if(m_patternBankState == 0)                                     // if not banked...
-                            {
-                                m_sequencer->setPatternIndex(newKitPattIndex);              // set pattern
-                                m_parameterManager->savePatternIndex(newKitPattIndex);           // save the change to eeprom              
-                                m_ledController->setKitPattFlashing(false);
-                                m_ledController->setKitPattNumLeds(newKitPattIndex);
-                            } else                                                          // else we are banked
-                            {
-                                m_sequencer->setPatternIndex(newKitPattIndex + 4);
-                                m_ledController->setKitPattFlashing(true);
+                                    newKitPattIndex = newKitPattIndex + 4;              // bank up
+                                } else 
+                                {
+                                    newKitPattIndex = newKitPattIndex - 4;              // else bank down
+                                }
                             }
                             
-                            m_lastPatternValue = newKitPattIndex;
+                            m_sequencer->setPatternIndex(newKitPattIndex);              // ...set with 4 added to index
+                            m_parameterManager->saveKitIndex(newKitPattIndex);
+                            m_ledController->setKitPattNumLeds(newKitPattIndex);
+                            m_currentKitIndex = newKitPattIndex; 
+                        }
+
+                        if(m_kitPatternMenuState == 1)                                  // the pattern menu is selected
+                        {
+                            if(newKitPattIndex == m_currentPattIndex)                   // if second press
+                            {
+                                if(m_currentPattIndex < 4)                              // if below 4... 
+                                {
+                                    newKitPattIndex = newKitPattIndex + 4;              // bank up
+                                } else 
+                                {
+                                    newKitPattIndex = newKitPattIndex - 4;              // else bank down
+                                }
+                            }
+
+                            m_sequencer->setPatternIndex(newKitPattIndex);              // ...set with 4 added to index
+                            m_parameterManager->savePatternIndex(newKitPattIndex);
+                            m_ledController->setKitPattNumLeds(newKitPattIndex);
+                            m_currentPattIndex = newKitPattIndex; 
                         }
                     }
                 } else if(m_muxCButtonStates[m_muxReadIndex] == 0)
@@ -453,6 +443,14 @@ void Input_Manager::flipKitPatternMenuState()
 {
     m_kitPatternMenuState = !m_kitPatternMenuState;
     m_ledController->setKitPattMenuLeds(m_kitPatternMenuState);         // update leds
+
+    if(m_kitPatternMenuState == 0)                                      // kit selected
+    {
+        m_ledController->setKitPattNumLeds(m_currentKitIndex);
+    } else if(m_kitPatternMenuState == 1)                               // pattern selected
+    {
+        m_ledController->setKitPattNumLeds(m_currentPattIndex);
+    }
 }
 
 void Input_Manager::setClocks(Midi_Clock *masterClock, Midi_Clock *rhythmClock)
@@ -469,4 +467,15 @@ void Input_Manager::setDisplayController(Display_Controller *displayController)
 void Input_Manager::setOutputAmplifier(Output_Amplifier *outputAmplifier)
 {
     m_outputAmplifier = outputAmplifier;
+}
+
+void Input_Manager::setKitIndex(int kitIndex)
+{
+    m_currentKitIndex = kitIndex;
+    m_ledController->setKitPattNumLeds(m_currentKitIndex);         // light LEDs as this menu is selected at startup
+}
+
+void Input_Manager::setPattIndex(int pattIndex)
+{
+    m_currentPattIndex = pattIndex;
 }
