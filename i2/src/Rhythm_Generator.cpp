@@ -46,14 +46,12 @@ void Rhythm_Generator::poll()
           break;
       }
 
-      if(midiTickOnStepFlag)                                            // if the clock's midi tick is on an step we're interested in...
+      if(midiTickOnStepFlag)                                              // if the clock's midi tick is on an step we're interested in...
       {
-        if(triggerFlag)                                                 // if the rhythm generator step is 'on'
+        if(triggerFlag)                                                   // if the rhythm generator step is 'on'
         {
-          
-          m_samplePlayers[m_track].processTriggerEvent(m_velocity);     // ...trigger the sample 
-          Serial.println("triggering");
-          m_transport->logTriggerEvent(m_track, m_velocity);            // ...log the trigger event with the transport
+          m_samplePlayers[m_track].processTriggerEvent(m_velocity); // ...trigger the sample, float required
+          m_transport->logTriggerEvent(m_track, m_velocity);              // ...log the trigger event with the transport
           
           if(m_track > 3)
           {

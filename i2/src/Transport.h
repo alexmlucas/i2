@@ -35,10 +35,10 @@ class Transport
     };
 
     int m_track;
-    float m_velocity;
+    int m_velocity;
 
     Transport(Midi_Clock *masterClock, Sequencer *sequencer, Led_Controller *ledController);
-    void logTriggerEvent(int track, float velocity);
+    void logTriggerEvent(int track, int velocity);
     void poll();
     void flipPlayState();
     void flipRecordState();

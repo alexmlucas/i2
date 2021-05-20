@@ -38,7 +38,7 @@ void Transport::poll()
   }
 }
 
-void Transport::logTriggerEvent(int track, float velocity)
+void Transport::logTriggerEvent(int track, int velocity)
 {
   if(m_recordFlag)                      // if recording...
   {

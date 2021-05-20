@@ -44,7 +44,6 @@ void Sample_Player::processTriggerEvent(float velocity)
       this->playWithVelocity(velocity);       // ...play the sample.
     } else                                    //  else the sample is playing. therefore...
     {
-      Serial.println("fade and retrigger");
       this->fadeAndRetrigger(velocity);       // ...instigate a fadeAndRetrigger event.
     }
   } else                                      // else a fadeAndRetrigger event is active. 
@@ -55,7 +54,6 @@ void Sample_Player::processTriggerEvent(float velocity)
 
 void Sample_Player::playWithVelocity(float velocity)
 {
-  Serial.println(m_sampleName);
   this->setMixerLevels(velocity);                           // set the mixer levels.
   m_sdWav->play(m_sampleName.c_str());                      // play the sample.
 }
@@ -69,15 +67,9 @@ void Sample_Player::setMixerLevels(float velocity)
 void Sample_Player::fadeAndRetrigger(float velocity)
 {
   m_retriggerVelocity = velocity;
-
   m_fadeAndRetriggerTimer = 0;                              // will the order of this and the noteOff events matter?
-
   m_leftFade->fadeOut(FADE_OUT_MS);                         // trigger the fade out.
   m_rightFade->fadeOut(FADE_OUT_MS);
-
-  //Serial.println("Fading out sample at address: ");
-  //Serial.println(int(this));
-
   m_fadeAndRetriggerActive = true;
 }
 

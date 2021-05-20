@@ -13,11 +13,11 @@ void Sequencer::playStep()
 {
   for(int i = 0; i <= (TRACK_AMOUNT - 1); i++)                                    // interate through tracks.       
   {                      
-    float velocity = patterns[m_currentPattern].m_steps[m_currentStep][i];        // get the velocity value at the index.
+    float velocity = patterns[m_currentPattern].m_steps[m_currentStep][i] * 0.1;  // get the velocity value at the index.
 
     if(velocity > 0)                                                              // if velocity is above 0...
     {
-      m_samplePlayers[i].processTriggerEvent(velocity);                        // ...play the sample.
+      m_samplePlayers[i].processTriggerEvent(velocity);                           // ...play the sample.
     }
   }
 }
