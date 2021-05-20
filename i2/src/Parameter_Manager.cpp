@@ -2,12 +2,11 @@
 
 Parameter_Manager::Parameter_Manager()
 {
-    
     // ### Set parameter EEPROM storage indexes ###
-    m_kitIndex.storageIndex = 1;
-    m_patternIndex.storageIndex = 2;
-    m_masterTempo.storageIndex = 3;
-    m_masterVolume.storageIndex = 4;
+    m_kitIndex.storageIndex = 0;
+    m_patternIndex.storageIndex = 1;
+    m_masterTempo.storageIndex = 2;
+    m_masterVolume.storageIndex = 3;
 
     // ### Reset all write flags ###          
     m_kitIndex.writeFlag = false;
@@ -15,11 +14,12 @@ Parameter_Manager::Parameter_Manager()
     m_masterTempo.writeFlag = false; 
     m_masterVolume.writeFlag = false;
 
-    // ### Dummay data, will need to read from Eepromm ###  
-    m_kitIndex.value = 1;
-    m_patternIndex.value = 2;
-    m_masterTempo.value = 110; 
-    m_masterVolume.value = 9;
+    // ### Read data from Eepromm ###  
+    m_kitIndex.value = EEPROM.read(m_kitIndex.storageIndex);
+    m_patternIndex.value = EEPROM.read(m_patternIndex.storageIndex);
+    m_masterTempo.value = EEPROM.read(m_masterTempo.storageIndex); 
+    m_masterVolume.value = EEPROM.read(m_masterVolume.storageIndex);
+
 }
 
 void Parameter_Manager::poll()
@@ -28,29 +28,25 @@ void Parameter_Manager::poll()
     {
         if(m_kitIndex.writeFlag)
         {
-            // write to EEPROM here
-            Serial.println("writing kit index");
+            EEPROM.write(m_kitIndex.storageIndex, m_kitIndex.value);
             m_kitIndex.writeFlag = false;                              // reset flag
         }
 
         if(m_patternIndex.writeFlag)
         {
-            // write to EEPROM here
-            Serial.println("writing pattern index");
+            EEPROM.write(m_patternIndex.storageIndex, m_patternIndex.value);
             m_patternIndex.writeFlag = false;                              // reset flag
         }
 
         if(m_masterTempo.writeFlag)
         {
-            // write to EEPROM here
-            Serial.println("writing master tempo");
+            EEPROM.write(m_masterTempo.storageIndex, m_masterTempo.value);
             m_masterTempo.writeFlag = false;                              // reset flag
         }
 
         if(m_masterVolume.writeFlag)
         {
-            // write to EEPROM here
-            Serial.println("writing master volume");
+            EEPROM.write(m_masterVolume.storageIndex, m_masterVolume.value);
             m_masterVolume.writeFlag = false;                              // reset flag
         }
     }    
@@ -71,26 +67,35 @@ int Parameter_Manager::getMasterTempo()
     return m_masterTempo.value;
 }
 
+int Parameter_Manager::getMasterVolume()
+{
+    return m_masterVolume.value;
+}
+
 void Parameter_Manager::saveKitIndex(int kitIndex)
 {
     m_kitIndex.value = kitIndex;
+    m_timeSinceParameterChange = 0;
     m_kitIndex.writeFlag = true;
 }
 
 void Parameter_Manager::savePatternIndex(int patternIndex)
 {
     m_patternIndex.value = patternIndex;
+    m_timeSinceParameterChange = 0;
     m_patternIndex.writeFlag = true;
 }
 
 void Parameter_Manager::saveMasterTempo(int masterTempo)
 {
     m_masterTempo.value = masterTempo;
+    m_timeSinceParameterChange = 0;
     m_masterTempo.writeFlag = true;
 }
 
 void Parameter_Manager::saveMasterVolume(int masterVolume)
 {
     m_masterVolume.value = masterVolume;
+    m_timeSinceParameterChange = 0;
     m_masterVolume.writeFlag = true;
 }

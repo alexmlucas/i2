@@ -35,7 +35,6 @@ Input_Manager::Input_Manager()
     m_muxReadIndex = 0;
     m_readMuxChannel = false;
     m_changeMuxChannel = true;
-
 }
 
 void Input_Manager::setSamplePlayers(Sample_Player *samplePlayers)

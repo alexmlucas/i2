@@ -55,14 +55,14 @@ class Input_Manager
         bool m_readMuxChannel;
         bool m_changeMuxChannel;
         bool m_readMe;
-        int m_kitPatternMenuState = 0;  // can perhaps remove default values and set extenally?
-        int m_tempoVolMenuState = 0;
-        int m_currentPattIndex;   // do we need to set these during setup?
+        int m_kitPatternMenuState; 
+        int m_tempoVolMenuState;
+        int m_currentPattIndex;
         int m_currentKitIndex;
-        bool m_kitBankState = false;
+        /*bool m_kitBankState = false;
         bool m_patternBankState = false;
         bool m_kitBankFlags[4] ={false, false, false, false};
-        bool m_patternBankFlags[4] ={false, false, false, false};
+        bool m_patternBankFlags[4] ={false, false, false, false};*/
         
 
         Sample_Player *m_samplePlayers;

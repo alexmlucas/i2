@@ -149,6 +149,27 @@ Output_Amplifier outputAmplifier(&amp2, &amp3);
 void setup() 
 {
   Serial.begin(31250);
+
+  // ### setup sample players ###
+  samplePlayers[0].assignFadeObjects(&fade1, &fade2);
+  samplePlayers[1].assignFadeObjects(&fade3, &fade4);
+  samplePlayers[2].assignFadeObjects(&fade5, &fade6);
+  samplePlayers[3].assignFadeObjects(&fade7, &fade8);
+  samplePlayers[4].assignFadeObjects(&fade9, &fade10);
+  samplePlayers[5].assignFadeObjects(&fade11, &fade12);
+  samplePlayers[6].assignFadeObjects(&fade13, &fade14);
+  samplePlayers[7].assignFadeObjects(&fade15, &fade16);
+
+  samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
+  samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
+  samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
+  samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
+  samplePlayers[4].assignMixerObjects(&mixer2, &mixer4, 0, 0);
+  samplePlayers[5].assignMixerObjects(&mixer2, &mixer4, 1, 1);
+  samplePlayers[6].assignMixerObjects(&mixer2, &mixer4, 2, 2);
+  samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
+
+  // ### setup object references ###
   inputManager.setClocks(&masterClock, &rhythmClock);
   inputManager.setDisplayController(&displayController);
   inputManager.setOutputAmplifier(&outputAmplifier);
@@ -160,10 +181,10 @@ void setup()
   inputManager.setTransport(&transport);
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
-
   rhythmGenerator.setDisplayController(&displayController);
   
-   // default values not loaded from Eeprom
+  // ### setup parameters ###
+  // default values not loaded from Eeprom
   inputManager.setKitPatternMenuState(0);
   inputManager.setTempoVolMenuState(0);
   rhythmGenerator.setSpeed(1);
@@ -185,34 +206,16 @@ void setup()
 
   // ### Pattern ###
   int recalledPattIndex = parameterManager.getPatternIndex();
-
   sequencer.setPatternIndex(recalledPattIndex);
   inputManager.setPattIndex(recalledPattIndex);
 
+  // ### Master Tempo/BPM ###
+  int recalledBpm = parameterManager.getMasterTempo();
+  masterClock.setBpm(recalledBpm);
 
-
-  // set the input manager
-
-  
-  //ledController.setKitPattNumLeds(savedKit);    // set the UI
-
-  //int savedPattern = parameterManager.getPatternIndex();
-
-  // action all recalled parameters
-  
-
-  //sequencer.setPattern(savedPattern);
-  
- 
-  
-  // ## setup LEDs ##
-  //ledController.setKitPattMenuLeds(0);
-  //ledController.setKitPattNumLeds(savedKit);      // 'kit' is the default
-
-
-
-  
-
+  // ### Master Volume ###
+  int recalledVolume = parameterManager.getMasterVolume();
+  outputAmplifier.setLevel(recalledVolume);
 
   AudioMemory(10);
   
@@ -233,28 +236,8 @@ void setup()
       delay(500);
     }
   }
-
-  // ### setup sample players ###
-  samplePlayers[0].assignFadeObjects(&fade1, &fade2);
-  samplePlayers[1].assignFadeObjects(&fade3, &fade4);
-  samplePlayers[2].assignFadeObjects(&fade5, &fade6);
-  samplePlayers[3].assignFadeObjects(&fade7, &fade8);
-  samplePlayers[4].assignFadeObjects(&fade9, &fade10);
-  samplePlayers[5].assignFadeObjects(&fade11, &fade12);
-  samplePlayers[6].assignFadeObjects(&fade13, &fade14);
-  samplePlayers[7].assignFadeObjects(&fade15, &fade16);
-
-  samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
-  samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
-  samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
-  samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
-  samplePlayers[4].assignMixerObjects(&mixer2, &mixer4, 0, 0);
-  samplePlayers[5].assignMixerObjects(&mixer2, &mixer4, 1, 1);
-  samplePlayers[6].assignMixerObjects(&mixer2, &mixer4, 2, 2);
-  samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
-
-  while (!Serial && millis() < 2500); 
-                                    // wait for serial monitor
+  
+  while (!Serial && millis() < 2500); // wait for serial monitor
 }
 
 void loop() 
