@@ -20,11 +20,14 @@ class Delay_Effect
     AudioMixer4 *m_rightWetDryMixer;
     AudioFilterStateVariable *m_highPassFilter;
     Parameter_Manager *m_parameterManager;
+    int m_currentDelayMultiplier;
     
   public:
     Delay_Effect(AudioEffectDelay *delay, AudioAmplifier *feedbackAmp, AudioMixer4 *inputMixer, AudioMixer4 *leftWetDryMixer, AudioMixer4 *rightWetDryMixer, AudioFilterStateVariable *highPassFilter, Parameter_Manager *Parameter_Manager);
     //void setDelayTime()
     int calculateDelayTime();
+    void setDepth(int depth);
+    void refreshDelayTime();
 };
 
 #endif

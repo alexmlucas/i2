@@ -11,6 +11,7 @@
 #include "Midi_Clock.h"
 #include "Display_Controller.h"
 #include "Output_Amplifier.h"
+#include "Delay_Effect.h"
 
 class Input_Manager
 {
@@ -75,6 +76,7 @@ class Input_Manager
         Midi_Clock *m_rhythmClock;
         Display_Controller *m_displayController;
         Output_Amplifier *m_outputAmplifier;
+        Delay_Effect *m_delayEffect;
 
     public:
         Input_Manager();
@@ -97,6 +99,7 @@ class Input_Manager
         void setOutputAmplifier(Output_Amplifier *outputAmplifier);
         void setKitIndex(int kitIndex);
         void setPattIndex(int patternIndex);
+        void setDelayEffect(Delay_Effect *delayEffect);
 
         //void initialiseKitPattern(int kitIndex, int patternIndex);
 };

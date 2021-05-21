@@ -18,19 +18,45 @@ Delay_Effect::Delay_Effect(AudioEffectDelay *delay, AudioAmplifier *feedbackAmp,
     //m_rightWetDryMixer->gain(0, 0.4);
     //m_rightWetDryMixer->gain(1, 0.4);
     
-    m_feedbackAmp->gain(0.1);
-    m_highPassFilter->frequency(100.0);
-
- 
-    m_delay->delay(0, this->calculateDelayTime());         // channel, delay in ms.
-    //m_delay->delay(1, 50.0);         // channel, delay in ms.
-
+    m_feedbackAmp->gain(0.2);
+    m_highPassFilter->frequency(300.0);
+    m_delay->delay(0, this->calculateDelayTime());
 }
 
 int Delay_Effect::calculateDelayTime()
 {
-  // MS  = 60,000 
   int crotchetInterval = MS_IN_MINUTE / m_parameterManager->getMasterTempo();
-  int quaverInterval = round(crotchetInterval / 2);
+  int quaverInterval = round(crotchetInterval / m_currentDelayMultiplier);
   return quaverInterval;
+}
+
+void Delay_Effect::setDepth(int depth)
+{
+  int newDelayMultiplier = 0;
+  
+  if(depth < 32)
+  {
+    newDelayMultiplier = 2;
+  } else if(depth >= 32 && depth < 64)
+  {
+    newDelayMultiplier = 4;
+  } else if (depth >= 64 && depth < 96)
+  {
+    newDelayMultiplier = 6;
+  } else if (depth >= 96 && depth < 127)
+  {
+    newDelayMultiplier = 8;
+  }
+
+  if(newDelayMultiplier != m_currentDelayMultiplier)
+  {
+    m_currentDelayMultiplier = newDelayMultiplier;
+    this->refreshDelayTime();
+  }
+}
+
+void Delay_Effect::refreshDelayTime()
+{
+  m_delay->delay(0, this->calculateDelayTime());
+  Serial.println(this->calculateDelayTime());
 }

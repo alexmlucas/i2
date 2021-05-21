@@ -202,9 +202,11 @@ void setup()
   inputManager.setRhythmGenerator(&rhythmGenerator);
   inputManager.setParameterManager(&parameterManager);
   inputManager.setTransport(&transport);
+  inputManager.setDelayEffect(&delayEffect);
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
   rhythmGenerator.setDisplayController(&displayController);
+
   
   // ### setup parameters ###
   // default values not loaded from Eeprom
@@ -240,7 +242,7 @@ void setup()
   int recalledVolume = parameterManager.getMasterVolume();
   outputAmplifier.setLevel(recalledVolume);
 
-  AudioMemory(100);
+  AudioMemory(512);
   
   // Test Tone
   /*waveform1.begin(WAVEFORM_SINE);

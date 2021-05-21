@@ -152,6 +152,7 @@ void Input_Manager::readMuxs()
             {
                 // the pot value has changed.
                 m_echoPotLastRawValue = muxBCurrentValue;
+                m_delayEffect->setDepth(map(m_echoPotLastRawValue, 6, 1022, 0, 127));
                 Serial.print("echo pot value = ");
                 Serial.println(m_echoPotLastRawValue);
             }
@@ -212,11 +213,13 @@ void Input_Manager::readMuxs()
                                 m_rhythmClock->decrementBpm();
                                 m_displayController->displayNumber(m_masterClock->getBpm());
                                 m_parameterManager->saveMasterTempo(m_masterClock->getBpm());
+                                m_delayEffect->refreshDelayTime();
                             } else if(m_tempoVolMenuState == 1)
                             {
                                 m_outputAmplifier->decrementLevel();
                                 m_displayController->displayNumber(m_outputAmplifier->getLevelAsInt());
                                 m_parameterManager->saveMasterVolume(m_outputAmplifier->getLevelAsInt());
+                                m_delayEffect->refreshDelayTime();
                             }
                         }
 
@@ -365,14 +368,16 @@ void Input_Manager::readDirectPot()
     if(rhythmPotCurrentRawValue <= (m_rhythmPotLastRawValue - POT_NOISE_FILTER) || rhythmPotCurrentRawValue >= (m_rhythmPotLastRawValue + POT_NOISE_FILTER))                {
         // the pot value has changed.
         m_rhythmPotLastRawValue = rhythmPotCurrentRawValue;
+        Serial.print("rhythm pot value = ");
+        Serial.println(m_rhythmPotLastRawValue);
 
-        int rhythmPotCurrentMappedValue = map(m_rhythmPotLastRawValue, 0, 1024, 0, 127);
+
+        int rhythmPotCurrentMappedValue = map(m_rhythmPotLastRawValue, 1, 1022, 0, 127);
 
         if(rhythmPotCurrentMappedValue != m_rhythmPotLastMappedValue)    // further filtering on mapped value.
         {
             m_rhythmGenerator->setRhythm(rhythmPotCurrentMappedValue);
-            Serial.print("rhythm pot value = ");
-            Serial.println(rhythmPotCurrentMappedValue);
+            
             m_rhythmPotLastMappedValue = rhythmPotCurrentMappedValue;
         }
     }
@@ -477,4 +482,9 @@ void Input_Manager::setKitIndex(int kitIndex)
 void Input_Manager::setPattIndex(int pattIndex)
 {
     m_currentPattIndex = pattIndex;
+}
+
+void Input_Manager::setDelayEffect(Delay_Effect *delayEffect)
+{
+    m_delayEffect = delayEffect;
 }
