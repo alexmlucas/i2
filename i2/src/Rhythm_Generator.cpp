@@ -25,11 +25,7 @@ void Rhythm_Generator::poll()
 
     if(currentMidiTick != m_lastMidiTick)                             // if this is a new midi tick...
     {
-      //Serial.print("Current Step = ");
-      //Serial.println(m_currentStep);
       int invertedStep = abs(m_currentStep - 7);                      // convert step to appropriate bit
-      //Serial.print("Inverted Step = ");
-      //Serial.println(invertedStep);
       bool triggerFlag = bool(bitRead(m_rhythmValue, invertedStep));  // read bit.
       bool midiTickOnStepFlag = false;                                // reset flag to play when on a new MIDI tick.
       

@@ -9,6 +9,7 @@
 #include "Input_Manager.h"
 #include "Display_Controller.h"
 #include "Output_Amplifier.h"
+#include "Delay_Effect.h"
 
 #include <Audio.h>
 #include <Wire.h>
@@ -18,6 +19,24 @@
 
 #define SDCARD_MOSI_PIN  7
 #define SDCARD_SCK_PIN   14
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
 AudioPlaySdWav           playSdWav1;     //xy=571,215
@@ -111,6 +130,9 @@ AudioConnection          patchCord49(amp2, 0, i2s1, 0);
 AudioConnection          patchCord50(amp3, 0, i2s1, 1);
 // GUItool: end automatically generated code
 
+
+
+
 // Test Tone
 /*AudioSynthWaveform    waveform1;
 AudioOutputI2S        i2s1;
@@ -128,23 +150,24 @@ Display_Controller displayController;
 Led_Controller ledController;
 Input_Manager inputManager;
 
- Sample_Player samplePlayers[8] =        // index, track
-  {
-    Sample_Player(&playSdWav1, 0, 0),
-    Sample_Player(&playSdWav2, 0, 1),
-    Sample_Player(&playSdWav3, 0, 2),
-    Sample_Player(&playSdWav4, 0, 3),
-    Sample_Player(&playSdWav5, 0, 4),
-    Sample_Player(&playSdWav6, 0, 5),
-    Sample_Player(&playSdWav7, 0, 6),
-    Sample_Player(&playSdWav8, 0, 7)
-  };
+Sample_Player samplePlayers[8] =        // index, track
+{
+  Sample_Player(&playSdWav1, 0, 0),
+  Sample_Player(&playSdWav2, 0, 1),
+  Sample_Player(&playSdWav3, 0, 2),
+  Sample_Player(&playSdWav4, 0, 3),
+  Sample_Player(&playSdWav5, 0, 4),
+  Sample_Player(&playSdWav6, 0, 5),
+  Sample_Player(&playSdWav7, 0, 6),
+  Sample_Player(&playSdWav8, 0, 7)
+};
 
 Sequencer sequencer(&masterClock, samplePlayers);
 Transport transport(&masterClock, &sequencer, &ledController);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
 Parameter_Manager parameterManager;
 Output_Amplifier outputAmplifier(&amp2, &amp3);
+Delay_Effect delayEffect(&delay1, &amp1, &mixer7, &mixer8, &mixer9, &filter1, &parameterManager);
 
 void setup() 
 {
@@ -217,7 +240,7 @@ void setup()
   int recalledVolume = parameterManager.getMasterVolume();
   outputAmplifier.setLevel(recalledVolume);
 
-  AudioMemory(10);
+  AudioMemory(100);
   
   // Test Tone
   /*waveform1.begin(WAVEFORM_SINE);

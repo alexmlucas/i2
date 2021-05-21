@@ -32,13 +32,12 @@ void Transport::poll()
         m_sequencer->setTriggerEvent(m_track, m_velocity, quantisedStep);     // ...forward to quantiser.
         this->collectUndoEvent(quantisedStep, m_track);                    // ...log undo event.
         m_eventFlag = false;                                                  // ...reset the event flag.
-        Serial.println("event");
       }
     }
   }
 }
 
-void Transport::logTriggerEvent(int track, int velocity)
+void Transport::logTriggerEvent(int track, float velocity)
 {
   if(m_recordFlag)                      // if recording...
   {

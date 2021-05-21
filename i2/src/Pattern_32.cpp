@@ -8,7 +8,7 @@ Pattern_32::Pattern_32()
   {
     for(int ii = 0; ii < (TRACK_AMOUNT - 1); ii++)
     {
-      m_steps[i][ii] = 0;
+      m_steps[i][ii] = 0.0;
     }
   }
 }
