@@ -152,7 +152,9 @@ void Input_Manager::readMuxs()
             {
                 // the pot value has changed.
                 m_echoPotLastRawValue = muxBCurrentValue;
-                m_delayEffect->setDepth(map(m_echoPotLastRawValue, 6, 1022, 0, 127));
+                int echoScaledValue = map(m_echoPotLastRawValue, 6, 1022, 0, 127);
+                m_delayEffect->setDepth(echoScaledValue);
+                m_displayController->displayNumber(echoScaledValue);
             }
         } else
         {
