@@ -153,8 +153,6 @@ void Input_Manager::readMuxs()
                 // the pot value has changed.
                 m_echoPotLastRawValue = muxBCurrentValue;
                 m_delayEffect->setDepth(map(m_echoPotLastRawValue, 6, 1022, 0, 127));
-                Serial.print("echo pot value = ");
-                Serial.println(m_echoPotLastRawValue);
             }
         } else
         {
@@ -317,8 +315,7 @@ void Input_Manager::readMuxs()
                                 }
                             }
                             
-                            m_sequencer->setPatternIndex(newKitPattIndex);              // ...set with 4 added to index
-                            m_parameterManager->saveKitIndex(newKitPattIndex);
+                            m_parameterManager->saveKitIndex(newKitPattIndex);          // ...set with 4 added to index
                             m_ledController->setKitPattNumLeds(newKitPattIndex);
                             m_currentKitIndex = newKitPattIndex; 
                         }
@@ -337,7 +334,6 @@ void Input_Manager::readMuxs()
                             }
 
                             m_sequencer->setPatternIndex(newKitPattIndex);              // ...set with 4 added to index
-                            m_parameterManager->savePatternIndex(newKitPattIndex);
                             m_ledController->setKitPattNumLeds(newKitPattIndex);
                             m_currentPattIndex = newKitPattIndex; 
                         }
