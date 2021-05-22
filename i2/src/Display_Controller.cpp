@@ -4,7 +4,6 @@ Display_Controller::Display_Controller(Midi_Clock *masterClock)
 {
     display.begin(ADDRESS);
     m_masterClock = masterClock;
-    this->writeDots(0);
 }
 
 void Display_Controller::displayNumber(int number)
@@ -12,80 +11,62 @@ void Display_Controller::displayNumber(int number)
     int onesUnit = number % 10;
     int tensUnit = (number/10) % 10;
     int hundredsUnit = (number/100) % 10;
-    
-    if(number <= 9)
+
+    m_currentDigits[3] = onesUnit;
+
+    if(number > 99)
     {
-        this->writeDigit(onesUnit);
-    } else if (number <= 99)
+        m_currentDigits[3] = onesUnit;
+        m_currentDigits[2] = tensUnit;
+        m_currentDigits[1] = hundredsUnit;
+        m_currentDigits[0] = -1;
+    } else if(number > 9)
     {
-        this->writeDigit(tensUnit, onesUnit);
-    } else if (number > 99)
+        m_currentDigits[3] = onesUnit;
+        m_currentDigits[2] = tensUnit;
+        m_currentDigits[1] = -1;
+        m_currentDigits[0] = -1;
+
+    } else 
     {
-       this->writeDigit(hundredsUnit, tensUnit, onesUnit);
+        m_currentDigits[3] = onesUnit;
+        m_currentDigits[2] = -1;
+        m_currentDigits[1] = -1;
+        m_currentDigits[0] = -1;
     }
+
+    this->refresh();
+    m_digitClearFlag = true;
+    m_timeSinceDigitEvent = 0;
 }
 
 void Display_Controller::poll()                 // used to clear the screen
 {
     if(m_digitClearFlag == true)
     {
-        if(m_timeSinceDigitWrite > DIGIT_CLEAR_TIMER)
+        if(m_timeSinceDigitEvent > DIGIT_CLEAR_TIMER)
         {
-            this->clearDigits();
-            display.writeDisplay();
+            this->clearDigitData();
+            this->refresh();
             m_digitClearFlag = false;
         }
     }
 
-    int currentMidiTick = m_masterClock->getMidiTick();
-
-    if(currentMidiTick != m_lastMidiTick)
+    if(m_masterClock->m_runFlag)
     {
-        if(m_masterClock->isMidiTick4th())
-        {
-            this->setSegmentDotStates(m_beatIndex);
-            this->writeDots(m_beatIndex);
-            this->incrementBeatIndex();
-            Serial.println("display tick");
-        }
-        m_lastMidiTick = currentMidiTick;
-    }
-}
+        int currentMidiTick = m_masterClock->getMidiTick();
 
-void Display_Controller::clearDigits()
-{
-    int valueToWrite = 0x0;
-
-    for(int i = 0; i < 4; i++)
-    {
-        if(m_segmentDotStates[i])
+        if(currentMidiTick != m_lastMidiTick)
         {
-            valueToWrite = 0x4000;
-            display.writeDigitRaw(i, valueToWrite);
-            
-        } else
-        {
-            valueToWrite = 0x0;
-            display.writeDigitRaw(i, valueToWrite);
+            if(m_masterClock->isMidiTick4th())
+            {
+                this->refresh();
+                this->incrementBeatIndex();
+                Serial.println("display tick");
+            }
+            m_lastMidiTick = currentMidiTick;
         }
     }
-
-    display.writeDisplay();
-}
-
-void Display_Controller::clearDots()
-{
-    display.clear();
-
-    for(int i = 0; i < 4; i++)
-    {
-        if(m_currentDigits[i] != 0)
-        {
-            display.writeDigitAscii(i, m_currentDigits[i]);
-        }
-    }
-
-    display.writeDisplay();
 }
 
 void Display_Controller::incrementBeatIndex()
@@ -109,99 +90,28 @@ void Display_Controller::setSegmentDotStates(int dotOnIndex)
     m_segmentDotStates[dotOnIndex] = true;
 }
 
-void Display_Controller::writeDigit(int onesDigit)
+void Display_Controller::refresh()
 {
-    char onesChar = '0' + onesDigit;            // convert int to char
+    display.clear();                                     // clear display
+    uint16_t valuesToWrite[4] = {0x0, 0x0, 0x0, 0x0};    // initialise value to display
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 4; i++)                           // capture the dot
     {
-        m_currentDigits[i] = 0;                 // clear all
-    }
-
-    m_currentDigits[3] = onesChar;              // update char states
-
-    this->clearDigits();                        // clear
-    display.writeDigitAscii(3, onesChar);       // write
-    display.writeDisplay();
-    m_timeSinceDigitWrite = 0;
-    m_digitClearFlag = true;
-}
-
-void Display_Controller::writeDigit(int tensDigit, int onesDigit)
-{
-    char onesChar = '0' + onesDigit;            // convert int to char
-    char tensChar = '0' + tensDigit;            
-    
-
-    for(int i = 0; i < 4; i++)
-    {
-        m_currentDigits[i] = 0;                 // clear all
-    }
-
-    m_currentDigits[3] = onesChar;              // update char states
-    m_currentDigits[2] = tensChar;              
-    
-
-    this->clearDigits();                        // clear
-    display.writeDigitAscii(3, onesChar);       // write
-    display.writeDigitAscii(2, tensChar);       
-    display.writeDisplay();
-    m_timeSinceDigitWrite = 0;
-    m_digitClearFlag = true;
-}
-
-void Display_Controller::writeDigit(int hundredsDigit, int tensDigit, int onesDigit)
-{
-    char onesChar = '0' + onesDigit;            // convert int to char
-    char tensChar = '0' + tensDigit;           
-    char hundredsChar = '0' + hundredsDigit;       
-
-    for(int i = 0; i < 4; i++)
-    {
-        m_currentDigits[i] = 0;                 // clear all
-    }
-
-    m_currentDigits[3] = onesChar;              // update char states
-    m_currentDigits[2] = tensChar;              
-    m_currentDigits[2] = hundredsChar; 
-
-    this->clearDigits();                        // clear
-    display.writeDigitAscii(3, onesChar);       // write
-    display.writeDigitAscii(2, tensChar);
-    display.writeDigitAscii(2, hundredsChar);      
-    display.writeDisplay();
-    m_timeSinceDigitWrite = 0;
-    m_digitClearFlag = true;
-}
-
-void Display_Controller::writeDots(int dotOnIndex)
-{
-    display.clear();
-
-    for(int i = 0; i < 4; i++)
-    {
-        if(m_currentDigits[i] != 0)
+        if(m_beatIndex == i)
         {
-            display.writeDigitAscii(i, m_currentDigits[i]);
+            valuesToWrite[i] = 0x4000;
         }
     }
 
-    int valueToWrite = 0x0;
-
-    for(int i = 0; i < 4; i++)
-    {
-        if(m_segmentDotStates[i])
+    for(int i = 0; i < 4; i++)             
+    {         
+        if(m_currentDigits[i] != -1)                     
         {
-            valueToWrite = 0x4000;
-            display.writeDigitRaw(i, valueToWrite);
-            
-        } else
-        {
-            valueToWrite = 0x0;
-            display.writeDigitRaw(i, valueToWrite);
+            valuesToWrite[i] = valuesToWrite[i] | m_numbertable[m_currentDigits[i]];        // combine character and dot
         }
+        display.writeDigitRaw(i, valuesToWrite[i]);
     }
-
+    
     display.writeDisplay();
 }
 
@@ -209,4 +119,12 @@ void Display_Controller::resetBeatIndex()
 {
     m_beatIndex = 0;
     this->setSegmentDotStates(0);
+}
+
+void Display_Controller::clearDigitData()
+{
+    for(int i = 0; i < 4; i++)
+    {
+        m_currentDigits[i] = -1;
+    }
 }

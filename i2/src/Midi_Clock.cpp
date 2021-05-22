@@ -59,7 +59,6 @@ bool Midi_Clock::isMidiTick4th()
 
 void Midi_Clock::poll()
 {
-  
   if(m_runFlag)
   {  
     if(m_timer > m_midiTickInterval)                // if the timer has exceed the midi tick interval...
