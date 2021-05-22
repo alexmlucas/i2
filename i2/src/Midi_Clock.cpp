@@ -1,10 +1,11 @@
 #include "Midi_Clock.h"
 
-Midi_Clock::Midi_Clock()
+Midi_Clock::Midi_Clock(bool isMaster)
 {
   m_bpm = DEFAULT_BPM;
   m_midiTickInterval = this->calculateMidiTickInterval(m_bpm);
-  bool m_runFlag = false;
+  m_runFlag = false;
+  m_isMaster = isMaster;
 }
 
 int Midi_Clock::calculateMidiTickInterval(int incomingBpm)
@@ -58,10 +59,16 @@ bool Midi_Clock::isMidiTick4th()
 
 void Midi_Clock::poll()
 {
+  
   if(m_runFlag)
-  {
+  {  
     if(m_timer > m_midiTickInterval)                // if the timer has exceed the midi tick interval...
     {
+      if(m_isMaster)
+      {
+        usbMIDI.sendRealTime(usbMIDI.Clock);        // send midi_tick.
+      }
+      
       this->updateMidiTickCounter();                // ...update the midi tick counter.
       m_timer = 0;                                  // reset the timer. 
     }    

@@ -18,7 +18,7 @@ class Input_Manager
     private:
         const unsigned int MUX_READ_DELAY_US = 1;       // the delay between changing mux channel and reading it.
         const unsigned int DEBOUNCE_MS = 20;
-        const int POT_NOISE_FILTER = 7;
+        const int POT_NOISE_FILTER = 8;
         const int PIEZO_THRESHOLD = 10;                 // minimum reading, avoid "noise".
         const unsigned int PIEZO_PEAK_MS = 2;                          // time to read peak value.
         const unsigned int PIEZO_AFTERSHOCK_MS = 20;

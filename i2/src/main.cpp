@@ -144,9 +144,9 @@ AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
 //#define SDCARD_MOSI_PIN  7
 //#define SDCARD_SCK_PIN   14
 
-Midi_Clock masterClock;
-Midi_Clock rhythmClock;
-Display_Controller displayController;
+Midi_Clock masterClock(true);
+Midi_Clock rhythmClock(false);
+Display_Controller displayController(&masterClock);
 Led_Controller ledController;
 Input_Manager inputManager;
 
@@ -206,7 +206,7 @@ void setup()
   rhythmGenerator.setLedController(&ledController);
   rhythmClock.setRunFlag(true);
   rhythmGenerator.setDisplayController(&displayController);
-
+  
   
   // ### setup parameters ###
   // default values not loaded from Eeprom

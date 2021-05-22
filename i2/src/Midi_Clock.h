@@ -18,10 +18,11 @@ class Midi_Clock
     int m_currentMidiTick;
     int m_midiTickInterval;
     bool m_runFlag;
+    bool m_isMaster;
     elapsedMicros m_timer;
     
 
-    Midi_Clock();
+    Midi_Clock(bool isMaster);
     int calculateMidiTickInterval(int incomingBpm);
     void _reset();
     void updateMidiTickCounter();

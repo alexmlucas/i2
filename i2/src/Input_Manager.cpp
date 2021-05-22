@@ -226,6 +226,7 @@ void Input_Manager::readMuxs()
                         if(m_muxReadIndex == 5)                     // play button
                         {
                             m_transport->flipPlayState();
+                            m_displayController->resetBeatIndex();
                         }
 
                         if(m_muxReadIndex == 6)                     // undo

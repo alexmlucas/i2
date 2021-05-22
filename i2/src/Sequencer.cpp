@@ -34,6 +34,8 @@ void Sequencer::playStep(int stepNumber)
       m_samplePlayers[i].processTriggerEvent(velocity);                          // ...play the sample.
     }
   }
+
+  m_currentStep = 0;                                                              // reset step index
 }
 
 void Sequencer::advance()                                                         // advance to the next step
