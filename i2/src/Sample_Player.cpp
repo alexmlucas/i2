@@ -1,11 +1,38 @@
 #include "Sample_Player.h"
 
-Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
+/*Sample_Player::Sample_Player(AudioPlaySdWav *sdWav)
 {
   m_sdWav = sdWav;
   m_fadeAndRetriggerActive = false;
   m_stopRequestMade = false;
   m_fadeInRequestMade = false;
+}*/
+
+Sample_Player::Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleIndex)
+{
+  m_sdWav = sdWav;
+  m_fadeAndRetriggerActive = false;
+  m_stopRequestMade = false;
+  m_fadeInRequestMade = false;
+  m_sampleIndex = sampleIndex;
+  m_kitIndex = kitIndex;
+  m_sampleName = this->buildFilename(kitIndex, sampleIndex);
+}
+
+String Sample_Player::buildFilename(int kitIndex, int sampleIndex)
+{
+  String filename = String(kitIndex);        // build filename & location
+  filename += "/";
+  filename += String(sampleIndex);
+  filename += ".wav";
+  Serial.println(filename);
+  return filename;
+}
+
+void Sample_Player::setKit(int kitIndex)
+{
+  m_kitIndex = kitIndex;
+  m_sampleName = this->buildFilename(m_kitIndex, m_sampleIndex);
 }
 
 void Sample_Player::processTriggerEvent(float velocity)
@@ -40,15 +67,9 @@ void Sample_Player::setMixerLevels(float velocity)
 void Sample_Player::fadeAndRetrigger(float velocity)
 {
   m_retriggerVelocity = velocity;
-
   m_fadeAndRetriggerTimer = 0;                              // will the order of this and the noteOff events matter?
-
   m_leftFade->fadeOut(FADE_OUT_MS);                         // trigger the fade out.
   m_rightFade->fadeOut(FADE_OUT_MS);
-
-  //Serial.println("Fading out sample at address: ");
-  //Serial.println(int(this));
-
   m_fadeAndRetriggerActive = true;
 }
 
@@ -71,8 +92,8 @@ void Sample_Player::poll()
       {
         m_leftFade->fadeIn(FADE_IN_MS);                     // ...fade in.
         m_rightFade->fadeIn(FADE_IN_MS);
-        Serial.println("Fading in sample at address: ");
-        Serial.println(int(this));
+        //Serial.println("Fading in sample at address: ");
+        //Serial.println(int(this));
         m_fadeInRequestMade = true;                         // ...log that the request.
       }
     }

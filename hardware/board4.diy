@@ -540,6 +540,28 @@
       <holeSpacing value="0.1" unit="in"/>
       <point x="5.4" y="2.4"/>
     </diylc.connectivity.TraceCut>
+    <diylc.connectivity.TraceCut>
+      <name>Cut47</name>
+      <size value="0.08" unit="in"/>
+      <fillColor hex="ffffff"/>
+      <borderColor hex="ff0000"/>
+      <boardColor hex="f8ebb3"/>
+      <cutBetweenHoles>false</cutBetweenHoles>
+      <orientation>VERTICAL</orientation>
+      <holeSpacing value="0.1" unit="in"/>
+      <point x="7.2" y="2.7"/>
+    </diylc.connectivity.TraceCut>
+    <diylc.connectivity.TraceCut>
+      <name>Cut48</name>
+      <size value="0.08" unit="in"/>
+      <fillColor hex="ffffff"/>
+      <borderColor hex="ff0000"/>
+      <boardColor hex="f8ebb3"/>
+      <cutBetweenHoles>false</cutBetweenHoles>
+      <orientation>VERTICAL</orientation>
+      <holeSpacing value="0.1" unit="in"/>
+      <point x="7.6" y="2.7"/>
+    </diylc.connectivity.TraceCut>
     <diylc.connectivity.Eyelet>
       <name>Eyelet1</name>
       <size value="0.2" unit="in"/>
@@ -1965,7 +1987,7 @@
     </diylc.misc.Label>
     <diylc.misc.Label>
       <name>L1</name>
-      <point x="8.0" y="2.5"/>
+      <point x="7.0" y="2.5"/>
       <text>Board 1</text>
       <font name="Square721 BT Roman" size="14" style="1"/>
       <color hex="000000"/>
@@ -2040,7 +2062,7 @@
     </diylc.misc.Label>
     <diylc.misc.Label>
       <name>L44</name>
-      <point x="7.0" y="2.5"/>
+      <point x="7.8" y="2.5"/>
       <text>Board 3</text>
       <font name="Square721 BT Roman" size="14" style="1"/>
       <color hex="000000"/>

@@ -1395,14 +1395,14 @@
     </diylc.misc.Label>
     <diylc.misc.Label>
       <name>L3</name>
-      <point x="8.6" y="7.6"/>
+      <point x="9.2" y="7.7"/>
       <text>Data</text>
       <font name="Square721 BT Roman" size="14" style="0"/>
       <color hex="0000ff"/>
       <center>false</center>
       <horizontalAlignment>LEFT</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
-      <orientation>_90</orientation>
+      <orientation>DEFAULT</orientation>
     </diylc.misc.Label>
     <diylc.misc.Label>
       <name>L4</name>
@@ -2373,47 +2373,63 @@
       <striped>false</striped>
       <stripeColor hex="ffff00"/>
     </diylc.connectivity.HookupWire>
+    <diylc.connectivity.HookupWire>
+      <name>W33</name>
+      <alpha>127</alpha>
+      <controlPoints2>
+        <point x="8.6" y="7.2"/>
+        <point x="9.1" y="7.7"/>
+      </controlPoints2>
+      <color hex="0000ff"/>
+      <pointCount>TWO</pointCount>
+      <style>SOLID</style>
+      <smooth>true</smooth>
+      <lastUpdatePointIndex>-1</lastUpdatePointIndex>
+      <gauge>_24</gauge>
+      <striped>false</striped>
+      <stripeColor hex="ffff00"/>
+    </diylc.connectivity.HookupWire>
   </components>
   <groups>
     <set>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[23]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[24]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[21]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[25]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[22]"/>
-      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[5]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[3]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[5]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[4]"/>
+      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[2]"/>
     </set>
     <set>
-      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[4]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[18]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[19]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[20]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[16]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[17]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[12]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[11]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[14]"/>
+      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[3]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[15]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[13]"/>
     </set>
     <set>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[8]"/>
       <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[6]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[7]"/>
       <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[10]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[8]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[7]"/>
       <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[2]"/>
       <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[9]"/>
     </set>
     <set>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[4]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[2]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[3]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[5]"/>
-      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[16]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[20]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[19]"/>
+      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[4]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[18]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[17]"/>
     </set>
     <set>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[11]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[13]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[12]"/>
-      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[3]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[15]"/>
-      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[14]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[23]"/>
+      <diylc.shapes.Ellipse reference="../../../components/diylc.shapes.Ellipse[5]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[21]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[25]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[24]"/>
+      <diylc.shapes.Rectangle reference="../../../components/diylc.shapes.Rectangle[22]"/>
     </set>
   </groups>
   <lockedLayers/>

@@ -17,7 +17,7 @@ void Sequencer::playStep()
 
     if(velocity > 0)                                                              // if velocity is above 0...
     {
-      m_samplePlayers[i].processTriggerEvent(velocity);                        // ...play the sample.
+      m_samplePlayers[i].processTriggerEvent(velocity);                           // ...play the sample.
     }
   }
 }
@@ -34,6 +34,8 @@ void Sequencer::playStep(int stepNumber)
       m_samplePlayers[i].processTriggerEvent(velocity);                          // ...play the sample.
     }
   }
+
+  m_currentStep = 0;                                                              // reset step index
 }
 
 void Sequencer::advance()                                                         // advance to the next step
@@ -61,17 +63,13 @@ void Sequencer::addQueuedEvents()                                               
   }
 }
 
-void Sequencer::quantiseTriggerEvent(int trackNumber, float velocity)             // ### this function will add the trigger events to the queue ###
+void Sequencer::setTriggerEvent(int trackNumber, float velocity, int quantisedStep) // ### this function will add the trigger events to the queue ###
 {
-  int quantisedStep = this->getQuantisedStep();                                   // get the quantised step
-
   if(quantisedStep == m_currentStep)
   {
-    //Serial.println("adding immediately");
     patterns[m_currentPattern].m_steps[quantisedStep][trackNumber] = velocity;    // ...add to pattern immediately - this step won't play again until the next pattern iteration.
   } else                                                                          // else, it has been quantised to the next step, therefore...
   {
-    //Serial.println("adding to queue");
     m_quantiseQueue[trackNumber] = velocity;                                      // ...add to the queue.
   }
 }
@@ -106,4 +104,34 @@ void Sequencer::poll()
     m_lastMidiTick = currentMidiTick;                       // capture the midiTick value.
   }
 }
-        
+
+void Sequencer::setCaptureUndoData(int state)
+{
+  m_captureUndoData = state;
+}
+
+void Sequencer::logUndoData(int stepIndex, int sampleIndex)
+{
+  m_undoData[stepIndex] = sampleIndex;
+}
+
+void Sequencer::removeStepData(int patternIndex, int stepIndex, int trackIndex)
+{
+  patterns[patternIndex].m_steps[stepIndex][trackIndex] = 0;
+}
+
+void Sequencer::clearCurrentPattern()
+{
+  for(int i = 0; i < 32; i++)
+  {
+    for(int ii = 0; ii < 8; ii++)
+    {
+      patterns[m_currentPattern].m_steps[i][ii] = 0;
+    }
+  }
+}
+
+void Sequencer::setPatternIndex(int patternIndex)
+{
+  m_currentPattern = patternIndex;
+}

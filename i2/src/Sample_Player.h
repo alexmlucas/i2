@@ -3,12 +3,13 @@
 #include "Arduino.h"
 #include <Audio.h>
 
-#define FADE_OUT_MS 5
-#define FADE_IN_MS 1
+
 
 class Sample_Player{
   
   private:
+    const unsigned int FADE_OUT_MS = 5;
+    const unsigned int FADE_IN_MS = 1;
     AudioPlaySdWav *m_sdWav;
     AudioMixer4 *m_leftMixer;
     AudioMixer4 *m_rightMixer;
@@ -23,6 +24,8 @@ class Sample_Player{
     int m_leftMixerChannelNumber;
     int m_rightMixerChannelNumber;
     String m_sampleName;
+    int m_sampleIndex;
+    int m_kitIndex;
 
     void playWithVelocity(float velocity);
     void fadeAndRetrigger(float velocity);
@@ -31,12 +34,17 @@ class Sample_Player{
   public:
     elapsedMillis m_latencyTimer; 
   
-    Sample_Player(AudioPlaySdWav *sdWav);
+    //Sample_Player(AudioPlaySdWav *sdWav);
+
+    Sample_Player(AudioPlaySdWav *sdWav, int kitIndex, int sampleIndex);
     void processTriggerEvent(float velocity);
     void assignMixerObjects(AudioMixer4 *leftMixer, AudioMixer4 *rightMixer, int leftMixerChannelNumber, int rightMixerChannelNumber);
     void assignFadeObjects(AudioEffectFade *leftFade, AudioEffectFade *rightFade);
+    void setKit(int kitIndex);
     void setSampleName(String sampleName);
     void poll();
+    String buildFilename(int kitIndex, int sampleIndex);
+
 };
 
 #endif

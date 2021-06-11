@@ -18,15 +18,22 @@ class Sequencer
     int m_currentPattern;
     int m_currentStep;
     double m_quantiseQueue[TRACK_AMOUNT];
+    bool m_captureUndoData = false;
+    int m_undoData[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
     Sequencer(Midi_Clock* masterClock, Sample_Player* samplePlayers);
     void playStep();
     void playStep(int stepNumber);
     void advance();
     void addQueuedEvents();
-    void quantiseTriggerEvent(int trackNumber, float velocity);
+    void setTriggerEvent(int trackNumber, float velocity, int quantisedStep);
     int getQuantisedStep();
     void poll();
+    void setCaptureUndoData(int state);
+    void logUndoData(int stepIndex, int sampleIndex);
+    void removeStepData(int patternIndex, int stepIndex, int trackIndex);
+    void clearCurrentPattern();
+    void setPatternIndex(int patternIndex);
 };
 
 #endif

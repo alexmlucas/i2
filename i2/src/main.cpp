@@ -1,11 +1,36 @@
 #include "Constant_Parameters.h"
-#include "Piezo_Trigger.h"
-#include "Led.h"
+#include "Parameter_Manager.h"
+#include "Led_Controller.h"
 #include "Sample_Player.h"
 #include "Transport.h"
 #include "Midi_Clock.h"
 #include "Sequencer.h"
 #include "Rhythm_Generator.h"
+#include "Input_Manager.h"
+#include "Display_Controller.h"
+#include "Output_Amplifier.h"
+#include "Delay_Effect.h"
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+#define SDCARD_MOSI_PIN  7
+#define SDCARD_SCK_PIN   14
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
 
 #include <Audio.h>
 #include <Wire.h>
@@ -14,43 +39,45 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioPlaySdWav           playSdWav1;     //xy=69,182.00006103515625
-AudioPlaySdWav           playSdWav2;     //xy=69,248.00006103515625
-AudioPlaySdWav           playSdWav3;     //xy=71,315.00006103515625
-AudioPlaySdWav           playSdWav7;     //xy=70,582.0000610351562
-AudioPlaySdWav           playSdWav8;     //xy=70,648.0000610351562
-AudioPlaySdWav           playSdWav6;     //xy=71,515.0000610351562
-AudioPlaySdWav           playSdWav4;     //xy=72,382.00006103515625
-AudioPlaySdWav           playSdWav5;     //xy=74,449.00006103515625
-AudioEffectFade          fade1;          //xy=227,175.00006103515625
-AudioEffectFade          fade2;          //xy=227,208.00006103515625
-AudioEffectFade          fade3;          //xy=227,242.00006103515625
-AudioEffectFade          fade4;          //xy=227,275.00006103515625
-AudioEffectFade          fade5;          //xy=227,308.00006103515625
-AudioEffectFade          fade6;          //xy=228,342.00006103515625
-AudioEffectFade          fade7;          //xy=229,375.00006103515625
-AudioEffectFade          fade8;          //xy=229,409.00006103515625
-AudioEffectFade          fade9;          //xy=229,442.00006103515625
-AudioEffectFade          fade10;         //xy=229,475.00006103515625
-AudioEffectFade          fade11;         //xy=230,509.00006103515625
-AudioEffectFade          fade16;         //xy=230,675.0000610351562
-AudioEffectFade          fade12;         //xy=231,542.0000610351562
-AudioEffectFade          fade13;         //xy=231,575.0000610351562
-AudioEffectFade          fade14;         //xy=231,608.0000610351562
-AudioEffectFade          fade15;         //xy=231,642.0000610351562
-AudioMixer4              mixer1;         //xy=438,195.00006103515625
-AudioMixer4              mixer3;         //xy=437,500.00006103515625
-AudioMixer4              mixer2;         //xy=438,265.00006103515625
-AudioMixer4              mixer4;         //xy=437,568.0000610351562
-AudioMixer4              mixer5;         //xy=571,214.00006103515625
-AudioMixer4              mixer6;         //xy=571,520.0000610351562
-AudioMixer4              mixer7;         //xy=606,346
-AudioFilterStateVariable filter1;        //xy=734,352
-AudioEffectDelay         delay1;         //xy=859,365
-AudioAmplifier           amp1;           //xy=859,447
-AudioMixer4              mixer8;         //xy=996,234
-AudioMixer4              mixer9;         //xy=995,539
-AudioOutputI2S           i2s1;           //xy=1135,356.00006103515625
+AudioPlaySdWav           playSdWav1;     //xy=571,215
+AudioPlaySdWav           playSdWav2;     //xy=571,281
+AudioPlaySdWav           playSdWav3;     //xy=573,348
+AudioPlaySdWav           playSdWav7;     //xy=572,615
+AudioPlaySdWav           playSdWav8;     //xy=572,681
+AudioPlaySdWav           playSdWav6;     //xy=573,548
+AudioPlaySdWav           playSdWav4;     //xy=574,415
+AudioPlaySdWav           playSdWav5;     //xy=576,482
+AudioEffectFade          fade1;          //xy=729,208
+AudioEffectFade          fade2;          //xy=729,241
+AudioEffectFade          fade3;          //xy=729,275
+AudioEffectFade          fade4;          //xy=729,308
+AudioEffectFade          fade5;          //xy=729,341
+AudioEffectFade          fade6;          //xy=730,375
+AudioEffectFade          fade7;          //xy=731,408
+AudioEffectFade          fade8;          //xy=731,442
+AudioEffectFade          fade9;          //xy=731,475
+AudioEffectFade          fade10;         //xy=731,508
+AudioEffectFade          fade11;         //xy=732,542
+AudioEffectFade          fade16;         //xy=732,708
+AudioEffectFade          fade12;         //xy=733,575
+AudioEffectFade          fade13;         //xy=733,608
+AudioEffectFade          fade14;         //xy=733,641
+AudioEffectFade          fade15;         //xy=733,675
+AudioMixer4              mixer1;         //xy=940,228
+AudioMixer4              mixer3;         //xy=939,533
+AudioMixer4              mixer2;         //xy=940,298
+AudioMixer4              mixer4;         //xy=939,601
+AudioMixer4              mixer5;         //xy=1073,247
+AudioMixer4              mixer6;         //xy=1073,553
+AudioMixer4              mixer7;         //xy=1108,379
+AudioFilterStateVariable filter1;        //xy=1236,385
+AudioEffectDelay         delay1;         //xy=1361,398
+AudioAmplifier           amp1;           //xy=1361,480
+AudioMixer4              mixer8;         //xy=1498,267
+AudioMixer4              mixer9;         //xy=1497,572
+AudioAmplifier           amp2;           //xy=1603,377
+AudioAmplifier           amp3;           //xy=1603,435
+AudioOutputI2S           i2s1;           //xy=1743,394
 AudioConnection          patchCord1(playSdWav1, 0, fade1, 0);
 AudioConnection          patchCord2(playSdWav1, 1, fade2, 0);
 AudioConnection          patchCord3(playSdWav2, 0, fade3, 0);
@@ -97,43 +124,136 @@ AudioConnection          patchCord43(delay1, 0, amp1, 0);
 AudioConnection          patchCord44(delay1, 0, mixer8, 1);
 AudioConnection          patchCord45(delay1, 0, mixer9, 1);
 AudioConnection          patchCord46(amp1, 0, mixer7, 2);
-AudioConnection          patchCord47(mixer8, 0, i2s1, 0);
-AudioConnection          patchCord48(mixer9, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1290,4462
+AudioConnection          patchCord47(mixer8, amp2);
+AudioConnection          patchCord48(mixer9, amp3);
+AudioConnection          patchCord49(amp2, 0, i2s1, 0);
+AudioConnection          patchCord50(amp3, 0, i2s1, 1);
 // GUItool: end automatically generated code
 
+
+
+
+// Test Tone
+/*AudioSynthWaveform    waveform1;
+AudioOutputI2S        i2s1;
+AudioConnection       patchCord1(waveform1, 0, i2s1, 0);
+AudioConnection       patchCord2(waveform1, 0, i2s1, 1);*/
+
 // SD card definitions
-#define SDCARD_CS_PIN    10
-#define SDCARD_MOSI_PIN  7
-#define SDCARD_SCK_PIN   14
+//#define SDCARD_CS_PIN    10
+//#define SDCARD_MOSI_PIN  7
+//#define SDCARD_SCK_PIN   14
 
-Midi_Clock masterClock(DEFAULT_BPM);
-Midi_Clock rhythmClock(DEFAULT_BPM);
-Sample_Player samplePlayers[4] = {(&playSdWav1), (&playSdWav2), (&playSdWav3), (&playSdWav4)};
+Midi_Clock masterClock(true);
+Midi_Clock rhythmClock(false);
+Display_Controller displayController(&masterClock);
+Led_Controller ledController;
+Input_Manager inputManager;
+
+Sample_Player samplePlayers[8] =        // index, track
+{
+  Sample_Player(&playSdWav1, 0, 0),
+  Sample_Player(&playSdWav2, 0, 1),
+  Sample_Player(&playSdWav3, 0, 2),
+  Sample_Player(&playSdWav4, 0, 3),
+  Sample_Player(&playSdWav5, 0, 4),
+  Sample_Player(&playSdWav6, 0, 5),
+  Sample_Player(&playSdWav7, 0, 6),
+  Sample_Player(&playSdWav8, 0, 7)
+};
+
 Sequencer sequencer(&masterClock, samplePlayers);
-Transport transport(&masterClock, &sequencer);
+Transport transport(&masterClock, &sequencer, &ledController);
 Rhythm_Generator rhythmGenerator(&rhythmClock, &transport, samplePlayers);
-
-bool drumEventFlag = false;
-
-Led drumPadLeds[2] = {0, 1};
-Piezo_Trigger drumPads[2] = {A2, A3};
-double drumPadReadings[2] = {0, 0};
+Parameter_Manager parameterManager;
+Output_Amplifier outputAmplifier(&amp2, &amp3);
+Delay_Effect delayEffect(&delay1, &amp1, &mixer7, &mixer8, &mixer9, &filter1, &parameterManager);
 
 void setup() 
 {
   Serial.begin(31250);
 
-  // setup the audio codec
-  AudioMemory(8);
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+  // ### setup sample players ###
+  samplePlayers[0].assignFadeObjects(&fade1, &fade2);
+  samplePlayers[1].assignFadeObjects(&fade3, &fade4);
+  samplePlayers[2].assignFadeObjects(&fade5, &fade6);
+  samplePlayers[3].assignFadeObjects(&fade7, &fade8);
+  samplePlayers[4].assignFadeObjects(&fade9, &fade10);
+  samplePlayers[5].assignFadeObjects(&fade11, &fade12);
+  samplePlayers[6].assignFadeObjects(&fade13, &fade14);
+  samplePlayers[7].assignFadeObjects(&fade15, &fade16);
+
+  samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
+  samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
+  samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
+  samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
+  samplePlayers[4].assignMixerObjects(&mixer2, &mixer4, 0, 0);
+  samplePlayers[5].assignMixerObjects(&mixer2, &mixer4, 1, 1);
+  samplePlayers[6].assignMixerObjects(&mixer2, &mixer4, 2, 2);
+  samplePlayers[7].assignMixerObjects(&mixer2, &mixer4, 3, 3);
+
+  // ### setup object references ###
+  inputManager.setClocks(&masterClock, &rhythmClock);
+  inputManager.setDisplayController(&displayController);
+  inputManager.setOutputAmplifier(&outputAmplifier);
+  inputManager.setSequencer(&sequencer);
+  inputManager.setSamplePlayers(samplePlayers);
+  inputManager.setLedController(&ledController);
+  inputManager.setRhythmGenerator(&rhythmGenerator);
+  inputManager.setParameterManager(&parameterManager);
+  inputManager.setTransport(&transport);
+  inputManager.setDelayEffect(&delayEffect);
+  rhythmGenerator.setLedController(&ledController);
+  rhythmClock.setRunFlag(true);
+  rhythmGenerator.setDisplayController(&displayController);
+  
+  
+  // ### setup parameters ###
+  // default values not loaded from Eeprom
+  inputManager.setKitPatternMenuState(0);
+  inputManager.setTempoVolMenuState(0);
+  rhythmGenerator.setSpeed(1);
+
+  // ### Drum Kit ###
+  int recalledKitIndex = parameterManager.getKitIndex();    // get the saved value
+
+  if(recalledKitIndex > 3)
+  {
+    recalledKitIndex = recalledKitIndex - 4;                // tweak the index to account for banking
+  }
+  
+  for(int i = 0; i < 8; i++)                                // set all sample players
+  {
+    samplePlayers[i].setKit(recalledKitIndex);
+  }
+
+  inputManager.setKitIndex(recalledKitIndex);
+
+  // ### Pattern ###
+  int recalledPattIndex = parameterManager.getPatternIndex();
+  sequencer.setPatternIndex(recalledPattIndex);
+  inputManager.setPattIndex(recalledPattIndex);
+
+  // ### Master Tempo/BPM ###
+  int recalledBpm = parameterManager.getMasterTempo();
+  masterClock.setBpm(recalledBpm);
+
+  // ### Master Volume ###
+  int recalledVolume = parameterManager.getMasterVolume();
+  outputAmplifier.setLevel(recalledVolume);
+
+  AudioMemory(512);
+  
+  // Test Tone
+  /*waveform1.begin(WAVEFORM_SINE);
+  waveform1.frequency(440);
+  waveform1.amplitude(0.1);*/
 
   // setup the SD card
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
   
-  if (!(SD.begin(SDCARD_CS_PIN))) 
+  if (!(SD.begin(BUILTIN_SDCARD))) 
   {
     while (1) 
     {
@@ -141,63 +261,24 @@ void setup()
       delay(500);
     }
   }
-
-  // ### setup sample players ###
-  samplePlayers[0].setSampleName(String("kit_1/0.wav"));
-  samplePlayers[1].setSampleName(String("kit_1/1.wav"));
-  samplePlayers[2].setSampleName(String("kit_1/2.wav"));
-  samplePlayers[3].setSampleName(String("kit_1/3.wav"));
-
-  samplePlayers[0].assignFadeObjects(&fade1, &fade2);
-  samplePlayers[1].assignFadeObjects(&fade3, &fade4);
-  samplePlayers[2].assignFadeObjects(&fade5, &fade6);
-  samplePlayers[3].assignFadeObjects(&fade7, &fade8);
-
-  samplePlayers[0].assignMixerObjects(&mixer1, &mixer3, 0, 0);
-  samplePlayers[1].assignMixerObjects(&mixer1, &mixer3, 1, 1);
-  samplePlayers[2].assignMixerObjects(&mixer1, &mixer3, 2, 2);
-  samplePlayers[3].assignMixerObjects(&mixer1, &mixer3, 3, 3);
   
-  while (!Serial && millis() < 2500);                                   // wait for serial monitor
-
-  delay(2000);                                                          // an extra delay for good measure.
+  while (!Serial && millis() < 2500); // wait for serial monitor
 }
 
 void loop() 
 { 
-  
-  for(int i = 0; i < 2; i++)
-  {
-    drumPadReadings[i] = drumPads[i].checkActivity();                   // ### Read the Drum Pads ###
-
-    if(drumPadReadings[i] > 0)                                          // if a trigger has been detected...
-    {
-      drumPadReadings[i] = map(drumPadReadings[i], 0, 1023, 1, 10);     // ...scale reading to appropriate range for logarithmic curve
-      drumPadReadings[i] = log(drumPadReadings[i]);                     // ...apply logarithmic curve.
-
-      Serial.println(drumPadReadings[i]);
-      rhythmGenerator.triggerRhythm(i, drumPadReadings[i]);             // ...trigger the rhythm.
-      drumPadLeds[i].pulse();                                           // ...set the LED to pulse. 
-    }
-  }
-
-  transport.poll();                                                     // poll the transport. manages the master clock and sequencer. 
-
-  sequencer.poll();                                                     // ask the sequencer to check if it needs to do anything.
-
-  rhythmGenerator.poll();
-
-  masterClock.poll();                                                   // poll the master clock.
-
+  masterClock.poll();
   rhythmClock.poll();
+  rhythmGenerator.poll();
+  sequencer.poll(); 
+  transport.poll();  
+  inputManager.poll();
+  displayController.poll();
+  parameterManager.poll();
+  ledController.poll();
 
-  for(int i = 0; i < TRACK_AMOUNT - 1; i++)                             // poll all samples. polling takes care of fades.
+  for(int i = 0; i < TRACK_AMOUNT; i++) 
   {
     samplePlayers[i].poll();
-  }
-
-  for(int i = 0; i < 2; i++)                                            // refresh drum leds
-  {
-    drumPadLeds[i].refresh();
   }
 }
